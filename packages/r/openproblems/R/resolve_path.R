@@ -16,7 +16,7 @@
 #' parent_path <- "/path/to/project/subdir"
 #' 
 #' resolve_path("./file.yaml", project_path, parent_path)
-#' # "/path/to/project/file.yaml"
+#' # "/path/to/project/subdir/file.yaml"
 #' 
 #' resolve_path("/file.yaml", project_path, parent_path)
 #' # "/path/to/project/file.yaml"
