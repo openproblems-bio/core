@@ -24,6 +24,36 @@ You can install the R package with devtools:
 devtools::install_github("openproblems-bio/core/packages/r/openproblems")
 ```
 
+When installing with viash, there are several ways to install the package. Here are some examples:
+
+### Python
+
+```yaml
+- type: python
+    pypi: 
+        - git+https://github.com/openproblems-bio/core.git#egg=openproblems&subdirectory=packages/python/openproblems
+```
+
+```yaml
+- type: python
+    github: 
+        - openproblems-bio/core.git#egg=openproblems&subdirectory=packages/python/openproblems
+```
+
+```yaml
+- type: python
+    git: 
+        - https://github.com/openproblems-bio/core.git#egg=openproblems&subdirectory=packages/python/openproblems
+```
+
+### R
+
+```yaml
+- type: r
+    github: 
+        - openproblems-bio/core/packages/r/openproblems
+```
+
 ## Example usage
 
 ```{bash}
