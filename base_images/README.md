@@ -1,8 +1,13 @@
 # Base images
 
-Repository for base Docker images for openproblems-bio.
+
+<!-- This file is rendered by running 'quarto render README.qmd' -->
+
+Repository for base Docker images for openproblems-bio on Docker-hub.
 
 This repository currently contains the following images:
 
-* [`ghcr.io/openproblems-bio/base_python`](src/base_python), a Python 3.10 image with anndata preinstalled.
-* [`ghcr.io/openproblems-bio/base_r`](src/base_r), an R2U 22.04 image with Python and anndata preinstalled.
+- [`openproblems/base_images/python:1.0.0`](src/python)
+- [`openproblems/base_images/pytorch_nvidia:1.0.0`](src/pytorch_nvidia)
+- [`openproblems/base_images/r:1.0.0`](src/r)
+- [`openproblems/base_images/tensorflow_nvidia:1.0.0`](src/tensorflow_nvidia)

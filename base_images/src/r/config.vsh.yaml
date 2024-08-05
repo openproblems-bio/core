@@ -1,9 +1,8 @@
-functionality:
-  name: base_r
-  description: An R2U 22.04 with anndata preinstalled.
-platforms:
+name: r
+description: An R2U 22.04 image with anndata preinstalled.
+engines:
   - type: docker
-    image: eddelbuettel/r2u:22.04
+    image: rocker/r2u:22.04
     setup:
       - type: apt
         packages:
@@ -17,8 +16,8 @@ platforms:
       - type: python
         packages:
           - rpy2
-          - anndata~=0.8.0
-          - scanpy
+          - anndata~=0.10.0
+          - scanpy~=1.10.0
           - pyyaml
           - requests
           - jsonschema
@@ -26,6 +25,5 @@ platforms:
         packages:
           - anndata
           - BiocManager
+          - reticulate
           - bit64
-        github:
-          - rstudio/reticulate
