@@ -1,0 +1,9 @@
+viash_version: 0.7.5
+
+source: src
+target: target
+
+config_mods: |
+  .functionality.version := '1.0.2'
+  .platforms[.type == 'docker'].target_registry := 'ghcr.io/openproblems-bio'
+  .platforms[.type == 'docker'].target_image_source := 'https://github.com/openproblems-bio/base-images'
