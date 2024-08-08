@@ -4,4 +4,4 @@ Relocated the base images from base_images repo to core repo.
 
 ## MAJOR CHANGES
 
-* Changed container registry from `ghcr.io/openproblems-bio/base_images` to docker hub `openproblems/base_images`. (PR #5")
+* Change container registry from `ghcr.io/openproblems-bio/base_images` to docker hub `openproblems/base_*`. (PR #5)

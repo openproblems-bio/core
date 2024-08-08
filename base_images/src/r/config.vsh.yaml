@@ -1,4 +1,4 @@
-name: r
+name: base_r
 description: An R2U 22.04 image with anndata preinstalled.
 engines:
   - type: docker

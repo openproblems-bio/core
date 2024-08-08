@@ -20,8 +20,6 @@ This repository currently contains the following images:
 for (comp in ns_list) {
   image_name <- paste0(
     comp$package_config$organization, "/",
-    comp$package_config$name, "/",
-    comp$namespace, ifelse(is.null(comp$namespace), "", "/"),
     comp$name, ":",
     comp$version
   )

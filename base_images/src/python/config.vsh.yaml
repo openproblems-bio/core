@@ -1,4 +1,4 @@
-name: python
+name: base_python
 description: A Python 3.11 image with anndata preinstalled.
 engines:
   - type: docker

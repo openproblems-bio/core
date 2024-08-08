@@ -1,4 +1,4 @@
-name: tensorflow_nvidia
+name: base_tensorflow_nvidia
 description: An nvcr.io tensorflow 24.06-tf2-py3 with anndata preinstalled.
 engines:
   - type: docker

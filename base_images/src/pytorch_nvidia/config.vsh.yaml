@@ -1,4 +1,4 @@
-name: pytorch_nvidia
+name: base_pytorch_nvidia
 description: An nvcr.io pytorch 24.06-py3 with anndata preinstalled.
 engines:
   - type: docker
