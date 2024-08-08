@@ -15,7 +15,7 @@ This repository provides OpenProblems core helper packages in R and Python.
 You can install the Python package with pip:
 
 ```bash
-pip install "git+https://github.com/openproblems-bio/core.git#egg=openproblems&subdirectory=packages/python/openproblems"
+pip install "git+https://github.com/openproblems-bio/core#subdirectory=packages/python/openproblems"
 ```
 
 You can install the R package with devtools:
@@ -24,10 +24,35 @@ You can install the R package with devtools:
 devtools::install_github("openproblems-bio/core/packages/r/openproblems")
 ```
 
+
+## Install in a Viash component
+
+For Python components:
+
+```yaml
+engines:
+  - type: docker
+    image: ghcr.io/openproblems-bio/base_images/python:1.1.0
+    setup:
+      - type: python
+        github: openproblems-bio/core#subdirectory=packages/python/openproblems
+```
+
+For R components:
+
+```yaml
+engines:
+  - type: docker
+    image: ghcr.io/openproblems-bio/base_images/r:1.1.0
+    setup:
+      - type: r
+        github: openproblems-bio/core/packages/python/openproblems
+```
+
 ## Example usage
 
 ```{bash}
-git clone https://github.com/openproblems-bio/task_perturbation_prediction.git
+git clone https://github.com/openproblems-bio/task_perturbation_prediction
 ```
 
 ### Python
