@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'base_images/**'
   pull_request:
   schedule:
     # build daily
