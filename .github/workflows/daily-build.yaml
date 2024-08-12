@@ -4,7 +4,15 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'base_images/**'
+      - '!base_images/.gitignore'
+      - '!base_images/README*'
   pull_request:
+    paths:
+      - 'base_images/**'
+      - '!base_images/.gitignore'
+      - '!base_images/README*'
   schedule:
     # build daily
     - cron: '0 0 * * *'

@@ -1,0 +1,16 @@
+name: base_python
+description: A Python 3.11 image with anndata preinstalled.
+engines:
+  - type: docker
+    image: python:3.11
+    setup:
+      - type: apt
+        packages:
+          - procps
+      - type: python
+        packages:
+          - anndata~=0.10.0
+          - scanpy~=1.10.0
+          - pyyaml
+          - requests
+          - jsonschema

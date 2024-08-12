@@ -1,0 +1,29 @@
+name: base_r
+description: An R2U 22.04 image with anndata preinstalled.
+engines:
+  - type: docker
+    image: rocker/r2u:22.04
+    setup:
+      - type: apt
+        packages:
+          - procps
+          - libhdf5-dev
+          - libgeos-dev
+          - python3
+          - python3-pip
+          - python3-dev
+          - python-is-python3
+      - type: python
+        packages:
+          - rpy2
+          - anndata~=0.10.0
+          - scanpy~=1.10.0
+          - pyyaml
+          - requests
+          - jsonschema
+      - type: r
+        packages:
+          - anndata
+          - BiocManager
+          - reticulate
+          - bit64
