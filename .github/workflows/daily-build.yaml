@@ -6,7 +6,16 @@ on:
       - main
     paths:
       - 'base_images/**'
+    paths-ignore:
+      - base_images/.gitignore
+      - base_images/README.md
   pull_request:
+    paths:
+      - 'base_images/**'
+    paths-ignore:
+      - base_images/.gitignore
+      - base_images/README*
+
   schedule:
     # build daily
     - cron: '0 0 * * *'
