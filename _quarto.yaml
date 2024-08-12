@@ -1,0 +1,7 @@
+project: 
+  render: 
+    - "README.qmd"
+    - "base_images/README.qmd"
+    - "packages/README.qmd"
+
+format: gfm
