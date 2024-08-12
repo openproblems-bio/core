@@ -1,12 +1,14 @@
-#' Read the api files in a task
-#'#'
-#' @param path Path to a src directory
-#' @return A list with the api info
+#' Create the task graph
+#'
+#' @param file_info
+#' @param comp_info
+#' @param comp_args
+#' @return igraph
 #' 
 #' @export
 #' @examples
 #' \dontrun{
-#' read_api_files("src)
+#' create_task_graph(file_info, comp_info, comp_args)
 #' }
 
 create_task_graph <- function(file_info, comp_info, comp_args) {
@@ -54,6 +56,17 @@ create_task_graph <- function(file_info, comp_info, comp_args) {
   )
 }
 
+#' get task graph root
+#'#'
+#' @param task_api The task api filepath
+#' @return string with root of the task graph
+#' 
+#' @export
+#' @examples
+#' \dontrun{
+#' .task_graph_get_root(task_api)
+#' }
+
 .task_graph_get_root <- function(task_api) {
   root <- names(which(igraph::degree(task_api$task_graph, mode = "in") == 0))
   if (length(root) > 1) {
@@ -64,6 +77,18 @@ create_task_graph <- function(file_info, comp_info, comp_args) {
   }
   root[[1]]
 }
+
+#' Render the task graph
+#'#'
+#' @param task_api the task api filepath
+#' @param root root of the task graph
+#' @return igraph
+#' 
+#' @export
+#' @examples
+#' \dontrun{
+#' render_task_graph(task_api)
+#' }
 
 render_task_graph <- function(task_api, root = .task_graph_get_root(task_api)) {
   order <- names(igraph::bfs(task_api$task_graph, root)$order)
