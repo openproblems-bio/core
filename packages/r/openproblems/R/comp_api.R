@@ -10,7 +10,7 @@
 #' }
 
 read_comp_spec <- function(path) {
-  spec_yaml <- openproblems::read_nested_yaml(path)
+  spec_yaml <- read_nested_yaml(path)
   list(
     info = read_comp_info(spec_yaml, path),
     args = read_comp_args(spec_yaml, path)
