@@ -27,7 +27,7 @@ read_api_files <- function(path) {
     project_path = project_path,
     parent_path = api_dir
   )
-  files <- map(file_yamls, read_anndata_spec)
+  files <- map(file_yamls, read_file_spec)
   names(files) <- basename(file_yamls) %>% gsub("\\..*$", "", .)
   file_info <- map_df(files, "info")
   file_slots <- map_df(files, "slots")
