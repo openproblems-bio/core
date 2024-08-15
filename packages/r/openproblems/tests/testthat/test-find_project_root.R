@@ -1,7 +1,7 @@
 
 test_that("find_project_root works", {
   # create a temporary directory with a _viash.yaml file
-  # test_find_project_root/
+  # project/
   # ├── src/
   # |   ├── config.vsh.yaml
   # |   └── script.R
@@ -12,21 +12,45 @@ test_that("find_project_root works", {
   # remove on test end
   on.exit(fs::dir_delete(temp_dir))
 
-  fs::dir_create(fs::path(temp_dir, "src"))
-  fs::file_create(fs::path(temp_dir, "_viash.yaml"))
-  fs::file_create(fs::path(temp_dir, "src", "config.vsh.yaml"))
-  fs::file_create(fs::path(temp_dir, "src", "script.R"))
+  # Create project structure
+  proj_dir <- fs::path(temp_dir, "project")
+  fs::dir_create(fs::path(temp_dir, "project"))
 
+  src_dir <- fs::path(temp_dir, "project", "src")
+  fs::dir_create(src_dir)
+
+  # Create files
+  proj_config <- fs::path(temp_dir, "project", "_viash.yaml")
+  fs::file_create(proj_config)
+
+  comp_config <- fs::path(temp_dir, "project", "src", "config.vsh.yaml")
+  fs::file_create(comp_config)
+
+  comp_script <- fs::path(temp_dir, "project", "src", "script.R")
+  fs::file_create(comp_script)
+
+  # Perform assertions
   expect_equal(
-    find_project_root(fs::path(temp_dir, "src", "config.vsh.yaml")),
-    temp_dir
+    find_project_root(comp_script),
+    proj_dir
   )
   expect_equal(
-    find_project_root(fs::path(temp_dir, "src", "script.R")),
-    temp_dir
+    find_project_root(comp_config),
+    proj_dir
   )
   expect_equal(
-    find_project_root(fs::path(temp_dir, "_viash.yaml")),
-    temp_dir
+    find_project_root(proj_config),
+    proj_dir
+  )
+  expect_equal(
+    find_project_root(src_dir),
+    proj_dir
+  )
+  expect_equal(
+    find_project_root(proj_dir),
+    proj_dir
+  )
+  expect_null(
+    find_project_root(temp_dir)
   )
 })

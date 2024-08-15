@@ -12,9 +12,7 @@ on:
 jobs:
   linting:
     runs-on: ubuntu-latest
-    strategy:      
-      matrix:
-        tox-env: [black, flake8]
+
     steps:
     - uses: actions/checkout@v4
 
@@ -26,12 +24,13 @@ jobs:
     - name: Install tox
       run: python -m pip install tox
 
-    - name: Run tox env ${{ matrix.tox-env }}
+    - name: Run tox lint
       run: |
         cd packages/python/openproblems
-        tox -e ${{ matrix.tox-env }}
+        tox -e lint
   test:
     runs-on: ubuntu-latest
+
     strategy:
       matrix:
         python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"]

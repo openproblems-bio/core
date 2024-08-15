@@ -23,3 +23,7 @@ Initial release
 ## BUG FIXES
 
 * Fix recursion bug in `find_project_root` (PR #9).
+
+## TESTING
+
+* Add tests for `find_project_root` (PR #9).
