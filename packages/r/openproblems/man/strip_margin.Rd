@@ -20,6 +20,6 @@ Strip margin from a string
 \examples{
 strip_margin("
   |hello_world:
-  |  this_is: "a yaml"
+  |  this_is: \"a yaml\"
   |")
 }
