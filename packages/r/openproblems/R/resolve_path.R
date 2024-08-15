@@ -1,4 +1,4 @@
-#' Resolve a path
+#' Resolve a path relative to a parent path or project path
 #'
 #' This function will resolve a path to an absolute path. If
 #' the path is relative, it will be resolved relative to the

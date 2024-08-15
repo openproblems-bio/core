@@ -1,10 +1,10 @@
 
-#' Strip margin from text
-#' 
+#' Strip margin from a string
+#'
 #' @param text A character vector.
 #' @param symbol The margin symbol to strip.
 #' @return A character vector with the margin stripped.
-#' 
+#'
 #' @export
 #' @examples
 #' strip_margin("

@@ -2,7 +2,7 @@
 % Please edit documentation in R/strip_margin.R
 \name{strip_margin}
 \alias{strip_margin}
-\title{Strip margin from text}
+\title{Strip margin from a string}
 \usage{
 strip_margin(text, symbol = "\\\\|")
 }
@@ -15,7 +15,7 @@ strip_margin(text, symbol = "\\\\|")
 A character vector with the margin stripped.
 }
 \description{
-Strip margin from text
+Strip margin from a string
 }
 \examples{
 strip_margin("
