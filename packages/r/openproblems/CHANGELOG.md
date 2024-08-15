@@ -9,12 +9,10 @@ Initial release
 
 * Project:
   - `find_project_root`: Find the root of a Viash project
+  - `read_viash_config`: Read a viash configuration file (PR #8).
 
 * Utilities:
   - `strip_margin`: Strip margin from a string
-
-* Viash:
-  - `read_viash_config`: Read a viash configuration file (PR #8).
 
 ## MINOR CHANGES
 
