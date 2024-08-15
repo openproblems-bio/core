@@ -22,8 +22,8 @@ Initial release
 
 ## BUG FIXES
 
-* Fix recursion bug in `find_project_root` (PR #9).
+* Fix recursion bug in `find_project_root` (PR #11).
 
 ## TESTING
 
-* Add tests for `find_project_root` (PR #9).
+* Add tests for `find_project_root` (PR #11).

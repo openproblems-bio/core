@@ -12,4 +12,4 @@ Relocated the base images from base_images repo to core repo.
 
 ## BUG FIXES
 
-* Bump to Viash 0.9.0 RC7 (PR #9).
+* Bump to Viash 0.9.0 RC7 (PR #11).

@@ -18,8 +18,8 @@ Initial release
 
 * Add dependencies to DESCRIPTION file (PR #8).
 
-* `find_project_root`: simplify implementation (PR #9).
+* `find_project_root`: simplify implementation (PR #11).
 
 ## TESTING
 
-* Add tests for `find_project_root` (PR #9).
+* Add tests for `find_project_root` (PR #11).

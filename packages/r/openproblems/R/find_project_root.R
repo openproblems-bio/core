@@ -23,5 +23,5 @@ find_project_root <- function(path) {
     return(NULL)
   }
 
-  path
+  as.character(path)
 }

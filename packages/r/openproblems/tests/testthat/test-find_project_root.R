@@ -7,7 +7,7 @@ test_that("find_project_root works", {
   # |   └── script.R
   # └── _viash.yaml
 
-  temp_dir <- as.character(fs::path_temp())
+  temp_dir <- fs::path_temp()
 
   # remove on test end
   on.exit(fs::dir_delete(temp_dir))
@@ -30,25 +30,26 @@ test_that("find_project_root works", {
   fs::file_create(comp_script)
 
   # Perform assertions
+  expected_dir <- as.character(proj_dir)
   expect_equal(
     find_project_root(comp_script),
-    proj_dir
+    expected_dir
   )
   expect_equal(
     find_project_root(comp_config),
-    proj_dir
+    expected_dir
   )
   expect_equal(
     find_project_root(proj_config),
-    proj_dir
+    expected_dir
   )
   expect_equal(
     find_project_root(src_dir),
-    proj_dir
+    expected_dir
   )
   expect_equal(
     find_project_root(proj_dir),
-    proj_dir
+    expected_dir
   )
   expect_null(
     find_project_root(temp_dir)
