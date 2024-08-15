@@ -14,6 +14,10 @@ Initial release
 * `utils`:
   - `strip_margin`: Strip margin from a string
 
+## MAJOR CHANGES
+
+* Bump minimum Python version to 3.10 (PR #11).
+
 ## MINOR CHANGES
 
 * Add dependencies to project toml file (PR #1).
