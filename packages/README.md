@@ -41,7 +41,7 @@ engines:
     image: rocker/r2u:22.04
     setup:
       - type: r
-        github: openproblems-bio/core/packages/python/openproblems
+        github: openproblems-bio/core/packages/r/openproblems
 ```
 
 ## Example usage

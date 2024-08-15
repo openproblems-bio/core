@@ -31,4 +31,4 @@ engines:
           - reticulate
           - bit64
         github:
-          - openproblems-bio/core/packages/python/openproblems
+          - openproblems-bio/core/packages/r/openproblems
