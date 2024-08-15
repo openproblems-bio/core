@@ -17,3 +17,5 @@ Initial release
 ## MINOR CHANGES
 
 * Add dependencies to DESCRIPTION file (PR #8).
+
+* `find_project_root`: simplify implementation (PR #9).
