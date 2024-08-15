@@ -2,6 +2,10 @@
 
 Relocated the base images from base_images repo to core repo.
 
+## NEW FUNCTIONALITY
+
+* Install the `openproblems` R and Python packages in the base images (PR #8).
+
 ## MAJOR CHANGES
 
 * Change container registry from `ghcr.io/openproblems-bio/base_images` to docker hub `openproblems/base_*` (PR #5).
