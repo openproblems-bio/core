@@ -25,8 +25,10 @@ For Python components:
 ``` yaml
 engines:
   - type: docker
-    image: ghcr.io/openproblems-bio/base_images/python:1.1.0
+    image: python:3.10
     setup:
+      - type: apt
+        packages: git
       - type: python
         github: openproblems-bio/core#subdirectory=packages/python/openproblems
 ```
@@ -36,7 +38,7 @@ For R components:
 ``` yaml
 engines:
   - type: docker
-    image: ghcr.io/openproblems-bio/base_images/r:1.1.0
+    image: rocker/r2u:22.04
     setup:
       - type: r
         github: openproblems-bio/core/packages/python/openproblems
@@ -342,7 +344,7 @@ path <- "task_perturbation_prediction/src/api/comp_method.yaml"
 openproblems::find_project_root(path)
 ```
 
-    [1] "/tmp/RtmpK5CPcB/task_perturbation_prediction"
+    [1] "/tmp/RtmplzAgkk/task_perturbation_prediction"
 
 ### Read nested yaml
 
