@@ -2,4 +2,9 @@
 
 export(find_project_root)
 export(read_nested_yaml)
+export(read_viash_config)
 export(strip_margin)
+importFrom(fs,path)
+importFrom(fs,path_abs)
+importFrom(fs,path_rel)
+importFrom(yaml,read_yaml)
