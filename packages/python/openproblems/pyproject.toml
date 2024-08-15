@@ -11,9 +11,14 @@ authors = [
 ]
 license = { text = "MIT" }
 readme = "README.md"
-requires-python = ">= 3.8, < 3.13"
-dependencies= [
-    'PyYAML',
+requires-python = ">= 3.10, < 3.13"
+dependencies = [
+  'PyYAML'
+]
+
+[project.optional-dependencies]
+test = [
+  "pytest>=8.0"
 ]
 
 [project.urls]
@@ -22,8 +27,8 @@ repository = "https://github.com/openproblems-bio/core"
 
 [tool.setuptools.packages.find]
 where = ["src"]
-include = ["openproblems*"]  # package names should match these glob patterns (["*"] by default)
-exclude = ["tests*"]  # exclude packages matching these glob patterns (empty by default)
+include = ["openproblems*"]
+exclude = ["tests*"]
 
 [tool.setuptools_scm]
 root = "../../.."
