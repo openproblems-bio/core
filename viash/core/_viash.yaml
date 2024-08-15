@@ -1,0 +1,16 @@
+name: core
+version: dev
+organization: openproblems-bio
+viash_version: 0.9.0-RC7
+
+# metadata
+description: |
+  Core components for the OpenProblems project.
+license: MIT
+keywords: [openproblems, common-resources, single-cell, benchmark]
+
+# links
+links:
+  issue_tracker: https://github.com/openproblems-bio/core/issues
+  repository: https://github.com/openproblems-bio/core
+  docker_registry: ghcr.io

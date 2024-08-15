@@ -1,6 +1,6 @@
 name: "sync_resources"
 namespace: "common"
-description: Synchronise the resources from s3 to resources_test
+description: Sync test resources to the local filesystem
 usage: |
   sync_resources
   sync_resources --input _viash.yaml --output resources_test

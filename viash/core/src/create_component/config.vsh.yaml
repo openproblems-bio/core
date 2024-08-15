@@ -1,13 +1,11 @@
 name: create_component
 namespace: common
 description: |
-  Create a component Viash component.
+  Create a new component
   
-  Usage:
-  ```
-  bin/create_component --task denoising --type method --language r --name foo
-  bin/create_component --task denoising --type metric --language python --name bar
-  ```
+usage:
+  create_component --task denoising --type method --language r --name foo
+  create_component --task denoising --type metric --language python --name bar
 arguments:
   - type: string
     name: --task

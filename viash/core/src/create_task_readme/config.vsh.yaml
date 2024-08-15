@@ -1,7 +1,7 @@
 name: create_task_readme
 namespace: common
 description: |
-  Create a README for the task.
+  Render the task README
 argument_groups:
   - name: Inputs
     arguments:
