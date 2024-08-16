@@ -1,6 +1,6 @@
 def strip_margin(text: str, symbol: str = "\\|") -> str:
   """
-  Strip margin from text
+  Strip margin from a string
 
   Args:
       text (str): A character vector.

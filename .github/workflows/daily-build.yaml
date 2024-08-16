@@ -27,24 +27,24 @@ jobs:
       component_matrix: ${{ steps.ns_list.outputs.output_matrix }}
 
     steps:
-    - uses: actions/checkout@v4
-      with:
-        sparse-checkout: |
-          base_images
-        sparse-checkout-cone-mode: false
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            base_images
+          sparse-checkout-cone-mode: false
 
-    - name: setup base images directory
-      run: |
-        mv base_images/* .
-        rm -rf base_images
+      - name: setup base images directory
+        run: |
+          mv base_images/* .
+          rm -rf base_images
 
-    - uses: viash-io/viash-actions/setup@v6
+      - uses: viash-io/viash-actions/setup@v6
 
-    - id: ns_list
-      uses: viash-io/viash-actions/ns-list@v6
-      with:
-        engine: docker
-        format: json
+      - id: ns_list
+        uses: viash-io/viash-actions/ns-list@v6
+        with:
+          engine: docker
+          format: json
 
   # phase 2
   build:

@@ -7,7 +7,9 @@
 #' @param path Path to a YAML
 #' @param project_path Path to the Viash project root
 #' @return A list with the merged YAML
-#' 
+#'
+#' @importFrom yaml read_yaml
+#'
 #' @export
 #' @examples
 #' \dontrun{

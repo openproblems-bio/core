@@ -6,6 +6,7 @@ engines:
     setup:
       - type: apt
         packages:
+          - git
           - procps
           - libhdf5-dev
           - libgeos-dev
@@ -21,9 +22,13 @@ engines:
           - pyyaml
           - requests
           - jsonschema
+        github:
+          - openproblems-bio/core#subdirectory=packages/python/openproblems
       - type: r
         packages:
           - anndata
           - BiocManager
           - reticulate
           - bit64
+        github:
+          - openproblems-bio/core/packages/r/openproblems
