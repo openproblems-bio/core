@@ -22,7 +22,7 @@ read_api_files <- function(path) {
   names(comps) <- basename(comp_yamls) %>% gsub("\\..*$", "", .)
 
   cli::cli_inform("Reading file yamls")
-  file_yamls <- openpoblems:::resolve_path(
+  file_yamls <- openproblems:::resolve_path(
     path = na.omit(unique(comp_args$`__merge__`)),
     project_path = project_path,
     parent_path = api_dir

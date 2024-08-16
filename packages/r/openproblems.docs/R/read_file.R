@@ -9,7 +9,7 @@
 #' }
 
 read_file_spec <- function(path) {
-  spec <- openproblems::read_and_merge_yaml(path)
+  spec <- openproblems::read_nested_yaml(path)
   out <- list(
     info = read_file_info(spec, path)
   )
