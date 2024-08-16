@@ -1,8 +1,8 @@
 #' Create the task graph
 #'
-#' @param file_info
-#' @param comp_info
-#' @param comp_args
+#' @param file_info tibble with file info
+#' @param comp_info tibble with component info
+#' @param comp_args tibble with component arguments
 #' @return igraph
 #' 
 #' @export

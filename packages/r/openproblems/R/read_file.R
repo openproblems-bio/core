@@ -61,9 +61,10 @@ read_file_info <- function(spec, path) {
 #' read_anndata_slots(spec, 'path/to/yaml')
 #' }
 
-anndata_struct_names <- c("obs", "var", "obsm", "obsp", "varm", "varp", "layers", "uns")
+
 
 read_anndata_slots <- function(spec, path) {
+  anndata_struct_names <- c("obs", "var", "obsm", "obsp", "varm", "varp", "layers", "uns")
   map_df(
     anndata_struct_names,
     function(struct_name, slot) {
