@@ -98,7 +98,7 @@ render_task_graph <- function(task_api, root = .task_graph_get_root(task_api)) {
   edf <- igraph::as_data_frame(task_api$task_graph, "edges") %>%
     arrange(match(from, order), match(to, order))
 
-  strip_margin(glue::glue("
+  openproblems::strip_margin(glue::glue("
     |```mermaid
     |flowchart LR
     |{paste(vdf$str, collapse = '\n')}

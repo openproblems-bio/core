@@ -32,7 +32,7 @@ render_file <- function(spec) {
       paste0("Description:\n\n", spec$info$description)
     }
 
-  strip_margin(glue::glue("
+  openproblems::strip_margin(glue::glue("
     |## File format: {spec$info$label}
     |
     |{spec$info$summary %||% ''}

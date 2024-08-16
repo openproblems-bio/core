@@ -16,7 +16,7 @@ render_component <- function(spec) {
     spec <- read_comp_spec(spec)
   }
 
-  strip_margin(glue::glue("
+  openproblems::strip_margin(glue::glue("
     |## Component type: {spec$info$label}
     |
     |Path: [`src/{spec$info$namespace}`](https://github.com/openproblems-bio/openproblems-v2/tree/main/src/{spec$info$namespace})

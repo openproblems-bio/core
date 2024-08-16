@@ -19,14 +19,7 @@ Depends:
     R (>= 4.0.0)
 Imports:
     fs,
-    yaml,
-    cli,
-    dplyr,
-    glue,
-    igraph,
-    knitr,
-    stringr,
-    magrittr
+    yaml
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
