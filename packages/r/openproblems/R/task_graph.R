@@ -4,7 +4,8 @@
 #' @param comp_info tibble with component info
 #' @param comp_args tibble with component arguments
 #' @return igraph
-#' 
+#' @importFrom dplyr bind_rows select mutate
+#' @importFrom magrittr %>%
 #' @export
 #' @examples
 #' \dontrun{
