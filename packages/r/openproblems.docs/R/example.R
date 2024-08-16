@@ -5,7 +5,6 @@
 #' @param indent_level indentation level
 #' @return array of strings
 #' 
-#' @export
 #' @examples
 #' \dontrun{
 #' .render_example_process_property(prop, prop_name, indent_level)
@@ -70,7 +69,6 @@
 #' @param json_schema json schema
 #' @return string
 #' 
-#' @export
 #' @examples
 #' \dontrun{
 #' render_example('path/to/json')

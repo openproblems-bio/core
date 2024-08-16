@@ -62,7 +62,6 @@ create_task_graph <- function(file_info, comp_info, comp_args) {
 #' @param task_api The task api filepath
 #' @return string with root of the task graph
 #' 
-#' @export
 #' @examples
 #' \dontrun{
 #' .task_graph_get_root(task_api)

@@ -3,7 +3,6 @@
 #' @param spec file spec
 #' @return tibble with file info
 #' 
-#' @export
 #' @examples
 #' \dontrun{
 #' format_comp_args_as_tibble(spec)
@@ -46,7 +45,6 @@ format_comp_args_as_tibble <- function(spec) {
 #' @param spec file spec
 #' @return string
 #' 
-#' @export
 #' @examples
 #' \dontrun{
 #' format_file_format(spec)
@@ -79,7 +77,6 @@ format_file_format <- function(spec) {
 #' @param spec file spec
 #' @return table
 #' 
-#' @export
 #' @examples
 #' \dontrun{
 #' format_file_format_as_kable(spec)

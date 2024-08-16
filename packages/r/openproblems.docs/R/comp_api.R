@@ -3,7 +3,6 @@
 #' @param path path to comp yaml
 #' @return a list with compontent info and arguments
 #' 
-#' @export
 #' @examples
 #' \dontrun{
 #' read_comp_spec("src/path/to/comp.yaml")
@@ -23,7 +22,6 @@ read_comp_spec <- function(path) {
 #' @param path path to comp yaml
 #' @return A tibble with component info
 #' 
-#' @export
 #' @examples
 #' \dontrun{
 #' read_comp_info(spec_yaml, "src/path/to/comp.yaml")
@@ -51,7 +49,6 @@ read_comp_info <- function(spec_yaml, path) {
 #' @param path path to comp yaml
 #' @return a df with component arguments
 #' 
-#' @export
 #' @examples
 #' \dontrun{
 #' read_comp_args(spec_yaml, "src/path/to/comp.yaml")

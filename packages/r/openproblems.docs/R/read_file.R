@@ -3,7 +3,6 @@
 #' @param path Path to yaml file
 #' @return list with file info and slots
 #' 
-#' @export
 #' @examples
 #' \dontrun{
 #' read_file_spec('path/to/yaml')
@@ -30,7 +29,6 @@ read_file_spec <- function(path) {
 #' @param path Path to yaml file
 #' @return tibble with file info
 #' 
-#' @export
 #' @examples
 #' \dontrun{
 #' read_file_info(spec, 'path/to/yaml')
@@ -55,7 +53,6 @@ read_file_info <- function(spec, path) {
 #' @param path Path to yaml file
 #' @return tibble with file slots
 #' 
-#' @export
 #' @examples
 #' \dontrun{
 #' read_anndata_slots(spec, 'path/to/yaml')
@@ -85,7 +82,6 @@ read_anndata_slots <- function(spec, path) {
 #' @param path Path to yaml file
 #' @return tibble with columns
 #' 
-#' @export
 #' @examples
 #' \dontrun{
 #' read_tabular_columns(spec, 'path/to/yaml')
