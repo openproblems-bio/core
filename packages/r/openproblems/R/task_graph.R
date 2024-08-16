@@ -100,10 +100,10 @@ render_task_graph <- function(task_api, root = .task_graph_get_root(task_api)) {
     arrange(match(from, order), match(to, order))
 
   strip_margin(glue::glue("
-    §```mermaid
-    §flowchart LR
-    §{paste(vdf$str, collapse = '\n')}
-    §{paste(edf$str, collapse = '\n')}
-    §```
-    §"), symbol = "§")
+    |```mermaid
+    |flowchart LR
+    |{paste(vdf$str, collapse = '\n')}
+    |{paste(edf$str, collapse = '\n')}
+    |```
+    |"), symbol = "\\|")
 }

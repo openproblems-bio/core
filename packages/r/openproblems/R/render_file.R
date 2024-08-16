@@ -33,25 +33,25 @@ render_file <- function(spec) {
     }
 
   strip_margin(glue::glue("
-    §## File format: {spec$info$label}
-    §
-    §{spec$info$summary %||% ''}
-    §
-    §{example}
-    §
-    §{description}
-    §
-    §Format:
-    §
-    §:::{{.small}}
-    §{paste(format_file_format(spec), collapse = '\n')}
-    §:::
-    §
-    §Slot description:
-    §
-    §:::{{.small}}
-    §{paste(format_file_format_as_kable(spec), collapse = '\n')}
-    §:::
-    §
-    §"), symbol = "§")
+    |## File format: {spec$info$label}
+    |
+    |{spec$info$summary %||% ''}
+    |
+    |{example}
+    |
+    |{description}
+    |
+    |Format:
+    |
+    |:::{{.small}}
+    |{paste(format_file_format(spec), collapse = '\n')}
+    |:::
+    |
+    |Slot description:
+    |
+    |:::{{.small}}
+    |{paste(format_file_format_as_kable(spec), collapse = '\n')}
+    |:::
+    |
+    |"), symbol = "\\|")
 }
