@@ -7,6 +7,7 @@ engines:
       - type: apt
         packages:
           - procps
+          - git
       - type: python
         packages:
           - anndata~=0.10.0
@@ -14,3 +15,5 @@ engines:
           - pyyaml
           - requests
           - jsonschema
+        github:
+          - openproblems-bio/core#subdirectory=packages/python/openproblems

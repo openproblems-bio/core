@@ -13,12 +13,13 @@ def find_project_root(path: str) -> str | None:
     """
 
     import os
+    
+    path = os.path.abspath(path) 
 
-    path = os.path.normpath(path)
-    check = os.path.join(os.path.dirname(path), "_viash.yaml")
-    if os.path.exists(check):
-        return os.path.dirname(check)
-    elif check == "//_viash.yaml":
+    while path != "/" and not os.path.exists(os.path.join(path, "_viash.yaml")):
+        path = os.path.dirname(path)
+
+    if path == "/":
         return None
-    else:
-        return find_project_root(os.path.dirname(check))
+
+    return path
