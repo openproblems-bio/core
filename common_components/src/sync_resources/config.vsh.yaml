@@ -13,7 +13,7 @@ arguments:
   - name: "--output"
     alternatives: ["-o"]
     type: file
-    default: /resources_test
+    default: resources_test
     direction: output
     description: "Path to the test resource directory."
   - name: "--quiet"
