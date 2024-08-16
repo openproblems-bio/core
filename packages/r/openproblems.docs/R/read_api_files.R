@@ -11,7 +11,7 @@
 
 read_api_files <- function(path) {
   cli::cli_inform("Looking for project root")
-  project_path <- find_project_root(path)
+  project_path <- openproblems::find_project_root(path)
   api_dir <- paste0(path, "/api")
 
   cli::cli_inform("Reading component yamls")
@@ -22,7 +22,7 @@ read_api_files <- function(path) {
   names(comps) <- basename(comp_yamls) %>% gsub("\\..*$", "", .)
 
   cli::cli_inform("Reading file yamls")
-  file_yamls <- resolve_path(
+  file_yamls <- openpoblems:::resolve_path(
     path = na.omit(unique(comp_args$`__merge__`)),
     project_path = project_path,
     parent_path = api_dir

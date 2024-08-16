@@ -14,15 +14,17 @@ BugReports: https://github.com/openproblems-bio/core/issues
 Depends: 
     R (>= 4.0.0)
 Imports:
-    fs,
-    yaml,
+    openproblems,
     cli,
     dplyr,
     glue,
     igraph,
     knitr,
     stringr,
-    magrittr
+    magrittr,
+    purrr,
+    tibble,
+    rlang
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
