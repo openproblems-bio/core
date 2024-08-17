@@ -1,5 +1,5 @@
 #' get task graph root
-#'#'
+#'
 #' @param task_api The task api filepath
 #' @return string with root of the task graph
 #' 
@@ -20,7 +20,7 @@
 }
 
 #' Render the task graph
-#'#'
+#'
 #' @param task_api the task api filepath
 #' @param root root of the task graph
 #' @return igraph

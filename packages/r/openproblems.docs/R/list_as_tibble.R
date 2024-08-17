@@ -1,5 +1,5 @@
 #' set list as tibble
-#'#'
+#'
 #' @param li list
 #' @return dataframe of list
 #' 

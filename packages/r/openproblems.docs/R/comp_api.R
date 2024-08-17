@@ -1,5 +1,5 @@
 #' read component spec
-#'#'
+#'
 #' @param path path to comp yaml
 #' @return a list with compontent info and arguments
 #' 
@@ -17,7 +17,7 @@ read_comp_spec <- function(path) {
 }
 
 #' read component spec
-#'#'
+#'
 #' @param spec_yaml comp yaml
 #' @param path path to comp yaml
 #' @return A tibble with component info
@@ -44,7 +44,7 @@ read_comp_info <- function(spec_yaml, path) {
 }
 
 #' read component arguments
-#'#'
+#'
 #' @param spec_yaml comp yaml
 #' @param path path to comp yaml
 #' @return a df with component arguments

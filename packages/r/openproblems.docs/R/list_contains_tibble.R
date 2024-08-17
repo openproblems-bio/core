@@ -1,5 +1,5 @@
 #' check if list contains tibble
-#'#'
+#'
 #' @param li list
 #' @return boolean
 #' 
