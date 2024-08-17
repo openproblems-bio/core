@@ -38,7 +38,7 @@ read_nested_yaml <- function(path, project_path = find_project_root(path)) {
 #' @param project_path The path to the root of the Viash project
 #'
 #' @noRd
-process_nested_yaml <- function(data, root_data, path, project_path) {
+process_nested_yaml <- function(data, root_data, path, project_path) { # nolint cyclocomp_linter
   if (is_named_list(data)) {
     # check whether children have `__merge__` entries
     processed_data <- lapply(data, function(dat) {
