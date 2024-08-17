@@ -20,6 +20,8 @@ Initial release
 
 * `find_project_root`: simplify implementation (PR #11).
 
+* Clean up code formatting with `styler::style_pkg()` (PR #13).
+
 ## TESTING
 
 * Add tests for `find_project_root` (PR #11).
