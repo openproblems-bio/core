@@ -1,16 +1,39 @@
-#' process each property with indentation
+#' Render an example of a JSON schema as a YAML string
 #'
-#' @param prop property
-#' @param prop_name property name
-#' @param indent_level indentation level
-#' @return array of strings
+#' This function takes a JSON schema and renders an example YAML string.
+#'
+#' @param json_schema JSON schema as a list
+#' @return YAML string
+#'
+#' @export
 #'
 #' @examples
-#' \dontrun{
-#' .render_example_process_property(prop, prop_name, indent_level)
-#' }
+#' example <- system.file("extdata", "example_schema.json", package = "openproblems.docs")
+#'
+#' json_schema <- jsonlite::read_json(example)
+#'
+#' render_json_schema_example(json_schema)
+render_json_schema_example <- function(json_schema) {
+  if (!"properties" %in% names(json_schema)) {
+    return("")
+  }
+  text <-
+    unlist(lapply(names(json_schema$properties), function(prop_name) {
+      out <- .render_json_schema_example__process_property(
+        json_schema$properties[[prop_name]],
+        prop_name,
+        0
+      )
+      c(out, "\n")
+    }))
+
+  paste(text, collapse = "")
+}
+
 # Recursive function to process each property with indentation
-.render_example_process_property <- function(prop, prop_name = NULL, indent_level = 0) {
+# nolint start object_length_linter
+.render_json_schema_example__process_property <- function(prop, prop_name = NULL, indent_level = 0) {
+# nolint end object_length_linter
   if (is.null(prop_name)) {
     prop_name <- ""
   }
@@ -34,7 +57,7 @@
     # Handle object with properties
     prop_names <- setdiff(names(prop$properties), "additionalProperties")
     sub_props <- unlist(lapply(prop_names, function(sub_prop_name) {
-      prop_out <- .render_example_process_property(
+      prop_out <- .render_json_schema_example__process_property(
         prop$properties[[sub_prop_name]],
         sub_prop_name,
         indent_level + 2
@@ -46,7 +69,7 @@
     if (is.list(prop$items) && "properties" %in% names(prop$items)) {
       # Handle array of objects
       array_items_yaml <- unlist(lapply(names(prop$items$properties), function(item_prop_name) {
-        prop_out <- .render_example_process_property(
+        prop_out <- .render_json_schema_example__process_property(
           prop$items$properties[[item_prop_name]],
           item_prop_name,
           indent_level + 4
@@ -61,31 +84,4 @@
   } else {
     c(out, "...")
   }
-}
-
-#' Render an example yaml based on a JSON schema
-#'
-#' @param json_schema json schema
-#' @return string
-#'
-#' @examples
-#' \dontrun{
-#' render_example("path/to/json")
-#' }
-# Function for rendering an example yaml based on a JSON schema
-render_example <- function(json_schema) {
-  if (!"properties" %in% names(json_schema)) {
-    return("")
-  }
-  text <-
-    unlist(lapply(names(json_schema$properties), function(prop_name) {
-      out <- .render_example_process_property(
-        json_schema$properties[[prop_name]],
-        prop_name,
-        0
-      )
-      c(out, "\n")
-    }))
-
-  paste(text, collapse = "")
 }
