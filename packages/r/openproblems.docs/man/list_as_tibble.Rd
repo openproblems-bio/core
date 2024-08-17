@@ -2,21 +2,27 @@
 % Please edit documentation in R/list_as_tibble.R
 \name{list_as_tibble}
 \alias{list_as_tibble}
-\title{set list as tibble}
+\title{Turn a list into a dataframe}
 \usage{
 list_as_tibble(li)
 }
 \arguments{
-\item{li}{list}
+\item{li}{A list}
 }
 \value{
-dataframe of list
+A tibble
 }
 \description{
-set list as tibble
+This will remove any non-atomic elements from the list and turn it into a dataframe.
+}
+\details{
+Note: this will only work if the list of atomic vectors are
+of the same length or length 1.
 }
 \examples{
-\dontrun{
+li <- list(
+  a = c(1, 2, 3),
+  b = c("a", "b", "c")
+)
 list_as_tibble(li)
-}
 }

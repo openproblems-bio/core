@@ -2,7 +2,6 @@
 
 export(create_task_graph)
 export(list_as_tibble)
-export(list_contains_tibble)
 export(read_task_api)
 export(render_component)
 export(render_file)
