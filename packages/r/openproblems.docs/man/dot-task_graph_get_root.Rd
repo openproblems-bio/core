@@ -2,8 +2,7 @@
 % Please edit documentation in R/render_task_graph.R
 \name{.task_graph_get_root}
 \alias{.task_graph_get_root}
-\title{get task graph root
-#'}
+\title{get task graph root}
 \usage{
 .task_graph_get_root(task_api)
 }
@@ -15,7 +14,6 @@ string with root of the task graph
 }
 \description{
 get task graph root
-#'
 }
 \examples{
 \dontrun{

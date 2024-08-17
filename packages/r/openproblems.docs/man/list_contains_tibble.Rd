@@ -2,8 +2,7 @@
 % Please edit documentation in R/list_contains_tibble.R
 \name{list_contains_tibble}
 \alias{list_contains_tibble}
-\title{check if list contains tibble
-#'}
+\title{check if list contains tibble}
 \usage{
 list_contains_tibble(li)
 }
@@ -15,7 +14,6 @@ boolean
 }
 \description{
 check if list contains tibble
-#'
 }
 \examples{
 \dontrun{

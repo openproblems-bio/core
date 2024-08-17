@@ -2,8 +2,7 @@
 % Please edit documentation in R/list_as_tibble.R
 \name{list_as_tibble}
 \alias{list_as_tibble}
-\title{set list as tibble
-#'}
+\title{set list as tibble}
 \usage{
 list_as_tibble(li)
 }
@@ -15,7 +14,6 @@ dataframe of list
 }
 \description{
 set list as tibble
-#'
 }
 \examples{
 \dontrun{

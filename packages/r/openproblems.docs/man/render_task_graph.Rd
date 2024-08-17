@@ -2,8 +2,7 @@
 % Please edit documentation in R/render_task_graph.R
 \name{render_task_graph}
 \alias{render_task_graph}
-\title{Render the task graph
-#'}
+\title{Render the task graph}
 \usage{
 render_task_graph(task_api, root = .task_graph_get_root(task_api))
 }
@@ -17,7 +16,6 @@ igraph
 }
 \description{
 Render the task graph
-#'
 }
 \examples{
 \dontrun{

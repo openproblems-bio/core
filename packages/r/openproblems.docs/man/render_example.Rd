@@ -17,6 +17,6 @@ Render an example yaml based on a JSON schema
 }
 \examples{
 \dontrun{
-render_example('path/to/json')
+render_example("path/to/json")
 }
 }

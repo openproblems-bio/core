@@ -17,6 +17,6 @@ Render file section
 }
 \examples{
 \dontrun{
-render_file(spec, 'path/to/yaml')
+render_file(spec, "path/to/yaml")
 }
 }
