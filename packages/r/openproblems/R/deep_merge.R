@@ -1,14 +1,14 @@
 #' Deep merge two lists
-#' 
+#'
 #' This function will merge two lists recursively. If both lists
 #' are named lists, the keys will be merged. If both lists are
 #' lists, they will be appended. Otherwise, the second list will
 #' override the first list.
-#' 
+#'
 #' @param obj1 The first object
 #' @param obj2 The second object
 #' @return The merged list
-#' 
+#'
 #' @noRd
 #' @examples
 #' deep_merge(list(a = 1, b = 2), list(b = 3, c = 4))

@@ -1,4 +1,3 @@
-
 #' Strip margin from a string
 #'
 #' @param text A character vector.
