@@ -2,14 +2,15 @@
 #'
 #' @param spec file spec
 #' @return tibble with file info
-#' 
+#'
 #' @examples
 #' \dontrun{
 #' format_comp_args_as_tibble(spec)
 #' }
-
 format_comp_args_as_tibble <- function(spec) {
-  if (nrow(spec$args) == 0) return("")
+  if (nrow(spec$args) == 0) {
+    return("")
+  }
   spec$args %>%
     mutate(
       tag_str = pmap_chr(lst(required, direction), function(required, direction) {
@@ -32,7 +33,7 @@ format_comp_args_as_tibble <- function(spec) {
       Type = paste0("`", type, "`"),
       Description = paste0(
         tag_str,
-        (summary %|% description) %>% gsub(" *\n *", " ", .) %>% gsub("\\. *$", "", .), 
+        (summary %|% description) %>% gsub(" *\n *", " ", .) %>% gsub("\\. *$", "", .),
         ".",
         ifelse(!is.na(default), paste0(" Default: `", default, "`."), "")
       )

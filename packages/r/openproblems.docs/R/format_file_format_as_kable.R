@@ -2,12 +2,11 @@
 #'
 #' @param spec file spec
 #' @return table
-#' 
+#'
 #' @examples
 #' \dontrun{
 #' format_file_format_as_kable(spec)
 #' }
-
 format_file_format_as_kable <- function(spec) {
   if (spec$info$file_type == "h5ad") {
     spec$slots %>%
@@ -29,7 +28,7 @@ format_file_format_as_kable <- function(spec) {
         Type = paste0("`", type, "`"),
         Description = paste0(
           tag_str,
-          description %>% gsub(" *\n *", " ", .) %>% gsub("\\. *$", "", .), 
+          description %>% gsub(" *\n *", " ", .) %>% gsub("\\. *$", "", .),
           "."
         )
       ) %>%
@@ -54,7 +53,7 @@ format_file_format_as_kable <- function(spec) {
         Type = paste0("`", type, "`"),
         Description = paste0(
           tag_str,
-          description %>% gsub(" *\n *", " ", .) %>% gsub("\\. *$", "", .), 
+          description %>% gsub(" *\n *", " ", .) %>% gsub("\\. *$", "", .),
           "."
         )
       ) %>%

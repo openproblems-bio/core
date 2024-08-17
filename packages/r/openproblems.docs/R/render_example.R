@@ -4,12 +4,11 @@
 #' @param prop_name property name
 #' @param indent_level indentation level
 #' @return array of strings
-#' 
+#'
 #' @examples
 #' \dontrun{
 #' .render_example_process_property(prop, prop_name, indent_level)
 #' }
-
 # Recursive function to process each property with indentation
 .render_example_process_property <- function(prop, prop_name = NULL, indent_level = 0) {
   if (is.null(prop_name)) {
@@ -68,12 +67,11 @@
 #'
 #' @param json_schema json schema
 #' @return string
-#' 
+#'
 #' @examples
 #' \dontrun{
-#' render_example('path/to/json')
+#' render_example("path/to/json")
 #' }
-
 # Function for rendering an example yaml based on a JSON schema
 render_example <- function(json_schema) {
   if (!"properties" %in% names(json_schema)) {

@@ -2,13 +2,12 @@
 #'
 #' @param path Path to a src directory
 #' @return A list with the api info
-#' 
+#'
 #' @export
 #' @examples
 #' \dontrun{
 #' read_api_files("src")
 #' }
-
 read_api_files <- function(path) {
   cli::cli_inform("Looking for project root")
   project_path <- openproblems::find_project_root(path)

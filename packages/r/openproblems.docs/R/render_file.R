@@ -2,13 +2,12 @@
 #'
 #' @param spec file spec
 #' @return string
-#' 
+#'
 #' @export
 #' @examples
 #' \dontrun{
-#' render_file(spec, 'path/to/yaml')
+#' render_file(spec, "path/to/yaml")
 #' }
-
 render_file <- function(spec) {
   if (is.character(spec)) {
     spec <- read_file_spec(spec)

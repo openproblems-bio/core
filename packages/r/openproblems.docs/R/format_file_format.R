@@ -2,12 +2,11 @@
 #'
 #' @param spec file spec
 #' @return string
-#' 
+#'
 #' @examples
 #' \dontrun{
 #' format_file_format(spec)
 #' }
-
 format_file_format <- function(spec) {
   if (spec$info$file_type == "h5ad") {
     example <- spec$slots %>%

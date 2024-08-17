@@ -4,13 +4,12 @@
 #' @param spec file spec
 
 #' @return string
-#' 
+#'
 #' @export
 #' @examples
 #' \dontrun{
 #' render_component(spec)
 #' }
-
 render_component <- function(spec) {
   if (is.character(spec)) {
     spec <- read_comp_spec(spec)

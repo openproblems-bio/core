@@ -10,7 +10,6 @@
 #' \dontrun{
 #' create_task_graph(file_info, comp_info, comp_args)
 #' }
-
 create_task_graph <- function(file_info, comp_info, comp_args) {
   clean_id <- function(id) {
     gsub("graph", "graaf", id)
@@ -22,14 +21,14 @@ create_task_graph <- function(file_info, comp_info, comp_args) {
       comp_info %>%
         mutate(id = file_name, label = label, is_comp = TRUE)
     ) %>%
-      select(id, label, everything()) %>%
-      mutate(str = paste0(
-        "  ",
-        clean_id(id),
-        ifelse(is_comp, "[/\"", "(\""),
-        label,
-        ifelse(is_comp, "\"/]", "\")")
-      ))
+    select(id, label, everything()) %>%
+    mutate(str = paste0(
+      "  ",
+      clean_id(id),
+      ifelse(is_comp, "[/\"", "(\""),
+      label,
+      ifelse(is_comp, "\"/]", "\")")
+    ))
   edges <- bind_rows(
     comp_args %>%
       filter(type == "file", direction == "input") %>%

@@ -2,12 +2,11 @@
 #'
 #' @param path Path to yaml file
 #' @return list with file info and slots
-#' 
+#'
 #' @examples
 #' \dontrun{
-#' read_file_spec('path/to/yaml')
+#' read_file_spec("path/to/yaml")
 #' }
-
 read_file_spec <- function(path) {
   spec <- openproblems::read_nested_yaml(path)
   out <- list(
@@ -28,12 +27,11 @@ read_file_spec <- function(path) {
 #' @param spec file spec
 #' @param path Path to yaml file
 #' @return tibble with file info
-#' 
+#'
 #' @examples
 #' \dontrun{
-#' read_file_info(spec, 'path/to/yaml')
+#' read_file_info(spec, "path/to/yaml")
 #' }
-
 read_file_info <- function(spec, path) {
   # TEMP: make it readable
   spec$info$slots <- NULL
@@ -42,8 +40,8 @@ read_file_info <- function(spec, path) {
     df <- dplyr::bind_cols(df, list_as_tibble(spec$info))
   }
   df$file_name <- basename(path) %>% gsub("\\.yaml", "", .)
-  df$description <- df$description %||% NA_character_ %>% as.character
-  df$summary <- df$summary %||% NA_character_ %>% as.character
+  df$description <- df$description %||% NA_character_ %>% as.character()
+  df$summary <- df$summary %||% NA_character_ %>% as.character()
   as_tibble(df)
 }
 
@@ -52,20 +50,19 @@ read_file_info <- function(spec, path) {
 #' @param spec file spec
 #' @param path Path to yaml file
 #' @return tibble with file slots
-#' 
+#'
 #' @examples
 #' \dontrun{
-#' read_anndata_slots(spec, 'path/to/yaml')
+#' read_anndata_slots(spec, "path/to/yaml")
 #' }
-
-
-
 read_anndata_slots <- function(spec, path) {
   map_df(
     anndata_struct_names,
     function(struct_name, slot) {
       slot <- spec$info$slots[[struct_name]]
-      if (is.null(slot)) return(NULL)
+      if (is.null(slot)) {
+        return(NULL)
+      }
       df <- map_df(slot, as.data.frame)
       df$struct <- struct_name
       df$file_name <- basename(path) %>% gsub("\\.yaml", "", .)
@@ -81,12 +78,11 @@ read_anndata_slots <- function(spec, path) {
 #' @param spec file spec
 #' @param path Path to yaml file
 #' @return tibble with columns
-#' 
+#'
 #' @examples
 #' \dontrun{
-#' read_tabular_columns(spec, 'path/to/yaml')
+#' read_tabular_columns(spec, "path/to/yaml")
 #' }
-
 read_tabular_columns <- function(spec, path) {
   map_df(
     spec$info$columns,
