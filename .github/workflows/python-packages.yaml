@@ -1,17 +1,20 @@
-name: python-pytest
+name: Check Python packages
 on:
   push:
     branches:
       - main
     paths:
-      - packages/python/openproblems/**
+      - packages/python/**
   pull_request:
     paths:
-      - packages/python/openproblems/**
+      - packages/python/**
 
 jobs:
-  linting:
+  lint:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        package: [openproblems]
 
     steps:
     - uses: actions/checkout@v4
@@ -26,7 +29,7 @@ jobs:
 
     - name: Run tox lint
       run: |
-        cd packages/python/openproblems
+        cd packages/python/${{ matrix.package }}
         tox -e lint
   test:
     runs-on: ubuntu-latest
@@ -34,6 +37,7 @@ jobs:
     strategy:
       matrix:
         python-version: ["3.10", "3.11", "3.12"]
+        package: [openproblems]
 
     steps:
       - uses: actions/checkout@v4
@@ -48,7 +52,7 @@ jobs:
 
       - name: Test
         run: |
-          cd packages/python/openproblems
+          cd packages/python/${{ matrix.package }}
           PYTHON_ENV="${{ matrix.python-version }}"
           PYTHON_ENV_NO_DOTS=${PYTHON_ENV//.}
           tox run --skip-env '^(?!py'$PYTHON_ENV_NO_DOTS').+'
