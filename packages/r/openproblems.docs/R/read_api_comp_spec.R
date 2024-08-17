@@ -25,10 +25,10 @@ read_api_comp_spec_info <- function(spec_yaml, path) {
   spec_yaml$argument_groups <- NULL
 
   df <- list_as_tibble(spec_yaml)
-  if (list_contains_tibble(spec_yaml$info)) {
+  if (is_list_a_dataframe(spec_yaml$info)) {
     df <- dplyr::bind_cols(df, list_as_tibble(spec_yaml$info))
   }
-  if (list_contains_tibble(spec_yaml$info$type_info)) {
+  if (is_list_a_dataframe(spec_yaml$info$type_info)) {
     df <- dplyr::bind_cols(df, list_as_tibble(spec_yaml$info$type_info))
   }
   df$file_name <- basename(path) %>% gsub("\\.yaml", "", .)
@@ -49,7 +49,7 @@ read_api_comp_spec_arguments <- function(spec_yaml, path) {
   }
   map_df(arguments, function(arg) {
     df <- list_as_tibble(arg)
-    if (list_contains_tibble(arg$info)) {
+    if (is_list_a_dataframe(arg$info)) {
       df <- dplyr::bind_cols(df, list_as_tibble(arg$info))
     }
     df$file_name <- basename(path) %>% gsub("\\.yaml", "", .)

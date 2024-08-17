@@ -30,7 +30,7 @@ read_api_file_format_info <- function(spec, path) {
   # TEMP: make it readable
   spec$info$slots <- NULL
   df <- list_as_tibble(spec)
-  if (list_contains_tibble(spec$info)) {
+  if (is_list_a_dataframe(spec$info)) {
     df <- dplyr::bind_cols(df, list_as_tibble(spec$info))
   }
   df$file_name <- basename(path) %>% gsub("\\.yaml", "", .)
