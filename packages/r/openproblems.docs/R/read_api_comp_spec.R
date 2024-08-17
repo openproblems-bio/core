@@ -3,15 +3,12 @@
 #' @param path path to comp yaml
 #' @return a list with compontent info and arguments
 #'
-#' @examples
-#' \dontrun{
-#' read_comp_spec("src/path/to/comp.yaml")
-#' }
-read_comp_spec <- function(path) {
+#' @noRd
+read_api_comp_spec <- function(path) {
   spec_yaml <- openproblems::read_nested_yaml(path)
   list(
-    info = read_comp_info(spec_yaml, path),
-    args = read_comp_args(spec_yaml, path)
+    info = read_api_comp_spec_info(spec_yaml, path),
+    args = read_api_comp_spec_arguments(spec_yaml, path)
   )
 }
 
@@ -21,11 +18,8 @@ read_comp_spec <- function(path) {
 #' @param path path to comp yaml
 #' @return A tibble with component info
 #'
-#' @examples
-#' \dontrun{
-#' read_comp_info(spec_yaml, "src/path/to/comp.yaml")
-#' }
-read_comp_info <- function(spec_yaml, path) {
+#' @noRd
+read_api_comp_spec_info <- function(spec_yaml, path) {
   # TEMP: make it readable
   spec_yaml$arguments <- NULL
   spec_yaml$argument_groups <- NULL
@@ -47,11 +41,8 @@ read_comp_info <- function(spec_yaml, path) {
 #' @param path path to comp yaml
 #' @return a df with component arguments
 #'
-#' @examples
-#' \dontrun{
-#' read_comp_args(spec_yaml, "src/path/to/comp.yaml")
-#' }
-read_comp_args <- function(spec_yaml, path) {
+#' @noRd
+read_api_comp_spec_arguments <- function(spec_yaml, path) {
   arguments <- spec_yaml$arguments
   for (arg_group in spec_yaml$argument_groups) {
     arguments <- c(arguments, arg_group$arguments)

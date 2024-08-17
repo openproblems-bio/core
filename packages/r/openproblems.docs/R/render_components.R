@@ -12,7 +12,7 @@
 #' }
 render_component <- function(spec) {
   if (is.character(spec)) {
-    spec <- read_comp_spec(spec)
+    spec <- read_api_comp_spec(spec)
   }
 
   openproblems::strip_margin(glue::glue("

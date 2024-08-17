@@ -10,7 +10,7 @@
 #' }
 render_file <- function(spec) {
   if (is.character(spec)) {
-    spec <- read_file_spec(spec)
+    spec <- read_api_file_format(spec)
   }
 
   if (!"label" %in% names(spec$info)) {

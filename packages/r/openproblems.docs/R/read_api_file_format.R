@@ -3,18 +3,15 @@
 #' @param path Path to yaml file
 #' @return list with file info and slots
 #'
-#' @examples
-#' \dontrun{
-#' read_file_spec("path/to/yaml")
-#' }
-read_file_spec <- function(path) {
+#' @noRd
+read_api_file_format <- function(path) {
   spec <- openproblems::read_nested_yaml(path)
   out <- list(
-    info = read_file_info(spec, path)
+    info = read_api_file_format_info(spec, path)
   )
   if (out$info$file_type == "h5ad" || "slots" %in% names(spec$info)) {
     out$info$file_type <- "h5ad"
-    out$slots <- read_anndata_slots(spec, path)
+    out$slots <- read_api_file_format_specs(spec, path)
   }
   if (out$info$file_type == "csv" || out$info$file_type == "tsv" || out$info$file_type == "parquet") {
     out$columns <- read_tabular_columns(spec, path)
@@ -28,11 +25,8 @@ read_file_spec <- function(path) {
 #' @param path Path to yaml file
 #' @return tibble with file info
 #'
-#' @examples
-#' \dontrun{
-#' read_file_info(spec, "path/to/yaml")
-#' }
-read_file_info <- function(spec, path) {
+#' @noRd
+read_api_file_format_info <- function(spec, path) {
   # TEMP: make it readable
   spec$info$slots <- NULL
   df <- list_as_tibble(spec)
@@ -51,11 +45,8 @@ read_file_info <- function(spec, path) {
 #' @param path Path to yaml file
 #' @return tibble with file slots
 #'
-#' @examples
-#' \dontrun{
-#' read_anndata_slots(spec, "path/to/yaml")
-#' }
-read_anndata_slots <- function(spec, path) {
+#' @noRd
+read_api_file_format_specs <- function(spec, path) {
   map_df(
     anndata_struct_names,
     function(struct_name, slot) {

@@ -6,16 +6,16 @@
 #' @export
 #' @examples
 #' \dontrun{
-#' read_api_files("src")
+#' read_task_api("src")
 #' }
-read_api_files <- function(path) {
+read_task_api <- function(path) {
   cli::cli_inform("Looking for project root")
   project_path <- openproblems::find_project_root(path)
   api_dir <- paste0(path, "/api")
 
   cli::cli_inform("Reading component yamls")
   comp_yamls <- list.files(api_dir, pattern = "comp_.*\\.ya?ml", full.names = TRUE)
-  comps <- map(comp_yamls, read_comp_spec)
+  comps <- map(comp_yamls, read_api_comp_spec)
   comp_info <- map_df(comps, "info")
   comp_args <- map_df(comps, "args")
   names(comps) <- basename(comp_yamls) %>% gsub("\\..*$", "", .)
@@ -26,7 +26,7 @@ read_api_files <- function(path) {
     project_path = project_path,
     parent_path = api_dir
   )
-  files <- map(file_yamls, read_file_spec)
+  files <- map(file_yamls, read_api_file_format)
   names(files) <- basename(file_yamls) %>% gsub("\\..*$", "", .)
   file_info <- map_df(files, "info")
   file_slots <- map_df(files, "slots")
