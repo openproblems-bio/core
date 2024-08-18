@@ -5,9 +5,9 @@
 #'
 #' @export
 #' @examples
-#' \dontrun{
-#' read_task_api("src")
-#' }
+#' path <- system.file("extdata", "example_project", package = "openproblems.docs")
+#'
+#' read_task_api(path)
 read_task_api <- function(path) {
   cli::cli_inform("Looking for project root")
   project_path <- openproblems::find_project_root(path)
