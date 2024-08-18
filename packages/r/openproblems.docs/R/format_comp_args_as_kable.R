@@ -3,10 +3,7 @@
 #' @param spec file spec
 #' @return tibble with file info
 #'
-#' @examples
-#' \dontrun{
-#' format_comp_args_as_tibble(spec)
-#' }
+#' @noRd
 format_comp_args_as_tibble <- function(spec) {
   if (nrow(spec$args) == 0) {
     return("")

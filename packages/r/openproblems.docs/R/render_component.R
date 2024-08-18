@@ -2,14 +2,13 @@
 #' Render component section
 #'
 #' @param spec file spec
-
 #' @return string
 #'
 #' @export
 #' @examples
-#' \dontrun{
-#' render_component(spec)
-#' }
+#' path <- system.file("extdata", "example_project", "api", "comp_method.yaml", package = "openproblems.docs")
+#'
+#' render_component(path)
 render_component <- function(spec) {
   if (is.character(spec)) {
     spec <- read_api_comp_spec(spec)

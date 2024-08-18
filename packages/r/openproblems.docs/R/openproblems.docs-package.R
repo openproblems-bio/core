@@ -8,5 +8,6 @@
 #' @importFrom rlang .data %||% %|%
 #' @importFrom stats na.omit
 #' @importFrom tibble as_tibble lst
+#' @importFrom stringr str_replace_all
 ## usethis namespace: end
 NULL

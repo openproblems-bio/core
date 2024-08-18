@@ -3,10 +3,7 @@
 #' @param spec file spec
 #' @return table
 #'
-#' @examples
-#' \dontrun{
-#' format_file_format_as_kable(spec)
-#' }
+#' @noRd
 format_file_format_as_kable <- function(spec) {
   if (spec$info$file_type == "h5ad") {
     spec$slots %>%

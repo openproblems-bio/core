@@ -16,7 +16,7 @@ A list with the api info
 Read the api files in a task
 }
 \examples{
-\dontrun{
-read_task_api("src")
-}
+path <- system.file("extdata", "example_project", package = "openproblems.docs")
+
+read_task_api(path)
 }

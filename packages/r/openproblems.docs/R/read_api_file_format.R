@@ -3,7 +3,11 @@
 #' @param path Path to yaml file
 #' @return list with file info and slots
 #'
-#' @noRd
+#' @export
+#' @examples
+#' path <- system.file("extdata", "example_project", "api", "file_train_h5ad.yaml", package = "openproblems.docs")
+#'
+#' read_api_file_format(path)
 read_api_file_format <- function(path) {
   spec <- openproblems::read_nested_yaml(path)
   out <- list(
@@ -11,10 +15,10 @@ read_api_file_format <- function(path) {
   )
   if (out$info$file_type == "h5ad" || "slots" %in% names(spec$info)) {
     out$info$file_type <- "h5ad"
-    out$slots <- read_api_file_format_specs(spec, path)
+    out$slots <- read_api_file_format__process_h5ad(spec, path)
   }
   if (out$info$file_type == "csv" || out$info$file_type == "tsv" || out$info$file_type == "parquet") {
-    out$columns <- read_tabular_columns(spec, path)
+    out$columns <- read_api_file_format__process_tabular(spec, path)
   }
   out
 }
@@ -33,7 +37,7 @@ read_api_file_format_info <- function(spec, path) {
   if (is_list_a_dataframe(spec$info)) {
     df <- dplyr::bind_cols(df, list_as_tibble(spec$info))
   }
-  df$file_name <- basename(path) %>% gsub("\\.yaml", "", .)
+  df$file_name <- basename(path) %>% str_replace_all("\\.yaml", "")
   df$description <- df$description %||% NA_character_ %>% as.character()
   df$summary <- df$summary %||% NA_character_ %>% as.character()
   as_tibble(df)
@@ -46,7 +50,7 @@ read_api_file_format_info <- function(spec, path) {
 #' @return tibble with file slots
 #'
 #' @noRd
-read_api_file_format_specs <- function(spec, path) {
+read_api_file_format__process_h5ad <- function(spec, path) {
   map_df(
     anndata_struct_names,
     function(struct_name, slot) {
@@ -56,7 +60,7 @@ read_api_file_format_specs <- function(spec, path) {
       }
       df <- map_df(slot, as.data.frame)
       df$struct <- struct_name
-      df$file_name <- basename(path) %>% gsub("\\.yaml", "", .)
+      df$file_name <- basename(path) %>% str_replace_all("\\.yaml", "")
       df$required <- df$required %||% TRUE %|% TRUE
       df$multiple <- df$multiple %||% FALSE %|% FALSE
       as_tibble(df)
@@ -70,16 +74,13 @@ read_api_file_format_specs <- function(spec, path) {
 #' @param path Path to yaml file
 #' @return tibble with columns
 #'
-#' @examples
-#' \dontrun{
-#' read_tabular_columns(spec, "path/to/yaml")
-#' }
-read_tabular_columns <- function(spec, path) {
+#' @noRd
+read_api_file_format__process_tabular <- function(spec, path) {
   map_df(
     spec$info$columns,
     function(column) {
       df <- list_as_tibble(column)
-      df$file_name <- basename(path) %>% gsub("\\.yaml", "", .)
+      df$file_name <- str_replace_all(path) %>% gsub("\\.yaml", "")
       df$required <- df$required %||% TRUE %|% TRUE
       df$multiple <- df$multiple %||% FALSE %|% FALSE
       as_tibble(df)

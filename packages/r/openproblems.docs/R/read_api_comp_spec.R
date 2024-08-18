@@ -3,7 +3,11 @@
 #' @param path path to comp yaml
 #' @return a list with compontent info and arguments
 #'
-#' @noRd
+#' @export
+#' @examples
+#' path <- system.file("extdata", "example_project", "api", "comp_method.yaml", package = "openproblems.docs")
+#'
+#' read_api_comp_spec(path)
 read_api_comp_spec <- function(path) {
   spec_yaml <- openproblems::read_nested_yaml(path)
   list(
@@ -52,12 +56,12 @@ read_api_comp_spec_arguments <- function(spec_yaml, path) {
     if (is_list_a_dataframe(arg$info)) {
       df <- dplyr::bind_cols(df, list_as_tibble(arg$info))
     }
-    df$file_name <- basename(path) %>% gsub("\\.yaml", "", .)
-    df$arg_name <- gsub("^-*", "", arg$name)
+    df$file_name <- basename(path) %>% str_replace_all("\\.yaml", "",)
+    df$arg_name <- str_replace_all(arg$name, "^-*", "")
     df$direction <- df$direction %||% "input" %|% "input"
     df$parent <- df$`__merge__` %||% NA_character_ %>%
       basename() %>%
-      gsub("\\.yaml", "", .)
+      str_replace_all("\\.yaml", "")
     df$required <- df$required %||% FALSE %|% FALSE
     df$default <- df$default %||% NA_character_ %>% as.character()
     df$example <- df$example %||% NA_character_ %>% as.character()

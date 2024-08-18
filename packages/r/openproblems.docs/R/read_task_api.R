@@ -18,7 +18,6 @@ read_task_api <- function(path) {
   comps <- map(comp_yamls, read_api_comp_spec)
   comp_info <- map_df(comps, "info")
   comp_args <- map_df(comps, "args")
-  names(comps) <- basename(comp_yamls) %>% gsub("\\..*$", "", .)
 
   cli::cli_inform("Reading file yamls")
   file_yamls <- openproblems:::resolve_path(
@@ -27,7 +26,6 @@ read_task_api <- function(path) {
     parent_path = api_dir
   )
   files <- map(file_yamls, read_api_file_format)
-  names(files) <- basename(file_yamls) %>% gsub("\\..*$", "", .)
   file_info <- map_df(files, "info")
   file_slots <- map_df(files, "slots")
 
@@ -35,10 +33,8 @@ read_task_api <- function(path) {
   task_graph <- create_task_graph(file_info, comp_info, comp_args)
 
   list(
-    file_specs = files,
     file_info = file_info,
     file_slots = file_slots,
-    comp_specs = comps,
     comp_info = comp_info,
     comp_args = comp_args,
     task_graph = task_graph
