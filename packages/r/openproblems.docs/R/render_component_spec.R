@@ -20,7 +20,7 @@ render_component_spec <- function(spec) {
 
   # TODO: determine path
   path <- ""
-  #prev:
+  # prev:
   # Path: [`src/{spec$info$namespace}`]
   # (https://github.com/openproblems-bio/openproblems-v2/tree/main/src/{spec$info$namespace})
 
