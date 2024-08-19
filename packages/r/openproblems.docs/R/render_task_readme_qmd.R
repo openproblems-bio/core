@@ -14,7 +14,7 @@ render_task_readme_qmd <- function(task_metadata) {
   #   gsub("/*$", "", .)
   # source_url <- paste0(viash_info$links$repository, "/", relative_path)
 
-  qmd_content <- openproblems::strip_margin(glue::glue("
+  strip_margin(glue("
     §---
     §title: \"{viash_info$label}\"
     §format: gfm
@@ -44,7 +44,7 @@ render_task_readme_qmd <- function(task_metadata) {
     §"), symbol = "§")
 }
 
-#' @importFrom openproblems.utils list_as_tibble
+#' @importFrom openproblems.utils list_as_data_frame
 .render_task_authors <- function(task_metadata) {
   if (length(task_metadata$authors) == 0) {
     return("")
@@ -52,7 +52,7 @@ render_task_readme_qmd <- function(task_metadata) {
 
   authors_df <- map_df(task_metadata$authors, function(aut) {
     aut$roles <- paste(aut$roles, collapse = ", ")
-    list_as_tibble(aut)
+    list_as_data_frame(aut)
   })
 
   paste0(
@@ -71,7 +71,7 @@ render_task_readme_qmd <- function(task_metadata) {
   edf <- igraph::as_data_frame(graph, "edges") %>%
     arrange(match(.data$from, order), match(.data$to, order))
 
-  openproblems::strip_margin(glue::glue("
+  strip_margin(glue("
     |```mermaid
     |flowchart LR
     |{paste(vdf$str, collapse = '\n')}

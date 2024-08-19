@@ -5,19 +5,20 @@
 #'
 #' @noRd
 format_file_format <- function(spec) {
-  if (spec$info$file_type == "h5ad") {
+  format_type <- spec$info$format$type
+  if (format_type == "h5ad") {
     example <- spec$slots %>%
-      group_by(struct) %>%
+      group_by(.data$struct) %>%
       summarise(
-        str = paste0(unique(struct), ": ", paste0("'", name, "'", collapse = ", "))
+        str = paste0(unique(.data$struct), ": ", paste0("'", .data$name, "'", collapse = ", "))
       ) %>%
-      arrange(match(struct, anndata_struct_names))
+      arrange(match(.data$struct, anndata_struct_names))
 
     c("    AnnData object", paste0("     ", example$str))
-  } else if (spec$info$file_type == "csv" || spec$info$file_type == "tsv" || spec$info$file_type == "parquet") {
+  } else if (format_type %in% c("csv", "tsv", "parquet")) {
     example <- spec$columns %>%
       summarise(
-        str = paste0("'", name, "'", collapse = ", ")
+        str = paste0("'", .data$name, "'", collapse = ", ")
       )
 
     c("    Tabular data", paste0("     ", example$str))

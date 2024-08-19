@@ -59,36 +59,36 @@ read_task_metadata <- function(path) {
   nodes <-
     bind_rows(
       file_info %>%
-        mutate(id = file_name, label = label, is_comp = FALSE),
+        mutate(id = .data$file_name, is_comp = FALSE),
       comp_info %>%
-        mutate(id = file_name, label = label, is_comp = TRUE)
+        mutate(id = .data$file_name, is_comp = TRUE)
     ) %>%
-    select(id, label, everything()) %>%
+    select("id", "label", everything()) %>%
     mutate(str = paste0(
       "  ",
-      clean_id(id),
-      ifelse(is_comp, "[/\"", "(\""),
-      label,
-      ifelse(is_comp, "\"/]", "\")")
+      clean_id(.data$id),
+      ifelse(.data$is_comp, "[/\"", "(\""),
+      .data$label,
+      ifelse(.data$is_comp, "\"/]", "\")")
     ))
   edges <- bind_rows(
     comp_args %>%
-      filter(type == "file", direction == "input") %>%
+      filter(.data$type == "file", .data$direction == "input") %>%
       mutate(
-        from = parent,
-        to = file_name,
+        from = .data$parent,
+        to = .data$file_name,
         arrow = "---"
       ),
     comp_args %>%
-      filter(type == "file", direction == "output") %>%
+      filter(.data$type == "file", .data$direction == "output") %>%
       mutate(
-        from = file_name,
-        to = parent,
+        from = .data$file_name,
+        to = .data$parent,
         arrow = "-->"
       )
   ) %>%
-    select(from, to, everything()) %>%
-    mutate(str = paste0("  ", clean_id(from), arrow, clean_id(to)))
+    select("from", "to", everything()) %>%
+    mutate(str = paste0("  ", clean_id(.data$from), .data$arrow, clean_id(.data$to)))
 
   igraph::graph_from_data_frame(
     edges,

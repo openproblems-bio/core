@@ -9,5 +9,7 @@
 #' @importFrom stats na.omit
 #' @importFrom tibble as_tibble lst
 #' @importFrom stringr str_replace_all
+#' @importFrom glue glue
+#' @importFrom openproblems.utils strip_margin
 ## usethis namespace: end
 NULL

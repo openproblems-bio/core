@@ -11,65 +11,70 @@
 read_file_format <- function(path) {
   spec <- openproblems::read_nested_yaml(path)
   out <- list(
-    info = read_file_format_info(spec, path)
+    info = read_file_format__process_info(spec, path)
   )
-  if (out$info$file_type == "h5ad" || "slots" %in% names(spec$info)) {
+  # TODO: update
+  format_type <- spec$info$format$type
+
+  if (format_type == "h5ad") {
     out$info$file_type <- "h5ad"
     out$slots <- read_file_format__process_h5ad(spec, path)
   }
-  if (out$info$file_type == "csv" || out$info$file_type == "tsv" || out$info$file_type == "parquet") {
+  if (format_type %in% c("tabular", "csv", "tsv")) {
     out$columns <- read_file_format__process_tabular(spec, path)
   }
   out
 }
 
-#' @importFrom openproblems.utils list_as_tibble is_list_a_dataframe
-read_file_format_info <- function(spec, path) {
-  # TEMP: make it readable
-  spec$info$slots <- NULL
-  df <- list_as_tibble(spec)
-  if (is_list_a_dataframe(spec$info)) {
-    df <- dplyr::bind_cols(df, list_as_tibble(spec$info))
-  }
+#' @importFrom openproblems.utils list_as_data_frame is_list_a_dataframe
+read_file_format__process_info <- function(spec, path) {
+  df <- list_as_data_frame(spec)
+  
+  # make sure some fields are always present
   df$file_name <- basename(path) %>% str_replace_all("\\.yaml", "")
-  df$description <- df$description %||% NA_character_ %>% as.character()
-  df$summary <- df$summary %||% NA_character_ %>% as.character()
+  df$file_type <- spec$info$format$type %||% NA_character_ |> as.character()
+  df$description <- df$description %||% NA_character_ |> as.character()
+  df$summary <- df$summary %||% NA_character_ |> as.character()
+
   as_tibble(df)
 }
 
 read_file_format__process_h5ad <- function(spec, path) {
   map_df(
     anndata_struct_names,
-    function(struct_name, slot) {
-      slot <- spec$info$slots[[struct_name]]
-      if (is.null(slot)) {
+    function(struct_name) {
+      fields <- spec$info$format[[struct_name]]
+      if (is.null(fields)) {
         return(NULL)
       }
-      df <- map_df(slot, as.data.frame)
+      df <- map_df(fields, as.data.frame)
+
+      # make sure some fields are always present
       df$struct <- struct_name
       df$file_name <- basename(path) %>% str_replace_all("\\.yaml", "")
       df$required <- df$required %||% TRUE %|% TRUE
       df$multiple <- df$multiple %||% FALSE %|% FALSE
+      df$description <- df$description %||% NA_character_ |> as.character()
+      df$summary <- df$summary %||% NA_character_ |> as.character()
+
       as_tibble(df)
     }
   )
 }
 
-#' Read columns from tabular file
-#'
-#' @param spec file spec
-#' @param path Path to yaml file
-#' @return tibble with columns
-#'
-#' @noRd
 read_file_format__process_tabular <- function(spec, path) {
   map_df(
     spec$info$columns,
     function(column) {
-      df <- list_as_tibble(column)
+      df <- list_as_data_frame(column)
+
+      # make sure some fields are always present
       df$file_name <- str_replace_all(path) %>% gsub("\\.yaml", "")
       df$required <- df$required %||% TRUE %|% TRUE
       df$multiple <- df$multiple %||% FALSE %|% FALSE
+      df$description <- df$description %||% NA_character_ |> as.character()
+      df$summary <- df$summary %||% NA_character_ |> as.character()
+
       as_tibble(df)
     }
   )

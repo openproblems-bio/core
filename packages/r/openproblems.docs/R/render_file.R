@@ -31,7 +31,7 @@ render_file_format <- function(spec) {
       paste0("Description:\n\n", spec$info$description)
     }
 
-  openproblems::strip_margin(glue::glue("
+  strip_margin(glue("
     |## File format: {spec$info$label}
     |
     |{spec$info$summary %||% ''}
