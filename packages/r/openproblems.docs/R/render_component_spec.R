@@ -8,10 +8,10 @@
 #' @examples
 #' path <- system.file("extdata", "example_project", "api", "comp_method.yaml", package = "openproblems.docs")
 #'
-#' render_component(path)
-render_component <- function(spec) {
+#' render_component_spec(path)
+render_component_spec <- function(spec) {
   if (is.character(spec)) {
-    spec <- read_api_comp_spec(spec)
+    spec <- read_component_spec(spec)
   }
 
   openproblems::strip_margin(glue::glue("

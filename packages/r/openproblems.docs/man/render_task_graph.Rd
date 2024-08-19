@@ -4,7 +4,7 @@
 \alias{render_task_graph}
 \title{Render the task graph}
 \usage{
-render_task_graph(task_api, root = .task_graph_get_root(task_api))
+render_task_graph(task_api)
 }
 \arguments{
 \item{task_api}{the task api filepath}

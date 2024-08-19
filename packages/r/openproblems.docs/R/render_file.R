@@ -5,12 +5,12 @@
 #'
 #' @export
 #' @examples
-#' \dontrun{
-#' render_file(spec, "path/to/yaml")
-#' }
-render_file <- function(spec) {
+#' path <- system.file("extdata", "example_project", "api", "file_train_h5ad.yaml", package = "openproblems.docs")
+#'
+#' render_component_spec(path)
+render_file_format <- function(spec) {
   if (is.character(spec)) {
-    spec <- read_api_file_format(spec)
+    spec <- read_file_format(spec)
   }
 
   if (!"label" %in% names(spec$info)) {

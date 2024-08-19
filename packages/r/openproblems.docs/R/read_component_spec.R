@@ -7,12 +7,12 @@
 #' @examples
 #' path <- system.file("extdata", "example_project", "api", "comp_method.yaml", package = "openproblems.docs")
 #'
-#' read_api_comp_spec(path)
-read_api_comp_spec <- function(path) {
+#' read_component_spec(path)
+read_component_spec <- function(path) {
   spec_yaml <- openproblems::read_nested_yaml(path)
   list(
-    info = read_api_comp_spec_info(spec_yaml, path),
-    args = read_api_comp_spec_arguments(spec_yaml, path)
+    info = read_component_spec_info(spec_yaml, path),
+    args = read_component_spec_arguments(spec_yaml, path)
   )
 }
 
@@ -23,7 +23,7 @@ read_api_comp_spec <- function(path) {
 #' @return A tibble with component info
 #'
 #' @noRd
-read_api_comp_spec_info <- function(spec_yaml, path) {
+read_component_spec_info <- function(spec_yaml, path) {
   # TEMP: make it readable
   spec_yaml$arguments <- NULL
   spec_yaml$argument_groups <- NULL
@@ -46,7 +46,7 @@ read_api_comp_spec_info <- function(spec_yaml, path) {
 #' @return a df with component arguments
 #'
 #' @noRd
-read_api_comp_spec_arguments <- function(spec_yaml, path) {
+read_component_spec_arguments <- function(spec_yaml, path) {
   arguments <- spec_yaml$arguments
   for (arg_group in spec_yaml$argument_groups) {
     arguments <- c(arguments, arg_group$arguments)
