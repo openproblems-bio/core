@@ -1,7 +1,9 @@
-#' read component spec
+#' Read component spec
 #'
-#' @param path path to comp yaml
-#' @return a list with compontent info and arguments
+#' This function reads a component spec from a yaml file.
+#'
+#' @param path Path to a component spec yaml, usually in `src/api/comp_*.yaml`
+#' @return A list with compontent info and arguments
 #'
 #' @export
 #' @examples

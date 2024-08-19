@@ -2,18 +2,18 @@
 % Please edit documentation in R/read_file_format.R
 \name{read_file_format}
 \alias{read_file_format}
-\title{Read file specification}
+\title{Read file format}
 \usage{
 read_file_format(path)
 }
 \arguments{
-\item{path}{Path to yaml file}
+\item{path}{Path to a file format yaml, usually in \code{src/api/file_*.yaml}}
 }
 \value{
-list with file info and slots
+A list with file format info and slots/columns
 }
 \description{
-Read file specification
+This function reads a file format spec from a yaml file.
 }
 \examples{
 path <- system.file(

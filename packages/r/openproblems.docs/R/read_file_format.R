@@ -1,7 +1,9 @@
-#' Read file specification
+#' Read file format
 #'
-#' @param path Path to yaml file
-#' @return list with file info and slots
+#' This function reads a file format spec from a yaml file.
+#'
+#' @param path Path to a file format yaml, usually in `src/api/file_*.yaml`
+#' @return A list with file format info and slots/columns
 #'
 #' @export
 #' @examples

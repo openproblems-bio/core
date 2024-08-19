@@ -2,18 +2,18 @@
 % Please edit documentation in R/read_component_spec.R
 \name{read_component_spec}
 \alias{read_component_spec}
-\title{read component spec}
+\title{Read component spec}
 \usage{
 read_component_spec(path)
 }
 \arguments{
-\item{path}{path to comp yaml}
+\item{path}{Path to a component spec yaml, usually in \code{src/api/comp_*.yaml}}
 }
 \value{
-a list with compontent info and arguments
+A list with compontent info and arguments
 }
 \description{
-read component spec
+This function reads a component spec from a yaml file.
 }
 \examples{
 path <- system.file(

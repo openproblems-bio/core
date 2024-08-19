@@ -14,9 +14,5 @@
 #'
 #' read_project_config(file)
 read_project_config <- function(file) {
-  project_config <- openproblems::read_nested_yaml(file)
-
-  # ...?
-
-  project_config
+  openproblems::read_nested_yaml(file)
 }
