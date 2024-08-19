@@ -7,7 +7,9 @@
 render_task_readme_qmd(task_metadata, add_instructions = FALSE)
 }
 \arguments{
-\item{task_metadata}{task metadata}
+\item{task_metadata}{Task metadata as returned by \code{read_task_metadata}}
+
+\item{add_instructions}{Add instructions to the README.qmd}
 }
 \value{
 A qmd documentation string

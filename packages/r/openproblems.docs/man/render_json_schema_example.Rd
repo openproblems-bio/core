@@ -16,9 +16,10 @@ YAML string
 This function takes a JSON schema and renders an example YAML string.
 }
 \examples{
+library(openproblems)
 example <- system.file("extdata", "example_schema.json", package = "openproblems.docs")
 
-json_schema <- jsonlite::read_json(example)
+json_schema <- read_nested_yaml(example)
 
 render_json_schema_example(json_schema)
 }
