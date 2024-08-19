@@ -16,7 +16,10 @@ string
 Render file section
 }
 \examples{
-path <- system.file("extdata", "example_project", "api", "file_train_h5ad.yaml", package = "openproblems.docs")
+path <- system.file(
+  "extdata", "example_project", "api", "file_train_h5ad.yaml",
+  package = "openproblems.docs"
+)
 
 spec <- read_file_format(path)
 

@@ -5,7 +5,10 @@
 #'
 #' @export
 #' @examples
-#' path <- system.file("extdata", "example_project", "api", "comp_method.yaml", package = "openproblems.docs")
+#' path <- system.file(
+#'   "extdata", "example_project", "api", "comp_method.yaml",
+#'   package = "openproblems.docs"
+#' )
 #'
 #' spec <- read_component_spec(path)
 #'
