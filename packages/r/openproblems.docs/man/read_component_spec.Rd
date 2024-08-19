@@ -16,7 +16,10 @@ a list with compontent info and arguments
 read component spec
 }
 \examples{
-path <- system.file("extdata", "example_project", "api", "comp_method.yaml", package = "openproblems.docs")
+path <- system.file(
+  "extdata", "example_project", "api", "comp_method.yaml",
+  package = "openproblems.docs"
+)
 
 read_component_spec(path)
 }

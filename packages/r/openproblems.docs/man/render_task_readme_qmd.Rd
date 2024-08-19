@@ -20,9 +20,5 @@ path <- system.file("extdata", "example_project", package = "openproblems.docs")
 
 task_metadata <- read_task_metadata(path)
 
-qmd <- render_task_readme_qmd(task_metadata)
-
-writeLines(qmd, "README.qmd")
-
-system("quarto render README.qmd")
+render_task_readme_qmd(task_metadata)
 }

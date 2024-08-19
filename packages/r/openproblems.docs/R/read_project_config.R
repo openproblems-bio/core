@@ -7,7 +7,10 @@
 #' @export
 #'
 #' @examples
-#' file <- system.file("extdata", "example_project", "_viash.yaml", package = "openproblems.docs")
+#' file <- system.file(
+#'   "extdata", "example_project", "_viash.yaml",
+#'   package = "openproblems.docs"
+#' )
 #'
 #' read_project_config(file)
 read_project_config <- function(file) {

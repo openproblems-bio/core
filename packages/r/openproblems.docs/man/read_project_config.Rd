@@ -13,7 +13,10 @@ read_project_config(file)
 Read project config
 }
 \examples{
-file <- system.file("extdata", "example_project", "_viash.yaml", package = "openproblems.docs")
+file <- system.file(
+  "extdata", "example_project", "_viash.yaml",
+  package = "openproblems.docs"
+)
 
 read_project_config(file)
 }

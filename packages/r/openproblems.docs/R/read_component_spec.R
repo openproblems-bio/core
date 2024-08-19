@@ -5,7 +5,10 @@
 #'
 #' @export
 #' @examples
-#' path <- system.file("extdata", "example_project", "api", "comp_method.yaml", package = "openproblems.docs")
+#' path <- system.file(
+#'   "extdata", "example_project", "api", "comp_method.yaml",
+#'   package = "openproblems.docs"
+#' )
 #'
 #' read_component_spec(path)
 read_component_spec <- function(path) {
@@ -17,7 +20,7 @@ read_component_spec <- function(path) {
 }
 
 #' @importFrom openproblems.utils list_as_data_frame is_list_a_dataframe
-read_component_spec__process_info <- function(spec_yaml, path) {
+read_component_spec__process_info <- function(spec_yaml, path) { # nolint object_length_linter
   df <- list_as_data_frame(spec_yaml)
   if (is_list_a_dataframe(spec_yaml$info)) {
     df <- dplyr::bind_cols(df, list_as_data_frame(spec_yaml$info))

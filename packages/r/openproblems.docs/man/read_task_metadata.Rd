@@ -13,7 +13,7 @@ read_task_metadata(path)
 A list with the api info
 }
 \description{
-Read the api files in a task
+This function reads the api files in a task and returns a list with the api info
 }
 \examples{
 path <- system.file("extdata", "example_project", package = "openproblems.docs")

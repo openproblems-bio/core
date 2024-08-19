@@ -16,7 +16,10 @@ list with file info and slots
 Read file specification
 }
 \examples{
-path <- system.file("extdata", "example_project", "api", "file_train_h5ad.yaml", package = "openproblems.docs")
+path <- system.file(
+  "extdata", "example_project", "api", "file_train_h5ad.yaml",
+  package = "openproblems.docs"
+)
 
 read_file_format(path)
 }

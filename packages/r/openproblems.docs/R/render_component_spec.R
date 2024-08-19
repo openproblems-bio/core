@@ -15,10 +15,16 @@ render_component_spec <- function(spec) {
     spec <- read_component_spec(spec)
   }
 
+  # TODO: determine path
+  path <- ""
+  #prev:
+  # Path: [`src/{spec$info$namespace}`]
+  # (https://github.com/openproblems-bio/openproblems-v2/tree/main/src/{spec$info$namespace})
+
   strip_margin(glue("
     |## Component type: {spec$info$label}
     |
-    |Path: [`src/{spec$info$namespace}`](https://github.com/openproblems-bio/openproblems-v2/tree/main/src/{spec$info$namespace})
+    |{path}
     |
     |{spec$info$summary}
     |
@@ -31,7 +37,7 @@ render_component_spec <- function(spec) {
     |"), symbol = "\\|")
 }
 
-render_component_spec__format_arguments <- function(spec) {
+render_component_spec__format_arguments <- function(spec) { # nolint object_length_linter
   if (nrow(spec$args) == 0) {
     return("")
   }

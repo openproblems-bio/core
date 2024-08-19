@@ -5,7 +5,10 @@
 #'
 #' @export
 #' @examples
-#' path <- system.file("extdata", "example_project", "api", "file_train_h5ad.yaml", package = "openproblems.docs")
+#' path <- system.file(
+#'   "extdata", "example_project", "api", "file_train_h5ad.yaml",
+#'   package = "openproblems.docs"
+#' )
 #'
 #' read_file_format(path)
 read_file_format <- function(path) {
@@ -62,7 +65,7 @@ read_file_format__process_h5ad <- function(spec, path) {
   )
 }
 
-read_file_format__process_tabular <- function(spec, path) {
+read_file_format__process_tabular <- function(spec, path) { # nolint object_length_linter
   map_df(
     spec$info$columns,
     function(column) {

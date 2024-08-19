@@ -1,9 +1,12 @@
 #' Read the api files in a task
 #'
+#' This function reads the api files in a task and returns a list with the api info
+#'
 #' @param path Path to a src directory
 #' @return A list with the api info
 #'
-#' @importFrom cli cli_inform
+#' @importFrom cli cli_inform cli_abort
+#'
 #' @export
 #' @examples
 #' path <- system.file("extdata", "example_project", package = "openproblems.docs")
@@ -19,10 +22,10 @@ read_task_metadata <- function(path) {
   api_dir <- file.path(path, "api")
   proj_conf_file <- file.path(project_path, "_viash.yaml")
   if (!dir.exists(api_dir)) {
-    cli::cli_error("No api directory found")
+    cli::cli_abort("No api directory found")
   }
   if (!file.exists(proj_conf_file)) {
-    cli::cli_error("No project config file found")
+    cli::cli_abort("No project config file found")
   }
 
   cli::cli_inform("Reading project config")
