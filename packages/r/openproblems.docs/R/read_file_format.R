@@ -29,9 +29,9 @@ read_file_format <- function(path) {
 #' @importFrom openproblems.utils list_as_data_frame is_list_a_dataframe
 read_file_format__process_info <- function(spec, path) {
   df <- list_as_data_frame(spec)
-  
+
   # make sure some fields are always present
-  df$file_name <- basename(path) %>% str_replace_all("\\.yaml", "")
+  df$file_name <- basename(path) |> str_replace_all("\\.yaml", "")
   df$file_type <- spec$info$format$type %||% NA_character_ |> as.character()
   df$description <- df$description %||% NA_character_ |> as.character()
   df$summary <- df$summary %||% NA_character_ |> as.character()
@@ -51,7 +51,7 @@ read_file_format__process_h5ad <- function(spec, path) {
 
       # make sure some fields are always present
       df$struct <- struct_name
-      df$file_name <- basename(path) %>% str_replace_all("\\.yaml", "")
+      df$file_name <- basename(path) |> str_replace_all("\\.yaml", "")
       df$required <- df$required %||% TRUE %|% TRUE
       df$multiple <- df$multiple %||% FALSE %|% FALSE
       df$description <- df$description %||% NA_character_ |> as.character()
@@ -69,7 +69,7 @@ read_file_format__process_tabular <- function(spec, path) {
       df <- list_as_data_frame(column)
 
       # make sure some fields are always present
-      df$file_name <- str_replace_all(path) %>% gsub("\\.yaml", "")
+      df$file_name <- str_replace_all(path) |> gsub("\\.yaml", "")
       df$required <- df$required %||% TRUE %|% TRUE
       df$multiple <- df$multiple %||% FALSE %|% FALSE
       df$description <- df$description %||% NA_character_ |> as.character()

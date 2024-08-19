@@ -25,7 +25,7 @@ read_component_spec__process_info <- function(spec_yaml, path) {
   if (is_list_a_dataframe(spec_yaml$info$type_info)) {
     df <- dplyr::bind_cols(df, list_as_data_frame(spec_yaml$info$type_info))
   }
-  df$file_name <- basename(path) %>% str_replace_all("\\.yaml", "")
+  df$file_name <- basename(path) |> str_replace_all("\\.yaml", "")
   as_tibble(df)
 }
 
@@ -39,17 +39,17 @@ read_component_spec_arguments <- function(spec_yaml, path) {
     if (is_list_a_dataframe(arg$info)) {
       df <- dplyr::bind_cols(df, list_as_data_frame(arg$info))
     }
-    df$file_name <- basename(path) %>% str_replace_all("\\.yaml", "")
+    df$file_name <- basename(path) |> str_replace_all("\\.yaml", "")
     df$arg_name <- str_replace_all(arg$name, "^-*", "")
     df$direction <- df$direction %||% "input" %|% "input"
-    df$parent <- df$`__merge__` %||% NA_character_ %>%
-      basename() %>%
+    df$parent <- df$`__merge__` %||% NA_character_ |>
+      basename() |>
       str_replace_all("\\.yaml", "")
     df$required <- df$required %||% FALSE %|% FALSE
-    df$default <- df$default %||% NA_character_ %>% as.character()
-    df$example <- df$example %||% NA_character_ %>% as.character()
-    df$description <- df$description %||% NA_character_ %>% as.character()
-    df$summary <- df$summary %||% NA_character_ %>% as.character()
+    df$default <- df$default %||% NA_character_ |> as.character()
+    df$example <- df$example %||% NA_character_ |> as.character()
+    df$description <- df$description %||% NA_character_ |> as.character()
+    df$summary <- df$summary %||% NA_character_ |> as.character()
     as_tibble(df)
   })
 }

@@ -1,4 +1,3 @@
-# path <- "src/datasets/api/comp_processor_knn.yaml"
 #' Render component section
 #'
 #' @param spec file spec
@@ -8,7 +7,9 @@
 #' @examples
 #' path <- system.file("extdata", "example_project", "api", "comp_method.yaml", package = "openproblems.docs")
 #'
-#' render_component_spec(path)
+#' spec <- read_component_spec(path)
+#'
+#' render_component_spec(spec)
 render_component_spec <- function(spec) {
   if (is.character(spec)) {
     spec <- read_component_spec(spec)
@@ -24,8 +25,43 @@ render_component_spec <- function(spec) {
     |Arguments:
     |
     |:::{{.small}}
-    |{paste(format_comp_args_as_tibble(spec), collapse = '\n')}
+    |{paste(render_component_spec__format_arguments(spec), collapse = '\n')}
     |:::
     |
     |"), symbol = "\\|")
+}
+
+render_component_spec__format_arguments <- function(spec) {
+  if (nrow(spec$args) == 0) {
+    return("")
+  }
+  spec$args |>
+    mutate(
+      tag_str = map2_chr(.data$required, .data$direction, function(required, direction) {
+        out <- c()
+        if (!required) {
+          out <- c(out, "Optional")
+        }
+        if (direction == "output") {
+          out <- c(out, "Output")
+        }
+        if (length(out) == 0) {
+          ""
+        } else {
+          paste0("(_", paste(out, collapse = ", "), "_) ")
+        }
+      })
+    ) |>
+    transmute(
+      Name = paste0("`--", .data$arg_name, "`"),
+      Type = paste0("`", .data$type, "`"),
+      Description = paste0(
+        .data$tag_str,
+        .data$summary |> str_replace_all(" *\n *", " ") |> str_replace_all("\\. *$", ""),
+        ".",
+        ifelse(!is.na(.data$default), paste0(" Default: `", .data$default, "`."), "")
+      )
+    ) |>
+    knitr::kable() |>
+    align_kable_widths(c(25, 8, 60))
 }

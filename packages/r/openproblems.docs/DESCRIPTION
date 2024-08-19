@@ -32,7 +32,6 @@ Imports:
   igraph,
   knitr,
   stringr,
-  magrittr,
   purrr,
   tibble,
   rlang,

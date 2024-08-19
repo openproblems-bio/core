@@ -18,5 +18,7 @@ Render component section
 \examples{
 path <- system.file("extdata", "example_project", "api", "comp_method.yaml", package = "openproblems.docs")
 
-render_component_spec(path)
+spec <- read_component_spec(path)
+
+render_component_spec(spec)
 }
