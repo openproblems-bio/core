@@ -1,0 +1,1 @@
+VIASH_VERSION=0.9.0-RC7 viash export json_schema -f yaml > schemas/defs_viash.yaml

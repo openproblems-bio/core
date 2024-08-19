@@ -1,0 +1,49 @@
+$schema: "https://json-schema.org/draft-07/schema#"
+title: Component specification
+description: |
+  A component type specification file for defining the task API.
+type: object
+required: [namespace, info, test_resources]
+additionalProperties: false
+properties:
+  namespace:
+    "$ref": "defs_common.yaml#/definitions/Namespace"
+  info:
+    type: object
+    description: Metadata of the component.
+    additionalProperties: false
+    required: [type, type_info]
+    properties:
+      type:
+        "$ref": "defs_common.yaml#/definitions/ComponentType"
+      subtype:
+        "$ref": "defs_common.yaml#/definitions/ComponentSubtype"
+      type_info:
+        type: object
+        description: Metadata related to the component type.
+        required: [label, summary, description]
+        properties:
+          label:
+            $ref: "defs_common.yaml#/definitions/Label"
+          summary: 
+            $ref: "defs_common.yaml#/definitions/Summary"
+          description: 
+            $ref: "defs_common.yaml#/definitions/Description"
+  arguments:
+    type: array
+    description: Component-specific parameters.
+    items:
+      anyOf:
+        - $ref: 'defs_common.yaml#/definitions/ComponentAPIFile'
+        - $ref: 'defs_viash.yaml#/definitions/Argument'
+  argument_groups:
+  resources:
+    type: array
+    description: Resources required to run the component.
+    items:
+      "$ref": "defs_viash.yaml#/definitions/Resource"
+  test_resources:
+    type: array
+    description: One or more scripts and resources used to test the component.
+    items:
+      "$ref": "defs_viash.yaml#/definitions/Resource"
