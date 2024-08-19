@@ -30,7 +30,7 @@ format_comp_args_as_tibble <- function(spec) {
       Type = paste0("`", type, "`"),
       Description = paste0(
         tag_str,
-        (summary %|% description) %>% gsub(" *\n *", " ", .) %>% gsub("\\. *$", "", .),
+        (summary %|% description) %>% str_replace_all(" *\n *", " ") %>% str_replace_all("\\. *$", ""),
         ".",
         ifelse(!is.na(default), paste0(" Default: `", default, "`."), "")
       )

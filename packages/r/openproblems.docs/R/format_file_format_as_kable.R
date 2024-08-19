@@ -25,7 +25,7 @@ format_file_format_as_kable <- function(spec) {
         Type = paste0("`", type, "`"),
         Description = paste0(
           tag_str,
-          description %>% gsub(" *\n *", " ", .) %>% gsub("\\. *$", "", .),
+          description %>% str_replace_all(" *\n *", " ") %>% str_replace_all("\\. *$", ""),
           "."
         )
       ) %>%
@@ -50,7 +50,7 @@ format_file_format_as_kable <- function(spec) {
         Type = paste0("`", type, "`"),
         Description = paste0(
           tag_str,
-          description %>% gsub(" *\n *", " ", .) %>% gsub("\\. *$", "", .),
+          description %>% str_replace_all(" *\n *", " ") %>% str_replace_all("\\. *$", ""),
           "."
         )
       ) %>%
