@@ -7,7 +7,7 @@
 #'
 #' @param li A list
 #' @return A tibble
-#' 
+#'
 #' @importFrom tibble as_tibble
 #'
 #' @export

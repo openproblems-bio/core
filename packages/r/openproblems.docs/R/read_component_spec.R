@@ -16,6 +16,7 @@ read_component_spec <- function(path) {
   )
 }
 
+#' @importFrom openproblems.utils list_as_tibble is_list_a_dataframe
 read_component_spec_info <- function(spec_yaml, path) {
   # TEMP: make it readable
   spec_yaml$arguments <- NULL

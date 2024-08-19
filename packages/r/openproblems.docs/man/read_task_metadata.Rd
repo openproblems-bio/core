@@ -18,5 +18,7 @@ Read the api files in a task
 \examples{
 path <- system.file("extdata", "example_project", package = "openproblems.docs")
 
-read_task_metadata(path)
+task_metadata <- read_task_metadata(path)
+
+task_metadata
 }

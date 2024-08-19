@@ -33,7 +33,7 @@ render_json_schema_example <- function(json_schema) {
 # Recursive function to process each property with indentation
 # nolint start object_length_linter
 .render_json_schema_example__process_property <- function(prop, prop_name = NULL, indent_level = 0) {
-# nolint end object_length_linter
+  # nolint end object_length_linter
   if (is.null(prop_name)) {
     prop_name <- ""
   }

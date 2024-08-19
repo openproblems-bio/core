@@ -23,6 +23,7 @@ read_file_format <- function(path) {
   out
 }
 
+#' @importFrom openproblems.utils list_as_tibble is_list_a_dataframe
 read_file_format_info <- function(spec, path) {
   # TEMP: make it readable
   spec$info$slots <- NULL

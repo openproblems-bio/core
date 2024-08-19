@@ -9,10 +9,10 @@ render_task_readme_qmd <- function(task_metadata) {
   task_api_parts <- .render_task_parts(task_metadata)
 
   # TODO: add link to source
-# relative_path <- par[["task_dir"]] %>%
-#   gsub(paste0(dirname(par[["viash_yaml"]]), "/*"), "", .) %>%
-#   gsub("/*$", "", .)
-# source_url <- paste0(viash_info$links$repository, "/", relative_path)
+  # relative_path <- par[["task_dir"]] %>%
+  #   gsub(paste0(dirname(par[["viash_yaml"]]), "/*"), "", .) %>%
+  #   gsub("/*$", "", .)
+  # source_url <- paste0(viash_info$links$repository, "/", relative_path)
 
   qmd_content <- openproblems::strip_margin(glue::glue("
     §---
@@ -44,6 +44,7 @@ render_task_readme_qmd <- function(task_metadata) {
     §"), symbol = "§")
 }
 
+#' @importFrom openproblems.utils list_as_tibble
 .render_task_authors <- function(task_metadata) {
   if (length(task_metadata$authors) == 0) {
     return("")

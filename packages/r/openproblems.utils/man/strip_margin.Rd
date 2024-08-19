@@ -18,8 +18,8 @@ A character vector with the margin stripped.
 Strip margin from a string
 }
 \examples{
-strip_margin("
-  |hello_world:
-  |  this_is: \"a yaml\"
-  |")
+strip_margin(
+  "hello_world:
+  |  this_is: \"a yaml\""
+)
 }

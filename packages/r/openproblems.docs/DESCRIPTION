@@ -1,9 +1,19 @@
 Package: openproblems.docs
 Title: OpenProblems Documentation
 Version: 0.0.0.9000
-Authors@R: 
-    person("Kai", "Waldrant", , "k_waldant@hotmail.com", role = c("aut", "cre"),
-           comment = c(ORCID = "0009-0003-8555-1361"))
+Authors@R: c(
+  person(
+    "Robrecht", "Cannoodt", 
+    email = "rcannood@gmail.com", 
+    role = c("aut", "cre"),
+    comment = c(ORCID = "0000-0003-3641-729X", github = "rcannood")
+  ),
+  person(
+    "Kai", "Waldrant",
+    email ="k_waldant@hotmail.com",
+    role = c("aut"),
+    comment = c(ORCID = "0009-0003-8555-1361")
+  ))
 Description: OpenProblems Documentation R helper functions.
 License: MIT + file LICENSE
 Encoding: UTF-8
@@ -12,20 +22,21 @@ RoxygenNote: 7.3.2
 URL: https://openproblems.bio/documentation, https://github.com/openproblems-bio/core
 BugReports: https://github.com/openproblems-bio/core/issues
 Depends: 
-    R (>= 4.0.0)
+  R (>= 4.0.0)
 Imports:
-    openproblems,
-    cli,
-    dplyr,
-    glue,
-    igraph,
-    knitr,
-    stringr,
-    magrittr,
-    purrr,
-    tibble,
-    rlang,
-    stats
+  openproblems,
+  openproblems.utils,
+  cli,
+  dplyr,
+  glue,
+  igraph,
+  knitr,
+  stringr,
+  magrittr,
+  purrr,
+  tibble,
+  rlang,
+  stats
 Suggests: 
-    testthat (>= 3.0.0)
+  testthat (>= 3.0.0)
 Config/testthat/edition: 3
