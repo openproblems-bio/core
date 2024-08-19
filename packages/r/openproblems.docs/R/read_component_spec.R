@@ -16,13 +16,6 @@ read_component_spec <- function(path) {
   )
 }
 
-#' read component spec
-#'
-#' @param spec_yaml comp yaml
-#' @param path path to comp yaml
-#' @return A tibble with component info
-#'
-#' @noRd
 read_component_spec_info <- function(spec_yaml, path) {
   # TEMP: make it readable
   spec_yaml$arguments <- NULL
@@ -39,13 +32,6 @@ read_component_spec_info <- function(spec_yaml, path) {
   as_tibble(df)
 }
 
-#' read component arguments
-#'
-#' @param spec_yaml comp yaml
-#' @param path path to comp yaml
-#' @return a df with component arguments
-#'
-#' @noRd
 read_component_spec_arguments <- function(spec_yaml, path) {
   arguments <- spec_yaml$arguments
   for (arg_group in spec_yaml$argument_groups) {

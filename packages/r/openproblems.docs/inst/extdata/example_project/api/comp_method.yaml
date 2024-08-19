@@ -3,7 +3,7 @@ info:
   type: method
   type_info:
     label: Method
-    summary: A method.
+    summary: A summary of what the method does.
     description: |
       A method to predict the task effects.
 arguments:

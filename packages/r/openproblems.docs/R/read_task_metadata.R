@@ -8,14 +8,16 @@
 #' @examples
 #' path <- system.file("extdata", "example_project", package = "openproblems.docs")
 #'
-#' read_task_metadata(path)
+#' task_metadata <- read_task_metadata(path)
+#'
+#' task_metadata
 read_task_metadata <- function(path) {
   cli::cli_inform("Looking for project root")
   project_path <- openproblems::find_project_root(path)
   api_dir <- file.path(path, "api")
 
   cli::cli_inform("Reading project config")
-  # TODO: read _viash.yaml
+  proj_conf <- read_project_config(file.path(project_path, "_viash.yaml"))
 
   cli::cli_inform("Reading component yamls")
   comp_yamls <- list.files(api_dir, pattern = "comp_.*\\.ya?ml", full.names = TRUE)
@@ -36,14 +38,17 @@ read_task_metadata <- function(path) {
   cli::cli_inform("Generating task graph")
   task_graph <- .task_graph_generate(file_info, comp_info, comp_args)
   task_graph_root <- .task_graph_get_root(task_graph)
+  task_graph_order <- names(igraph::bfs(task_graph, task_graph_root)$order)
 
   list(
+    proj_conf = proj_conf,
     file_info = file_info,
     file_slots = file_slots,
     comp_info = comp_info,
     comp_args = comp_args,
     task_graph = task_graph,
-    task_graph_root = task_graph_root
+    task_graph_root = task_graph_root,
+    task_graph_order = task_graph_order
   )
 }
 

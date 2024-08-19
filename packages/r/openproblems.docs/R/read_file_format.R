@@ -23,13 +23,6 @@ read_file_format <- function(path) {
   out
 }
 
-#' Read file info
-#'
-#' @param spec file spec
-#' @param path Path to yaml file
-#' @return tibble with file info
-#'
-#' @noRd
 read_file_format_info <- function(spec, path) {
   # TEMP: make it readable
   spec$info$slots <- NULL
@@ -43,13 +36,6 @@ read_file_format_info <- function(spec, path) {
   as_tibble(df)
 }
 
-#' Read anndata slots
-#'
-#' @param spec file spec
-#' @param path Path to yaml file
-#' @return tibble with file slots
-#'
-#' @noRd
 read_file_format__process_h5ad <- function(spec, path) {
   map_df(
     anndata_struct_names,
