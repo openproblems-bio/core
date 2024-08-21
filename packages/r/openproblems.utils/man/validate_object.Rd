@@ -39,7 +39,7 @@ task_config <- list(
   description = "A longer description of the example task",
   authors = list(),
   links = list(
-    repository_url = "foo"
+    repository = "foo"
   ),
   info = list(
     image = "image.svg"
