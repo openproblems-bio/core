@@ -6,10 +6,10 @@
 #'
 #' @export
 #' @examples
-#' strip_margin("
-#'   |hello_world:
-#'   |  this_is: \"a yaml\"
-#'   |")
+#' strip_margin(
+#'   "hello_world:
+#'   |  this_is: \"a yaml\""
+#' )
 strip_margin <- function(text, symbol = "\\|") {
   gsub(paste0("(^|\n)[ \t]*", symbol), "\\1", text)
 }

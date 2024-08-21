@@ -9,7 +9,7 @@
 #' @param obj2 The second object
 #' @return The merged list
 #'
-#' @noRd
+#' @export
 #' @examples
 #' deep_merge(list(a = 1, b = 2), list(b = 3, c = 4))
 #' # $a

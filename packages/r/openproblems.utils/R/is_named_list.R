@@ -3,7 +3,7 @@
 #' @param obj An object
 #' @return TRUE if the object is a named list, FALSE otherwise
 #'
-#' @noRd
+#' @export
 #'
 #' @examples
 #' is_named_list(list(a = 1, b = 2)) # TRUE

@@ -1,5 +1,5 @@
 import os
-from ..io.read_nested_yaml import read_nested_yaml
+from .read_nested_yaml import read_nested_yaml
 from .find_project_root import find_project_root
 
 def read_viash_config(target_config_path, project_root_dir=None):

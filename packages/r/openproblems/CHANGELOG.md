@@ -1,18 +1,17 @@
-# openproblems core R v0.1.0
+# openproblems R v0.1.0
 
 Initial release
 
 ## NEW FUNCTIONALITY
 
-* Input/output:
-  - `read_nested_yaml`: Read a nested YAML file
-
 * Project:
   - `find_project_root`: Find the root of a Viash project
+  - `read_nested_yaml`: Read a nested YAML file
   - `read_viash_config`: Read a viash configuration file (PR #8).
 
-* Utilities:
-  - `strip_margin`: Strip margin from a string
+## MAJOR CHANGES
+
+* Moved helper functions to `openproblems.utils` package (PR #XXX).
 
 ## MINOR CHANGES
 
