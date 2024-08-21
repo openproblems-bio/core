@@ -36,6 +36,26 @@ render_file_format <- function(spec) {
       paste0("Description:\n\n", spec$info$description)
     }
 
+  expected_format_str <-
+    if (is.null(spec$expected_format)) {
+      ""
+    } else {
+      strip_margin(glue(
+        "Format:
+        |
+        |:::{{.small}}
+        |{paste(.render_file_format__example(spec), collapse = '\n')}
+        |:::
+        |
+        |Data structure:
+        |
+        |:::{{.small}}
+        |{paste(.render_file_format__table(spec), collapse = '\n')}
+        |:::
+        |"
+      ))
+    }
+
   strip_margin(glue("
     |## File format: {spec$info$label}
     |
@@ -45,25 +65,16 @@ render_file_format <- function(spec) {
     |
     |{description}
     |
-    |Format:
-    |
-    |:::{{.small}}
-    |{paste(.render_file_format__example(spec), collapse = '\n')}
-    |:::
-    |
-    |Slot description:
-    |
-    |:::{{.small}}
-    |{paste(.render_file_format__table(spec), collapse = '\n')}
-    |:::
-    |
+    |{expected_format_str}
     |"), symbol = "\\|")
 }
 
 .render_file_format__example <- function(spec) {
   format_type <- spec$info$file_type
-  if (format_type == "h5ad") {
-    example_strs <- spec$slots |>
+  if (is.null(format_type)) {
+    ""
+  } else if (format_type == "h5ad") {
+    example_strs <- spec$expected_format |>
       group_by(.data$struct) |>
       summarise(
         str = paste0(unique(.data$struct), ": ", paste0("'", .data$name, "'", collapse = ", "))
@@ -72,7 +83,7 @@ render_file_format <- function(spec) {
 
     c("    AnnData object", paste0("     ", example_strs$str))
   } else if (format_type %in% c("csv", "tsv", "parquet")) {
-    example_strs <- spec$columns |>
+    example_strs <- spec$expected_format |>
       summarise(
         str = paste0("'", .data$name, "'", collapse = ", ")
       )
@@ -85,8 +96,10 @@ render_file_format <- function(spec) {
 
 .render_file_format__table <- function(spec) {
   format_type <- spec$info$file_type
-  if (format_type == "h5ad") {
-    spec$slots |>
+  if (is.null(format_type)) {
+    ""
+  } else if (format_type == "h5ad") {
+    spec$expected_format |>
       mutate(
         tag_str = map_chr(.data$required, function(required) {
           out <- c()
@@ -112,7 +125,7 @@ render_file_format <- function(spec) {
       knitr::kable() |>
       align_kable_widths(c(25, 8, 60))
   } else if (format_type %in% c("csv", "tsv", "parquet")) {
-    spec$columns |>
+    spec$expected_format |>
       mutate(
         tag_str = map_chr(.data$required, function(required) {
           out <- c()

@@ -2,14 +2,14 @@
 #'
 #' This function reads the api files in a task and returns a list with the api info
 #'
-#' @param path Path to a src directory
+#' @param path Path to the API directory of a task
 #' @return A list with the api info
 #'
 #' @importFrom cli cli_inform cli_abort
 #'
 #' @export
 #' @examples
-#' path <- system.file("extdata", "example_project", package = "openproblems.docs")
+#' path <- system.file("extdata", "example_project", "api", package = "openproblems.docs")
 #'
 #' task_metadata <- read_task_metadata(path)
 #'
@@ -17,22 +17,21 @@
 read_task_metadata <- function(path) {
   cli::cli_inform("Looking for project root")
   project_path <- openproblems::find_project_root(path)
+  if (is.null(project_path)) {
+    cli::cli_abort("No project root found")
+  }
 
   cli::cli_inform(paste0("Project root found at '", project_path, "'"))
-  api_dir <- file.path(path, "api")
   proj_conf_file <- file.path(project_path, "_viash.yaml")
-  if (!dir.exists(api_dir)) {
-    cli::cli_abort("No api directory found")
-  }
   if (!file.exists(proj_conf_file)) {
-    cli::cli_abort("No project config file found")
+    cli::cli_abort("No project config file (_viash.yaml) found in project root directory")
   }
 
   cli::cli_inform("Reading project config")
-  proj_conf <- read_project_config(proj_conf_file)
+  proj_conf <- read_task_config(proj_conf_file)
 
   cli::cli_inform("Reading component yamls")
-  comp_yamls <- list.files(api_dir, pattern = "comp_.*\\.ya?ml", full.names = TRUE)
+  comp_yamls <- list.files(path, pattern = "comp_.*\\.ya?ml", full.names = TRUE)
   comps <- map(comp_yamls, read_component_spec)
   comp_info <- map_dfr(comps, "info")
   comp_args <- map_dfr(comps, "args")
@@ -42,7 +41,7 @@ read_task_metadata <- function(path) {
   file_yamls <- openproblems:::resolve_path(
     path = na.omit(unique(comp_args$`__merge__`)),
     project_path = project_path,
-    parent_path = api_dir
+    parent_path = path
   )
   files <- map(file_yamls, read_file_format)
   file_info <- map_dfr(files, "info")

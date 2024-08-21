@@ -15,19 +15,34 @@
 #' read_file_format(path)
 read_file_format <- function(path) {
   spec <- openproblems::read_nested_yaml(path)
+
+  tryCatch(
+    {
+      validate_object(spec, obj_source = file, what = "api_file_format")
+    },
+    error = function(e) {
+      cli::cli_warn(paste0("File format validation failed: ", e$message))
+    }
+  )
+
   out <- list(
     info = read_file_format__process_info(spec, path)
   )
-  # TODO: update
+
+  # detect format types
   format_type <- spec$info$format$type
 
-  if (format_type == "h5ad") {
-    out$info$file_type <- "h5ad"
-    out$slots <- read_file_format__process_h5ad(spec, path)
+  if (!is.null(format_type)) {
+    expected_format <-
+      if (format_type == "h5ad") {
+        read_file_format__process_h5ad(spec, path)
+      } else if (format_type %in% c("tabular", "csv", "tsv")) {
+        read_file_format__process_tabular(spec, path)
+      }
+    expected_format$data_type <- format_type
+    out$expected_format <- expected_format
   }
-  if (format_type %in% c("tabular", "csv", "tsv")) {
-    out$columns <- read_file_format__process_tabular(spec, path)
-  }
+
   out
 }
 

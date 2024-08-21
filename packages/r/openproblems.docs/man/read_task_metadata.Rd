@@ -7,7 +7,7 @@
 read_task_metadata(path)
 }
 \arguments{
-\item{path}{Path to a src directory}
+\item{path}{Path to the API directory of a task}
 }
 \value{
 A list with the api info
@@ -16,7 +16,7 @@ A list with the api info
 This function reads the api files in a task and returns a list with the api info
 }
 \examples{
-path <- system.file("extdata", "example_project", package = "openproblems.docs")
+path <- system.file("extdata", "example_project", "api", package = "openproblems.docs")
 
 task_metadata <- read_task_metadata(path)
 

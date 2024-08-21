@@ -9,6 +9,6 @@
 #' @importFrom tibble as_tibble
 #' @importFrom stringr str_replace_all
 #' @importFrom glue glue
-#' @importFrom openproblems.utils strip_margin
+#' @importFrom openproblems.utils strip_margin validate_object
 ## usethis namespace: end
 NULL

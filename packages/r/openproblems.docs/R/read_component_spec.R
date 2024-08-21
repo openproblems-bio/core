@@ -15,6 +15,16 @@
 #' read_component_spec(path)
 read_component_spec <- function(path) {
   spec_yaml <- openproblems::read_nested_yaml(path)
+
+  tryCatch(
+    {
+      validate_object(spec_yaml, obj_source = file, what = "api_component_spec")
+    },
+    error = function(e) {
+      cli::cli_warn(paste0("Component spec validation failed: ", e$message))
+    }
+  )
+
   list(
     info = read_component_spec__process_info(spec_yaml, path),
     args = read_component_spec_arguments(spec_yaml, path)
