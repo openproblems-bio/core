@@ -14,11 +14,11 @@
 #'
 #' read_file_format(path)
 read_file_format <- function(path) {
-  spec <- openproblems::read_nested_yaml(path)
+  data <- openproblems::read_nested_yaml(path)
 
   tryCatch(
     {
-      validate_object(spec, obj_source = path, what = "api_file_format")
+      validate_object(data, obj_source = path, what = "api_file_format")
     },
     error = function(e) {
       cli::cli_warn(paste0("File format validation failed: ", e$message))
@@ -26,18 +26,18 @@ read_file_format <- function(path) {
   )
 
   out <- list(
-    info = read_file_format__process_info(spec, path)
+    info = read_file_format__process_info(data, path)
   )
 
   # detect format types
-  format_type <- spec$info$format$type
+  format_type <- data$info$format$type
 
   if (!is.null(format_type)) {
     expected_format <-
       if (format_type == "h5ad") {
-        read_file_format__process_h5ad(spec, path)
+        read_file_format__process_h5ad(data, path)
       } else if (format_type %in% c("tabular", "csv", "tsv")) {
-        read_file_format__process_tabular(spec, path)
+        read_file_format__process_tabular(data, path)
       }
     expected_format$data_type <- format_type
     out$expected_format <- expected_format
@@ -47,23 +47,27 @@ read_file_format <- function(path) {
 }
 
 #' @importFrom openproblems.utils list_as_data_frame is_list_a_dataframe
-read_file_format__process_info <- function(spec, path) {
-  df <- list_as_data_frame(spec)
+read_file_format__process_info <- function(data, path) {
+  df <- data.frame(
+    file_name = basename(path) |> str_replace_all("\\.yaml", "")
+  )
+  if (is_list_a_dataframe(data)) {
+    df <- dplyr::bind_cols(df, list_as_data_frame(data))
+  }
 
   # make sure some fields are always present
-  df$file_name <- basename(path) |> str_replace_all("\\.yaml", "")
-  df$file_type <- spec$info$format$type %||% NA_character_ |> as.character()
+  df$file_type <- data$info$format$type %||% NA_character_ |> as.character()
   df$description <- df$description %||% NA_character_ |> as.character()
   df$summary <- df$summary %||% NA_character_ |> as.character()
 
   as_tibble(df)
 }
 
-read_file_format__process_h5ad <- function(spec, path) {
+read_file_format__process_h5ad <- function(data, path) {
   map_dfr(
     anndata_struct_names,
     function(struct_name) {
-      fields <- spec$info$format[[struct_name]]
+      fields <- data$info$format[[struct_name]]
       if (is.null(fields)) {
         return(NULL)
       }
@@ -86,10 +90,14 @@ read_file_format__process_tabular <- function(spec, path) { # nolint object_leng
   map_dfr(
     spec$info$columns,
     function(column) {
-      df <- list_as_data_frame(column)
+      df <- data.frame(
+        file_name = basename(path) |> str_replace_all("\\.yaml", "")
+      )
+      if (is_list_a_dataframe(column)) {
+        df <- dplyr::bind_cols(df, list_as_data_frame(column))
+      }
 
       # make sure some fields are always present
-      df$file_name <- str_replace_all(path) |> gsub("\\.yaml", "")
       df$required <- df$required %||% TRUE %|% TRUE
       df$multiple <- df$multiple %||% FALSE %|% FALSE
       df$description <- df$description %||% NA_character_ |> as.character()

@@ -14,11 +14,11 @@
 #'
 #' read_component_spec(path)
 read_component_spec <- function(path) {
-  spec_yaml <- openproblems::read_nested_yaml(path)
+  data <- openproblems::read_nested_yaml(path)
 
   tryCatch(
     {
-      validate_object(spec_yaml, obj_source = path, what = "api_component_spec")
+      validate_object(data, obj_source = path, what = "api_component_spec")
     },
     error = function(e) {
       cli::cli_warn(paste0("Component spec validation failed: ", e$message))
@@ -26,35 +26,43 @@ read_component_spec <- function(path) {
   )
 
   list(
-    info = read_component_spec__process_info(spec_yaml, path),
-    args = read_component_spec_arguments(spec_yaml, path)
+    info = read_component_spec__process_info(data, path),
+    args = read_component_spec_arguments(data, path)
   )
 }
 
 #' @importFrom openproblems.utils list_as_data_frame is_list_a_dataframe
-read_component_spec__process_info <- function(spec_yaml, path) { # nolint object_length_linter
-  df <- list_as_data_frame(spec_yaml)
-  if (is_list_a_dataframe(spec_yaml$info)) {
-    df <- dplyr::bind_cols(df, list_as_data_frame(spec_yaml$info))
+read_component_spec__process_info <- function(data, path) { # nolint object_length_linter
+  df <- data.frame(
+    file_name = basename(path) |> str_replace_all("\\.yaml", "")
+  )
+  if (is_list_a_dataframe(data)) {
+    df <- dplyr::bind_cols(df, list_as_data_frame(data))
   }
-  if (is_list_a_dataframe(spec_yaml$info$type_info)) {
-    df <- dplyr::bind_cols(df, list_as_data_frame(spec_yaml$info$type_info))
+  if (is_list_a_dataframe(data$info)) {
+    df <- dplyr::bind_cols(df, list_as_data_frame(data$info))
   }
-  df$file_name <- basename(path) |> str_replace_all("\\.yaml", "")
+  if (is_list_a_dataframe(data$info$type_info)) {
+    df <- dplyr::bind_cols(df, list_as_data_frame(data$info$type_info))
+  }
   as_tibble(df)
 }
 
-read_component_spec_arguments <- function(spec_yaml, path) {
-  arguments <- spec_yaml$arguments
-  for (arg_group in spec_yaml$argument_groups) {
+read_component_spec_arguments <- function(data, path) {
+  arguments <- data$arguments
+  for (arg_group in data$argument_groups) {
     arguments <- c(arguments, arg_group$arguments)
   }
   map_dfr(arguments, function(arg) {
-    df <- list_as_data_frame(arg)
+    df <- data.frame(
+      file_name = basename(path) |> str_replace_all("\\.yaml", "")
+    )
+    if (is_list_a_dataframe(arg)) {
+      df <- dplyr::bind_cols(df, list_as_data_frame(arg))
+    }
     if (is_list_a_dataframe(arg$info)) {
       df <- dplyr::bind_cols(df, list_as_data_frame(arg$info))
     }
-    df$file_name <- basename(path) |> str_replace_all("\\.yaml", "")
     df$arg_name <- str_replace_all(arg$name, "^-*", "")
     df$direction <- df$direction %||% "input" %|% "input"
     df$parent <- df$`__merge__` %||% NA_character_ |>
