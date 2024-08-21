@@ -39,7 +39,7 @@ read_component_spec_arguments <- function(spec_yaml, path) {
   for (arg_group in spec_yaml$argument_groups) {
     arguments <- c(arguments, arg_group$arguments)
   }
-  map_df(arguments, function(arg) {
+  map_dfr(arguments, function(arg) {
     df <- list_as_data_frame(arg)
     if (is_list_a_dataframe(arg$info)) {
       df <- dplyr::bind_cols(df, list_as_data_frame(arg$info))

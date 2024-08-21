@@ -3,7 +3,7 @@
 
 ## usethis namespace: start
 #' @importFrom dplyr bind_rows select mutate everything filter transmute group_by summarise arrange
-#' @importFrom purrr map_df pmap_chr map2_chr map_chr map
+#' @importFrom purrr map_dfr map2_chr map_chr map
 #' @importFrom rlang .data %|% %||%
 #' @importFrom stats na.omit
 #' @importFrom tibble as_tibble

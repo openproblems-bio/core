@@ -74,7 +74,7 @@ render_task_readme_qmd <- function(task_metadata, add_instructions = FALSE) {
     return("")
   }
 
-  authors_df <- map_df(task_metadata$authors, function(aut) {
+  authors_df <- map_dfr(task_metadata$authors, function(aut) {
     aut$roles <- paste(aut$roles, collapse = ", ")
     list_as_data_frame(aut)
   })

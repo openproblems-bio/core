@@ -45,14 +45,14 @@ read_file_format__process_info <- function(spec, path) {
 }
 
 read_file_format__process_h5ad <- function(spec, path) {
-  map_df(
+  map_dfr(
     anndata_struct_names,
     function(struct_name) {
       fields <- spec$info$format[[struct_name]]
       if (is.null(fields)) {
         return(NULL)
       }
-      df <- map_df(fields, as.data.frame)
+      df <- map_dfr(fields, as.data.frame)
 
       # make sure some fields are always present
       df$struct <- struct_name
@@ -68,7 +68,7 @@ read_file_format__process_h5ad <- function(spec, path) {
 }
 
 read_file_format__process_tabular <- function(spec, path) { # nolint object_length_linter
-  map_df(
+  map_dfr(
     spec$info$columns,
     function(column) {
       df <- list_as_data_frame(column)
