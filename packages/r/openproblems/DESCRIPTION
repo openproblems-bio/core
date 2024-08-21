@@ -16,10 +16,13 @@ RoxygenNote: 7.3.2
 URL: https://openproblems.bio/documentation, https://github.com/openproblems-bio/core
 BugReports: https://github.com/openproblems-bio/core/issues
 Depends: 
-    R (>= 4.0.0)
+  R (>= 4.0.0)
 Imports:
-    fs,
-    yaml
+  fs,
+  openproblems.utils,
+  yaml
 Suggests: 
-    testthat (>= 3.0.0)
+  testthat (>= 3.0.0)
 Config/testthat/edition: 3
+Remotes:
+  openproblems.utils=local::../openproblems.utils

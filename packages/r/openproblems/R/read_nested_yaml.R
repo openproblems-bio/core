@@ -17,25 +17,30 @@
 #' }
 read_nested_yaml <- function(path, project_path = find_project_root(path)) {
   path <- normalizePath(path, mustWork = FALSE)
-  data <- tryCatch({
-    suppressWarnings(yaml::read_yaml(path))
-  }, error = function(e) {
-    stop("Could not read ", path, ". Error: ", e)
-  })
+  data <- tryCatch(
+    {
+      suppressWarnings(yaml::read_yaml(path))
+    },
+    error = function(e) {
+      stop("Could not read ", path, ". Error: ", e)
+    }
+  )
   process_nested_yaml(data, data, path, project_path)
 }
 
 #' Process the merge keys in a YAML
-#' 
+#'
 #' This function will recursively process the merge keys in a YAML
-#' 
+#'
 #' @param data The YAML data
 #' @param root_data The root YAML data
 #' @param path The path to the current YAML file
 #' @param project_path The path to the root of the Viash project
-#' 
+#'
+#' @importFrom openproblems.utils deep_merge is_named_list
+#'
 #' @noRd
-process_nested_yaml <- function(data, root_data, path, project_path) {
+process_nested_yaml <- function(data, root_data, path, project_path) { # nolint cyclocomp_linter
   if (is_named_list(data)) {
     # check whether children have `__merge__` entries
     processed_data <- lapply(data, function(dat) {
@@ -72,11 +77,14 @@ process_nested_yaml <- function(data, root_data, path, project_path) {
             new_data_path <- normalizePath(new_data_path, mustWork = FALSE)
 
             # read in the new data
-            tryCatch({
-              suppressWarnings(yaml::read_yaml(new_data_path))
-            }, error = function(e) {
-              stop("Could not read ", new_data_path, ". Error: ", e)
-            })
+            tryCatch(
+              {
+                suppressWarnings(yaml::read_yaml(new_data_path))
+              },
+              error = function(e) {
+                stop("Could not read ", new_data_path, ". Error: ", e)
+              }
+            )
           }
         x_root <- x
 

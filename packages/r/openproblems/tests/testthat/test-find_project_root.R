@@ -1,4 +1,3 @@
-
 test_that("find_project_root works", {
   # create a temporary directory with a _viash.yaml file
   # project/
