@@ -286,7 +286,7 @@ definitions:
   DataTypeObject:
     properties:
       type:
-        enum: [object]
+        const: object
       name:
         type: string
         description: A unique identifier.

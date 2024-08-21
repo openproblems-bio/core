@@ -90,5 +90,5 @@ properties:
   links:
     description: "External links of the package."
     $ref: "schema_viash.yaml#/definitions/Links"
-required: [viash_version, name, organization, license, label, keywords, summary, description, references, authors, links, info]
+required: [viash_version, name, organization, license, label, keywords, summary, description, authors, links, info]
 additionalProperties: false
