@@ -1,0 +1,13 @@
+name: Build Viash components
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build:
+    uses: viash-io/viash-actions/.github/workflows/build.yaml@add-working-dir-input
+    with:
+      project_directory: viash/core
