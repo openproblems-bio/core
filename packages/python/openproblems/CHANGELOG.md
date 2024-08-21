@@ -11,6 +11,7 @@ Initial release
 
 * `utils`:
   - `strip_margin`: Strip margin from a string
+  - `deep_merge`: Merge two dictionaries recursively
 
 ## MAJOR CHANGES
 
