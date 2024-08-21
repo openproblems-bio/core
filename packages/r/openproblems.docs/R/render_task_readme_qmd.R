@@ -70,11 +70,13 @@ render_task_readme_qmd <- function(task_metadata, add_instructions = FALSE) {
 
 #' @importFrom openproblems.utils list_as_data_frame
 .render_task_authors <- function(task_metadata) {
-  if (length(task_metadata$authors) == 0) {
+  authors <- task_metadata$proj_conf$authors
+
+  if (length(authors) == 0) {
     return("")
   }
 
-  authors_df <- map_dfr(task_metadata$authors, function(aut) {
+  authors_df <- map_dfr(authors, function(aut) {
     aut$roles <- paste(aut$roles, collapse = ", ")
     list_as_data_frame(aut)
   })
