@@ -1,0 +1,112 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Method",
+  "description": "A method is a specific technique used to solve the task problem and is\ncompared to the control methods and other methods to determine the best\napproach for the task depending on the type of dataset.\n",
+  "type": "object",
+  "required": [
+    "__merge__",
+    "name",
+    "label",
+    "summary",
+    "description",
+    "info",
+    "resources",
+    "references",
+    "links",
+    "runners"
+  ],
+  "properties": {
+    "__merge__": {
+      "$ref": "defs_common.json#/definitions/CompAPIMerge"
+    },
+    "name": {
+      "$ref": "defs_common.json#/definitions/Name"
+    },
+    "status": {
+      "$ref": "defs_viash.json#/definitions/Status"
+    },
+    "label": {
+      "$ref": "defs_common.json#/definitions/Label"
+    },
+    "summary": {
+      "$ref": "defs_common.json#/definitions/Summary"
+    },
+    "description": {
+      "$ref": "defs_common.json#/definitions/Description"
+    },
+    "references": {
+      "$ref": "defs_viash.json#/definitions/References"
+    },
+    "links": {
+      "$ref": "defs_viash.json#/definitions/Links"
+    },
+    "info": {
+      "type": "object",
+      "description": "Metadata of the component.",
+      "properties": {
+        "preferred_normalization": {
+          "$ref": "defs_common.json#/definitions/PreferredNormalization"
+        },
+        "v1": {
+          "$ref": "defs_common.json#/definitions/MigrationV1"
+        },
+        "variants": {
+          "$ref": "defs_common.json#/definitions/MethodVariants"
+        }
+      }
+    },
+    "arguments": {
+      "type": "array",
+      "description": "Component-specific parameters.",
+      "items": {
+        "$ref": "defs_viash.json#/definitions/Argument"
+      }
+    },
+    "argument_groups": {
+      "type": "array",
+      "description": "Component-specific parameter groups.",
+      "items": {
+        "$ref": "defs_viash.json#/definitions/ArgumentGroup"
+      }
+    },
+    "resources": {
+      "type": "array",
+      "description": "Resources required to run the component.",
+      "items": {
+        "$ref": "defs_viash.json#/definitions/Resource"
+      }
+    },
+    "test_resources": {
+      "type": "array",
+      "description": "One or more scripts and resources used to test the component.",
+      "items": {
+        "$ref": "defs_viash.json#/definitions/Resource"
+      }
+    },
+    "engines": {
+      "type": "array",
+      "description": "A list of engine environments to execute target artifacts in.\n\n - NativeEngine\n - DockerEngine\n",
+      "items": {
+        "anyOf": [
+          {
+            "$ref": "defs_common.json#/definitions/DockerEngine"
+          }
+        ]
+      }
+    },
+    "runners": {
+      "type": "array",
+      "description": "A list of runners to execute target artifacts.\n\n - ExecutableRunner\n - NextflowRunner\n",
+      "items": {
+        "anyOf": [
+          {
+            "$ref": "defs_common.json#/definitions/NextflowRunner"
+          },
+          {
+            "$ref": "defs_common.json#/definitions/ExecutableRunner"
+          }
+        ]
+      }
+    }
+  }
+}

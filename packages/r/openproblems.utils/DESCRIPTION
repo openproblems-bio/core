@@ -18,6 +18,8 @@ BugReports: https://github.com/openproblems-bio/core/issues
 Depends: 
   R (>= 4.0.0)
 Imports:
+  jsonlite,
+  jsonvalidate,
   tibble
 Suggests: 
   testthat (>= 3.0.0)

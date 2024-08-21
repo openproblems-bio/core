@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "File format",
+  "description": "A file format specification file for defining the task API.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "type",
+    "example",
+    "info",
+    "label",
+    "summary"
+  ],
+  "properties": {
+    "type": {
+      "const": "file"
+    },
+    "label": {
+      "$ref": "defs_common.json#/definitions/Label"
+    },
+    "summary": {
+      "$ref": "defs_common.json#/definitions/Summary"
+    },
+    "description": {
+      "$ref": "defs_common.json#/definitions/Description"
+    },
+    "example": {
+      "description": "A file in the `resources_test` folder which is an example of this file format.",
+      "type": "string"
+    },
+    "__merge__": {
+      "$ref": "defs_common.json#/definitions/Merge"
+    },
+    "info": {
+      "description": "Structured information. Can be any shape: a string, vector, map or even nested map.",
+      "type": "object",
+      "properties": {
+        "format": {
+          "oneOf": [
+            {
+              "$ref": "defs_common.json#/definitions/H5ADFormat"
+            }
+          ]
+        }
+      }
+    }
+  }
+}
