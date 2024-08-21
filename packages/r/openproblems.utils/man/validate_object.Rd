@@ -37,6 +37,7 @@ task_config <- list(
   keywords = c("example", "task"),
   summary = "An example task",
   description = "A longer description of the example task",
+  authors = list(),
   links = list(
     repository_url = "foo"
   ),
