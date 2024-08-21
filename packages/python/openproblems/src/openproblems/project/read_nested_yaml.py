@@ -15,7 +15,7 @@ def read_nested_yaml(path: str, project_path: str | None = None) -> dict:
     """
     import os
     import yaml
-    from ..project import find_project_root
+    from . import find_project_root
 
     if project_path is None:
         project_path = find_project_root(path)
@@ -30,7 +30,7 @@ def read_nested_yaml(path: str, project_path: str | None = None) -> dict:
     
     return process_nested_yaml(data, data, path, project_path)
 
-def process_nested_yaml(data: dict, root_data: dict, path: str, project_path: str) -> dict:
+def process_nested_yaml(data: any, root_data: dict, path: str, project_path: str) -> dict:
     """
     Process the merge keys in a YAML
 
@@ -47,8 +47,8 @@ def process_nested_yaml(data: dict, root_data: dict, path: str, project_path: st
     """
     import os
     import yaml
-    from ..project.resolve_path import resolve_path
-    from .deep_merge import deep_merge
+    from .resolve_path import resolve_path
+    from ..utils.deep_merge import deep_merge
 
     if isinstance(data, dict):
         processed_data = {k: process_nested_yaml(v, root_data, path, project_path) for k, v in data.items()}

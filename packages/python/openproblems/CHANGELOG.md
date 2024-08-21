@@ -4,11 +4,9 @@ Initial release
 
 ## NEW FUNCTIONALITY
 
-* `io`:
-  - `read_nested_yaml`: Read a nested YAML file
-
 * `project`:
-  - `find_project_root`: Find the root of a Viash project
+  - `find_project_root`: Find the root of a Viash project.
+  - `read_nested_yaml`: Read a nested YAML file.
   - `read_viash_config`: Read a viash configuration file (PR #8).
 
 * `utils`:
