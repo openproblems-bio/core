@@ -5,42 +5,30 @@ description: |
 argument_groups:
   - name: Inputs
     arguments:
-      - type: string
-        name: --task
-        description: Which task the component will be added to.
-        example: denoising
+      - name: --input
+        type: file
+        description: Path to the root directory
+        example: path/to/task_predict_modality
         required: false
-      - type: file
-        name: --task_dir
-        description: Path to the task directory.
-        default: src/tasks/${VIASH_PAR_TASK}
-        required: false
-      - type: file
-        name: --viash_yaml
-        description: |
-          Path to the project config file. Needed for knowing the relative location of a file to the project root.
-        default: "_viash.yaml"
   - name: Outputs
     arguments:
       - type: file
         name: --output
         direction: output
         description: Path to the component directory. Suggested location is `src/tasks/<TASK>/README.md`.
-        default: src/tasks/${VIASH_PAR_TASK}/README.md
+        default: README.md
 resources:
   - type: r_script
     path: script.R
-  - path: /helper_functions/read_api_files.R
 test_resources:
   - type: r_script
     path: test.R
 engines:
   - type: docker
-    image: ghcr.io/openproblems-bio/base_images/r:1.1.0
+    image: openproblems/base_r:1.0.0
     setup:
       - type: r
-        packages: [dplyr, purrr, rlang, glue, yaml, fs, cli, igraph, rmarkdown, processx]
-        github: openproblems-bio/core/packages/r/openproblems
+        github: openproblems-bio/core/packages/r/openproblems.docs
       - type: apt
         packages: [jq, curl]
       - type: docker

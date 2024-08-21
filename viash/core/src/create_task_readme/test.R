@@ -6,12 +6,12 @@ requireNamespace("assertthat", quietly = TRUE)
 task_template <- "/task_template"
 output_path <- "output.md"
 setwd(task_template)
+
 cat(">> Running the script as test\n")
-system(paste(
+out <- processx::run(
   meta["executable"],
-  "--output", output_path,
-  "--task_dir", "src"
-))
+  args = c("--input", ".", "--output", output_path)
+)
 
 cat(">> Checking whether output files exist\n")
 assertthat::assert_that(file.exists(output_path))
