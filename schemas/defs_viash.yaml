@@ -2973,7 +2973,7 @@ definitions:
           Alternatively, this can be used to refer to a code repository present on\
           \ the local hard-drive instead of fetchable remotely, for example during\
           \ development.\n"
-        const: "localwithname"
+        const: "local"
     required:
     - "name"
     - "type"
@@ -2998,7 +2998,7 @@ definitions:
         type: "string"
       type:
         description: "A Git repository where remote dependency components can be found."
-        const: "gitwithname"
+        const: "git"
     required:
     - "name"
     - "uri"
@@ -3025,7 +3025,7 @@ definitions:
       type:
         description: "A GitHub repository where remote dependency components can be\
           \ found."
-        const: "githubwithname"
+        const: "github"
     required:
     - "name"
     - "repo"
@@ -3053,7 +3053,7 @@ definitions:
       type:
         description: "A Viash-Hub repository where remote dependency components can\
           \ be found."
-        const: "viashhubwithname"
+        const: "viashhub"
     required:
     - "name"
     - "repo"
