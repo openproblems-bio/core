@@ -1,4 +1,4 @@
-$schema: "https://json-schema.org/draft-07/schema#"
+$schema: "http://json-schema.org/draft-07/schema#"
 definitions:
   Config:
     description: "A Viash configuration is a YAML file which contains metadata to\

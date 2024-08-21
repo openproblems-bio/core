@@ -1,4 +1,4 @@
-$schema: "https://json-schema.org/draft-07/schema#"
+$schema: "http://json-schema.org/draft-07/schema#"
 title: File format
 description: A file format specification file for defining the task API.
 type: object
