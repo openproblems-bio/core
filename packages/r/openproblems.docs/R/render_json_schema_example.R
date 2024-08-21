@@ -52,7 +52,7 @@ render_json_schema_example <- function(json_schema) {
   }
 
   # add variable
-  out <- c(out, indent_spaces, prop_name, ": ")
+  out <- c(out, indent_spaces, prop_name, ":")
 
   if (prop$type == "object" && "properties" %in% names(prop)) {
     # Handle object with properties
@@ -80,9 +80,9 @@ render_json_schema_example <- function(json_schema) {
       c(out, "\n", next_indent_spaces, "- ", array_items_yaml[-1])
     } else {
       # Handle simple array
-      c(out, "[ ... ]")
+      c(out, " [ ... ]")
     }
   } else {
-    c(out, "...")
+    c(out, " ...")
   }
 }
