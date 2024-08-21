@@ -8,7 +8,7 @@ definitions:
         description: "Run a Viash component on a Nextflow backend engine.\n"
         const: "nextflow"
       directives:
-        $ref: 'defs_viash.yaml#/definitions/NextflowDirectives'
+        $ref: 'schema_viash.yaml#/definitions/NextflowDirectives'
     required: [ type ]
     additionalProperties: false
   ExecutableRunner:
@@ -64,11 +64,11 @@ definitions:
       setup:
         type: array
         items:
-          "$ref": "defs_viash.yaml#/definitions/Requirements"
+          "$ref": "schema_viash.yaml#/definitions/Requirements"
       test_setup:
         type: array
         items:
-          "$ref": "defs_viash.yaml#/definitions/Requirements"
+          "$ref": "schema_viash.yaml#/definitions/Requirements"
     required: [type, image]
     additionalProperties: false
   PreferredNormalization:
@@ -181,7 +181,7 @@ definitions:
         description: The file format specification file.
       direction:
         description: Makes this argument an `input` or an `output`, as in does the file/folder needs to be read or written. `input` by default.
-        $ref: 'defs_viash.yaml#/definitions/Direction'
+        $ref: 'schema_viash.yaml#/definitions/Direction'
       info:
         description: 'Structured information. Can be any shape: a string, vector, map or even nested map.'
         type: object
@@ -189,7 +189,7 @@ definitions:
         description: Make the value for this argument required. If set to `true`, an error will be produced if no value was provided. `false` by default.
         type: boolean
     required: [name, __merge__, direction, required]
-    additionalProperties: false
+    #additionalProperties: false
   H5ADFormat:
     type: object
     required: [type]
@@ -231,7 +231,7 @@ definitions:
       uns:
         type: array
         items:
-          oneOf:
+          anyOf:
             - $ref: "#/definitions/DataTypeSpec"
             - $ref: "#/definitions/DataTypeObject"
   CSVFormat:
@@ -241,6 +241,30 @@ definitions:
     properties:
       type:
         const: csv
+        description: The file format.
+      columns:
+        type: array
+        items:
+          $ref: "#/definitions/DataTypeSpec"
+  TSVFormat:
+    type: object
+    required: [type]
+    additionalProperties: false
+    properties:
+      type:
+        const: tsv
+        description: The file format.
+      columns:
+        type: array
+        items:
+          $ref: "#/definitions/DataTypeSpec"
+  ParquetFormat:
+    type: object
+    required: [type]
+    additionalProperties: false
+    properties:
+      type:
+        const: parquet
         description: The file format.
       columns:
         type: array

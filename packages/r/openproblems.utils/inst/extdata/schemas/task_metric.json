@@ -14,38 +14,38 @@
   ],
   "properties": {
     "__merge__": {
-      "$ref": "defs_common.json#/definitions/CompAPIMerge"
+      "$ref": "schema_openproblems_definitions.json#/definitions/CompAPIMerge"
     },
     "name": {
-      "$ref": "defs_common.json#/definitions/Name"
+      "$ref": "schema_openproblems_definitions.json#/definitions/Name"
     },
     "status": {
-      "$ref": "defs_viash.json#/definitions/Status"
+      "$ref": "schema_viash.json#/definitions/Status"
     },
     "label": {
-      "$ref": "defs_common.json#/definitions/Label"
+      "$ref": "schema_openproblems_definitions.json#/definitions/Label"
     },
     "summary": {
-      "$ref": "defs_common.json#/definitions/Summary"
+      "$ref": "schema_openproblems_definitions.json#/definitions/Summary"
     },
     "description": {
-      "$ref": "defs_common.json#/definitions/Description"
+      "$ref": "schema_openproblems_definitions.json#/definitions/Description"
     },
     "references": {
-      "$ref": "defs_viash.json#/definitions/References"
+      "$ref": "schema_viash.json#/definitions/References"
     },
     "links": {
-      "$ref": "defs_viash.json#/definitions/Links"
+      "$ref": "schema_viash.json#/definitions/Links"
     },
     "info": {
       "type": "object",
       "description": "Metadata of the component.",
       "properties": {
         "preferred_normalization": {
-          "$ref": "defs_common.json#/definitions/PreferredNormalization"
+          "$ref": "schema_openproblems_definitions.json#/definitions/PreferredNormalization"
         },
         "v1": {
-          "$ref": "defs_common.json#/definitions/MigrationV1"
+          "$ref": "schema_openproblems_definitions.json#/definitions/MigrationV1"
         },
         "metrics": {
           "type": "array",
@@ -66,22 +66,22 @@
             ],
             "properties": {
               "name": {
-                "$ref": "defs_common.json#/definitions/Name"
+                "$ref": "schema_openproblems_definitions.json#/definitions/Name"
               },
               "label": {
-                "$ref": "defs_common.json#/definitions/Label"
+                "$ref": "schema_openproblems_definitions.json#/definitions/Label"
               },
               "summary": {
-                "$ref": "defs_common.json#/definitions/Summary"
+                "$ref": "schema_openproblems_definitions.json#/definitions/Summary"
               },
               "description": {
-                "$ref": "defs_common.json#/definitions/Description"
+                "$ref": "schema_openproblems_definitions.json#/definitions/Description"
               },
               "references": {
-                "$ref": "defs_viash.json#/definitions/References"
+                "$ref": "schema_viash.json#/definitions/References"
               },
               "links": {
-                "$ref": "defs_viash.json#/definitions/Links"
+                "$ref": "schema_viash.json#/definitions/Links"
               },
               "min": {
                 "description": "The lowest possible value of the metric.",
@@ -110,7 +110,7 @@
                 "description": "Whether a higher metric value is better."
               },
               "v1": {
-                "$ref": "defs_common.json#/definitions/MigrationV1"
+                "$ref": "schema_openproblems_definitions.json#/definitions/MigrationV1"
               }
             }
           }
@@ -121,28 +121,28 @@
       "type": "array",
       "description": "Component-specific parameters.",
       "items": {
-        "$ref": "defs_viash.json#/definitions/Argument"
+        "$ref": "schema_viash.json#/definitions/Argument"
       }
     },
     "argument_groups": {
       "type": "array",
       "description": "Component-specific parameter groups.",
       "items": {
-        "$ref": "defs_viash.json#/definitions/ArgumentGroup"
+        "$ref": "schema_viash.json#/definitions/ArgumentGroup"
       }
     },
     "resources": {
       "type": "array",
       "description": "Resources required to run the component.",
       "items": {
-        "$ref": "defs_viash.json#/definitions/Resource"
+        "$ref": "schema_viash.json#/definitions/Resource"
       }
     },
     "test_resources": {
       "type": "array",
       "description": "One or more scripts and resources used to test the component.",
       "items": {
-        "$ref": "defs_viash.json#/definitions/Resource"
+        "$ref": "schema_viash.json#/definitions/Resource"
       }
     },
     "engines": {
@@ -151,7 +151,7 @@
       "items": {
         "anyOf": [
           {
-            "$ref": "defs_common.json#/definitions/DockerEngine"
+            "$ref": "schema_openproblems_definitions.json#/definitions/DockerEngine"
           }
         ]
       }
@@ -162,10 +162,10 @@
       "items": {
         "anyOf": [
           {
-            "$ref": "defs_common.json#/definitions/NextflowRunner"
+            "$ref": "schema_openproblems_definitions.json#/definitions/NextflowRunner"
           },
           {
-            "$ref": "defs_common.json#/definitions/ExecutableRunner"
+            "$ref": "schema_openproblems_definitions.json#/definitions/ExecutableRunner"
           }
         ]
       }

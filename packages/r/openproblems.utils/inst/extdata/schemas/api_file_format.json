@@ -6,8 +6,6 @@
   "additionalProperties": false,
   "required": [
     "type",
-    "example",
-    "info",
     "label",
     "summary"
   ],
@@ -16,20 +14,20 @@
       "const": "file"
     },
     "label": {
-      "$ref": "defs_common.json#/definitions/Label"
+      "$ref": "schema_openproblems_definitions.json#/definitions/Label"
     },
     "summary": {
-      "$ref": "defs_common.json#/definitions/Summary"
+      "$ref": "schema_openproblems_definitions.json#/definitions/Summary"
     },
     "description": {
-      "$ref": "defs_common.json#/definitions/Description"
+      "$ref": "schema_openproblems_definitions.json#/definitions/Description"
     },
     "example": {
       "description": "A file in the `resources_test` folder which is an example of this file format.",
       "type": "string"
     },
     "__merge__": {
-      "$ref": "defs_common.json#/definitions/Merge"
+      "$ref": "schema_openproblems_definitions.json#/definitions/Merge"
     },
     "info": {
       "description": "Structured information. Can be any shape: a string, vector, map or even nested map.",
@@ -38,7 +36,16 @@
         "format": {
           "oneOf": [
             {
-              "$ref": "defs_common.json#/definitions/H5ADFormat"
+              "$ref": "schema_openproblems_definitions.json#/definitions/H5ADFormat"
+            },
+            {
+              "$ref": "schema_openproblems_definitions.json#/definitions/CSVFormat"
+            },
+            {
+              "$ref": "schema_openproblems_definitions.json#/definitions/TSVFormat"
+            },
+            {
+              "$ref": "schema_openproblems_definitions.json#/definitions/ParquetFormat"
             }
           ]
         }

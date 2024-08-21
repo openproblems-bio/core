@@ -10,7 +10,7 @@
           "const": "nextflow"
         },
         "directives": {
-          "$ref": "defs_viash.json#/definitions/NextflowDirectives"
+          "$ref": "schema_viash.json#/definitions/NextflowDirectives"
         }
       },
       "required": [
@@ -78,13 +78,13 @@
         "setup": {
           "type": "array",
           "items": {
-            "$ref": "defs_viash.json#/definitions/Requirements"
+            "$ref": "schema_viash.json#/definitions/Requirements"
           }
         },
         "test_setup": {
           "type": "array",
           "items": {
-            "$ref": "defs_viash.json#/definitions/Requirements"
+            "$ref": "schema_viash.json#/definitions/Requirements"
           }
         }
       },
@@ -214,7 +214,7 @@
         },
         "direction": {
           "description": "Makes this argument an `input` or an `output`, as in does the file/folder needs to be read or written. `input` by default.",
-          "$ref": "defs_viash.json#/definitions/Direction"
+          "$ref": "schema_viash.json#/definitions/Direction"
         },
         "info": {
           "description": "Structured information. Can be any shape: a string, vector, map or even nested map.",
@@ -230,8 +230,7 @@
         "__merge__",
         "direction",
         "required"
-      ],
-      "additionalProperties": false
+      ]
     },
     "H5ADFormat": {
       "type": "object",
@@ -292,7 +291,7 @@
         "uns": {
           "type": "array",
           "items": {
-            "oneOf": [
+            "anyOf": [
               {
                 "$ref": "#/definitions/DataTypeSpec"
               },
@@ -313,6 +312,44 @@
       "properties": {
         "type": {
           "const": "csv",
+          "description": "The file format."
+        },
+        "columns": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DataTypeSpec"
+          }
+        }
+      }
+    },
+    "TSVFormat": {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "tsv",
+          "description": "The file format."
+        },
+        "columns": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DataTypeSpec"
+          }
+        }
+      }
+    },
+    "ParquetFormat": {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "const": "parquet",
           "description": "The file format."
         },
         "columns": {

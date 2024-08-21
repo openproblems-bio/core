@@ -55,17 +55,17 @@ properties:
     type: "string"
   references:
     description: "References to external resources related to the package."
-    $ref: "defs_viash.yaml#/definitions/References"
+    $ref: "schema_viash.yaml#/definitions/References"
   authors:
     description: "The authors of the package."
     type: "array"
     items:
-      $ref: "defs_viash.yaml#/definitions/Author"
+      $ref: "schema_viash.yaml#/definitions/Author"
   repositories:
     description: "Common repository definitions for component dependencies."
     type: "array"
     items:
-      $ref: "defs_viash.yaml#/definitions/RepositoryWithName"
+      $ref: "schema_viash.yaml#/definitions/RepositoryWithName"
   keywords:
     description: "The keywords of the package."
     type: "array"
@@ -89,6 +89,6 @@ properties:
     type: "string"
   links:
     description: "External links of the package."
-    $ref: "defs_viash.yaml#/definitions/Links"
+    $ref: "schema_viash.yaml#/definitions/Links"
 required: [viash_version, name, organization, license, label, keywords, summary, description, references, authors, links, info]
 additionalProperties: false

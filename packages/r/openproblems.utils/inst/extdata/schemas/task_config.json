@@ -81,20 +81,20 @@
     },
     "references": {
       "description": "References to external resources related to the package.",
-      "$ref": "defs_viash.json#/definitions/References"
+      "$ref": "schema_viash.json#/definitions/References"
     },
     "authors": {
       "description": "The authors of the package.",
       "type": "array",
       "items": {
-        "$ref": "defs_viash.json#/definitions/Author"
+        "$ref": "schema_viash.json#/definitions/Author"
       }
     },
     "repositories": {
       "description": "Common repository definitions for component dependencies.",
       "type": "array",
       "items": {
-        "$ref": "defs_viash.json#/definitions/RepositoryWithName"
+        "$ref": "schema_viash.json#/definitions/RepositoryWithName"
       }
     },
     "keywords": {
@@ -126,7 +126,7 @@
     },
     "links": {
       "description": "External links of the package.",
-      "$ref": "defs_viash.json#/definitions/Links"
+      "$ref": "schema_viash.json#/definitions/Links"
     }
   },
   "required": [
