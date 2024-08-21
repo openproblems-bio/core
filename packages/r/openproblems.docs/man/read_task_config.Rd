@@ -4,19 +4,19 @@
 \alias{read_task_config}
 \title{Read project config}
 \usage{
-read_task_config(file)
+read_task_config(path)
 }
 \arguments{
-\item{file}{Path to a project config file}
+\item{path}{Path to a project config file}
 }
 \description{
 Read project config
 }
 \examples{
-file <- system.file(
+path <- system.file(
   "extdata", "example_project", "_viash.yaml",
   package = "openproblems.docs"
 )
 
-read_task_config(file)
+read_task_config(path)
 }

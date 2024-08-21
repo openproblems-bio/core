@@ -3,7 +3,7 @@
 #' This function reads a file format spec from a yaml file.
 #'
 #' @param path Path to a file format yaml, usually in `src/api/file_*.yaml`
-#' @return A list with file format info and slots/columns
+#' @return A list with file format info and expected_format
 #'
 #' @export
 #' @examples
@@ -18,7 +18,7 @@ read_file_format <- function(path) {
 
   tryCatch(
     {
-      validate_object(spec, obj_source = file, what = "api_file_format")
+      validate_object(spec, obj_source = path, what = "api_file_format")
     },
     error = function(e) {
       cli::cli_warn(paste0("File format validation failed: ", e$message))

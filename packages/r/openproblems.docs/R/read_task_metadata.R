@@ -31,21 +31,17 @@ read_task_metadata <- function(path) {
   proj_conf <- read_task_config(proj_conf_file)
 
   cli::cli_inform("Reading component yamls")
-  comp_yamls <- list.files(path, pattern = "comp_.*\\.ya?ml", full.names = TRUE)
+  comp_yamls <- list.files(path, pattern = "comp_[a-zA-Z0-9_\\-]*\\.ya?ml", full.names = TRUE, recursive = TRUE)
   comps <- map(comp_yamls, read_component_spec)
   comp_info <- map_dfr(comps, "info")
   comp_args <- map_dfr(comps, "args")
   names(comps) <- comp_info$file_name
 
   cli::cli_inform("Reading file yamls")
-  file_yamls <- openproblems:::resolve_path(
-    path = na.omit(unique(comp_args$`__merge__`)),
-    project_path = project_path,
-    parent_path = path
-  )
+  file_yamls <- list.files(path, pattern = "file_[a-zA-Z0-9_\\-]*\\.ya?ml", full.names = TRUE, recursive = TRUE)
   files <- map(file_yamls, read_file_format)
   file_info <- map_dfr(files, "info")
-  file_slots <- map_dfr(files, "slots")
+  file_expected_format <- map_dfr(files, "expected_format")
   names(files) <- file_info$file_name
 
   cli::cli_inform("Generating task graph")
@@ -58,7 +54,7 @@ read_task_metadata <- function(path) {
     proj_conf = proj_conf,
     files = files,
     file_info = file_info,
-    file_slots = file_slots,
+    file_expected_format = file_expected_format,
     comps = comps,
     comp_info = comp_info,
     comp_args = comp_args,

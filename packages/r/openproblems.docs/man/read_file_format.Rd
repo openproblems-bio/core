@@ -10,7 +10,7 @@ read_file_format(path)
 \item{path}{Path to a file format yaml, usually in \code{src/api/file_*.yaml}}
 }
 \value{
-A list with file format info and slots/columns
+A list with file format info and expected_format
 }
 \description{
 This function reads a file format spec from a yaml file.

@@ -9,7 +9,7 @@ validate_object(
   what = c("api_component_spec", "api_file_format", "task_config", "task_control_method",
     "task_method", "task_metric"),
   obj_source = NULL,
-  engine = c("imjv", "ajv"),
+  engine = c("ajv", "imjv"),
   error = TRUE
 )
 }

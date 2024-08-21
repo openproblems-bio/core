@@ -40,7 +40,7 @@ validate_object <- function(
       "task_metric"
     ),
     obj_source = NULL,
-    engine = c("imjv", "ajv"),
+    engine = c("ajv", "imjv"),
     error = TRUE) {
   what <- match.arg(what)
   engine <- match.arg(engine)

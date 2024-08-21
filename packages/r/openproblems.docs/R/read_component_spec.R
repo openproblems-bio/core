@@ -18,7 +18,7 @@ read_component_spec <- function(path) {
 
   tryCatch(
     {
-      validate_object(spec_yaml, obj_source = file, what = "api_component_spec")
+      validate_object(spec_yaml, obj_source = path, what = "api_component_spec")
     },
     error = function(e) {
       cli::cli_warn(paste0("Component spec validation failed: ", e$message))
