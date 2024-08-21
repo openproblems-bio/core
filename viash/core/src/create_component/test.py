@@ -15,7 +15,6 @@ assert path.exists(task_template), "Task template does not exist"
 
 cmd = [
     meta['executable'],
-    '--task', 'task_template',
     '--type', 'method',
     '--name', 'test_method',
     '--language', 'python',
@@ -48,7 +47,6 @@ with open(conf_f) as f:
     conf_data = yaml.load(f)
 
 assert conf_data['name'] == 'test_method', "Name should be equal to 'test_method'"
-
 
 print('All checks succeeded!', flush=True)
 
