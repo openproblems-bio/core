@@ -9,6 +9,8 @@
 #' @importFrom jsonlite toJSON
 #' @importFrom jsonvalidate json_validate
 #'
+#' @export
+#'
 #' @examples
 #' task_config <- list(
 #'   viash_version = "0.8.0",
@@ -28,19 +30,18 @@
 #' )
 #' validate_object(task_config, what = "task_config")
 validate_object <- function(
-  obj,
-  what = c(
-    "api_component_spec",
-    "api_file_format",
-    "task_config",
-    "task_control_method",
-    "task_method",
-    "task_metric"
-  ),
-  obj_source = NULL,
-  engine = c("imjv", "ajv"),
-  error = TRUE
-) {
+    obj,
+    what = c(
+      "api_component_spec",
+      "api_file_format",
+      "task_config",
+      "task_control_method",
+      "task_method",
+      "task_metric"
+    ),
+    obj_source = NULL,
+    engine = c("imjv", "ajv"),
+    error = TRUE) {
   what <- match.arg(what)
   engine <- match.arg(engine)
 
