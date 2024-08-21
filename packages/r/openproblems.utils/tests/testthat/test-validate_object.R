@@ -8,9 +8,10 @@ test_that("validate_object works", {
     keywords = c("example", "task"),
     summary = "An example task",
     description = "A longer description of the example task",
-    references = list(),
     authors = list(),
-    links = list(),
+    links = list(
+      repository = "foo"
+    ),
     info = list(
       image = "image.svg"
     )
