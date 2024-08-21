@@ -48,7 +48,7 @@ read_component_spec__process_info <- function(data, path) { # nolint object_leng
   as_tibble(df)
 }
 
-read_component_spec__process_arguments <- function(data, path) {
+read_component_spec__process_arguments <- function(data, path) { # nolint object_length_linter
   arguments <- data$arguments
   for (arg_group in data$argument_groups) {
     arguments <- c(arguments, arg_group$arguments)
