@@ -3,7 +3,7 @@ namespace: "common"
 description: Sync test resources to the local filesystem
 usage: |
   sync_resources
-  sync_resources --input _viash.yaml --output resources_test
+  sync_resources --input _viash.yaml --output .
 arguments:
   - name: "--input"
     alternatives: ["-i"]
@@ -13,9 +13,9 @@ arguments:
   - name: "--output"
     alternatives: ["-o"]
     type: file
-    default: resources_test
+    default: .
     direction: output
-    description: "Path to the test resource directory."
+    description: "Path to the directory where the resources will be synced to."
   - name: "--quiet"
     type: boolean_true
     description: "Displays the operations that would be performed using the specified command without actually running them."
@@ -34,7 +34,7 @@ resources:
     path: script.sh
 test_resources:
   - type: bash_script
-    path: run_test.sh
+    path: test.sh
 engines:
   - type: docker
     image: "amazon/aws-cli:2.17.11"
@@ -44,7 +44,7 @@ engines:
       - type: docker
         run : |
           wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/bin/yq && \
-          chmod +x /usr/bin/yq
+            chmod +x /usr/bin/yq
 runners:
   - type: executable
   - type: nextflow
