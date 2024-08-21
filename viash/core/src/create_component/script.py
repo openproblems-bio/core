@@ -4,7 +4,7 @@ import sys
 import os
 import re
 from openproblems.utils import strip_margin
-from openproblems.io import read_nested_yaml
+from openproblems.project import read_nested_yaml, find_project_root
 
 ## VIASH START
 par = {
@@ -12,8 +12,8 @@ par = {
   "type": "method",
   "language": "python",
   "name": "new_comp",
-  "output": "src/tasks/denoising/methods/new_comp",
-  "api_file": "src/tasks/denoising/api/comp_method.yaml",
+  "output": "src/methods/new_comp",
+  "api_file": "src/api/comp_method.yaml",
   "viash_yaml": "_viash.yaml"
 }
 ## VIASH END
@@ -165,7 +165,7 @@ def set_par_values(config) -> None:
       value = arg.get("default", arg.get("example", "..."))
     elif arg.get("direction", "input") == "input":
       key_strip = key.replace("input_", "")
-      value = f'resources_test/{par["task"]}/pancreas/{key_strip}.h5ad'
+      value = f'resources_test/.../{key_strip}.h5ad'
     else:
       key_strip = key.replace("output_", "")
       value = f'{key_strip}.h5ad'
@@ -394,8 +394,7 @@ def main(par):
   ## CHECK API FILE
   print("Check API file", flush=True)
   api_file = Path(par["api_file"])
-  viash_yaml = Path(par["viash_yaml"])
-  project_dir = viash_yaml.parent
+  project_dir = find_project_root(api_file)
   if not api_file.exists():
     comp_types = [x.with_suffix("").name.removeprefix("comp_") for x in api_file.parent.glob("**/comp_*.y*ml")]
     list.sort(comp_types)
