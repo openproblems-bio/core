@@ -28,7 +28,10 @@ engines:
     image: openproblems/base_r:1.0.0
     setup:
       - type: r
-        github: openproblems-bio/core/packages/r/openproblems.docs
+        github:
+          - openproblems-bio/core/packages/r/openproblems.utils
+          - openproblems-bio/core/packages/r/openproblems
+          - openproblems-bio/core/packages/r/openproblems.docs
       - type: apt
         packages: [jq, curl]
       - type: docker
@@ -40,11 +43,8 @@ engines:
             dpkg -i /opt/quarto.deb && \
             rm /opt/quarto.deb
     test_setup:
-      - type: apt
-        packages: [git]
-      - type: docker
-        run: |
-          git clone https://github.com/openproblems-bio/task_template.git /task_template
+      - type: r
+        packages: processx
 runners:
   - type: executable
   - type: nextflow
