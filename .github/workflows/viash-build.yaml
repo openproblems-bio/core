@@ -16,7 +16,7 @@ on:
 
 jobs:
   build:
-    uses:  viash-io/viash-actions/.github/workflows/build.yaml@add-working-dir-input
+    uses: viash-io/viash-actions/.github/workflows/build.yaml@add-working-dir-input
     with:
       version: ${{ github.event.inputs.version }}
       project_directory: viash/core
