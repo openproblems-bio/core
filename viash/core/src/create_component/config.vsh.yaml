@@ -60,10 +60,7 @@ engines:
         packages: git
       - type: docker
         run: |
-          git clone https://github.com/openproblems-bio/task_template.git
-      - type: python
-        pypi: 
-        - ruamel.yaml
+          git clone https://github.com/openproblems-bio/task_template.git /opt/task_template
 runners:
   - type: executable
   - type: nextflow

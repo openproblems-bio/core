@@ -1,6 +1,6 @@
 import subprocess
 from os import path
-from ruamel.yaml import YAML
+import yaml
 
 ## VIASH START
 meta = {
@@ -8,7 +8,7 @@ meta = {
 }
 ## VIASH END
 
-task_template = "/task_template"
+task_template = "/opt/task_template"
 output_path = f"{task_template}/src/methods/test_method"
 
 assert path.exists(task_template), "Task template does not exist"
@@ -42,9 +42,8 @@ script_f = path.join(output_path, "script.py")
 assert path.exists(script_f), "Script file does not exist"
 
 print('>> Checking file contents', flush=True)
-yaml = YAML(typ='safe', pure=True)
 with open(conf_f) as f:
-    conf_data = yaml.load(f)
+    conf_data = yaml.safe_load(f)
 
 assert conf_data['name'] == 'test_method', "Name should be equal to 'test_method'"
 
