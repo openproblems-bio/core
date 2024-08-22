@@ -7,7 +7,7 @@ on:
   pull_request:
 
 jobs:
-  build:
+  test:
     uses: viash-io/viash-actions/.github/workflows/test.yaml@add-working-dir-input
     with:
       project_directory: viash/core
