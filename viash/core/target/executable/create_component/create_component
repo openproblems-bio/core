@@ -494,10 +494,10 @@ function ViashDockerfile {
     cat << 'VIASHDOCKER'
 FROM openproblems/base_python:1.0.0
 ENTRYPOINT []
-LABEL org.opencontainers.image.description="Companion container for running component common create_component"
-LABEL org.opencontainers.image.created="2024-08-23T12:18:54Z"
+LABEL org.opencontainers.image.description="Companion container for running component create_component"
+LABEL org.opencontainers.image.created="2024-08-23T12:36:50Z"
 LABEL org.opencontainers.image.source="https://github.com/openproblems-bio/core"
-LABEL org.opencontainers.image.revision="48e496cdcbdda8d101f8a48e41e8f9d250850071"
+LABEL org.opencontainers.image.revision="7add94e9f2eafa9e76ffed58ace6a5fdf1966637"
 LABEL org.opencontainers.image.version="build_main"
 
 VIASHDOCKER
@@ -789,7 +789,7 @@ if [[ "$VIASH_ENGINE_TYPE" == "docker" ]]; then
 
   # determine docker image id
   if [[ "$VIASH_ENGINE_ID" == 'docker' ]]; then
-    VIASH_DOCKER_IMAGE_ID='ghcr.io/openproblems-bio/core/common/create_component:build_main'
+    VIASH_DOCKER_IMAGE_ID='ghcr.io/openproblems-bio/core/create_component:build_main'
   fi
 
   # print dockerfile

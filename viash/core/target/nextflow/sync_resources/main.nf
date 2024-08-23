@@ -2799,7 +2799,6 @@ meta = [
   "resources_dir": moduleDir.toRealPath().normalize(),
   "config": processConfig(readJsonBlob('''{
   "name" : "sync_resources",
-  "namespace" : "common",
   "version" : "build_main",
   "argument_groups" : [
     {
@@ -3001,9 +3000,9 @@ meta = [
     "config" : "/home/runner/work/core/core/viash/core/src/sync_resources/config.vsh.yaml",
     "runner" : "nextflow",
     "engine" : "docker",
-    "output" : "target/nextflow/common/sync_resources",
+    "output" : "target/nextflow/sync_resources",
     "viash_version" : "0.9.0-RC7",
-    "git_commit" : "48e496cdcbdda8d101f8a48e41e8f9d250850071",
+    "git_commit" : "7add94e9f2eafa9e76ffed58ace6a5fdf1966637",
     "git_remote" : "https://github.com/openproblems-bio/core"
   },
   "package_config" : {
@@ -3470,7 +3469,7 @@ meta["defaults"] = [
   directives: readJsonBlob('''{
   "container" : {
     "registry" : "ghcr.io",
-    "image" : "openproblems-bio/core/common/sync_resources",
+    "image" : "openproblems-bio/core/sync_resources",
     "tag" : "build_main"
   },
   "tag" : "$id"

@@ -1,5 +1,4 @@
 name: "sync_resources"
-namespace: "common"
 description: Sync test resources to the local filesystem
 usage: |
   sync_resources
