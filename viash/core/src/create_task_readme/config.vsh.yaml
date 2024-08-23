@@ -28,6 +28,8 @@ engines:
     image: openproblems/base_r:1.0.0
     setup:
       - type: r
+        cran:
+          - processx
         github:
           - openproblems-bio/core/packages/r/openproblems.utils
           - openproblems-bio/core/packages/r/openproblems
@@ -42,9 +44,6 @@ engines:
             curl -sL "$download_url" -o /opt/quarto.deb && \
             dpkg -i /opt/quarto.deb && \
             rm /opt/quarto.deb
-    test_setup:
-      - type: r
-        packages: processx
 runners:
   - type: executable
   - type: nextflow

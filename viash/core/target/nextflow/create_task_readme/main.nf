@@ -2944,6 +2944,9 @@ meta = [
       "setup" : [
         {
           "type" : "r",
+          "cran" : [
+            "processx"
+          ],
           "github" : [
             "openproblems-bio/core/packages/r/openproblems.utils",
             "openproblems-bio/core/packages/r/openproblems",
@@ -2965,15 +2968,6 @@ meta = [
             "release_info=$(curl -s https://api.github.com/repos/quarto-dev/quarto-cli/releases/latest) && \\\\\n  download_url=$(printf \\"%s\\" \\"$release_info\\" | jq -r '.assets[] | select(.name | test(\\"quarto-.*-linux-amd64.deb\\")) | .browser_download_url') && \\\\\n  curl -sL \\"$download_url\\" -o /opt/quarto.deb && \\\\\n  dpkg -i /opt/quarto.deb && \\\\\n  rm /opt/quarto.deb\n"
           ]
         }
-      ],
-      "test_setup" : [
-        {
-          "type" : "r",
-          "packages" : [
-            "processx"
-          ],
-          "bioc_force_install" : false
-        }
       ]
     }
   ],
@@ -2983,7 +2977,7 @@ meta = [
     "engine" : "docker",
     "output" : "target/nextflow/create_task_readme",
     "viash_version" : "0.9.0-RC7",
-    "git_commit" : "66ca827c6f18be4e09d220dc0c5d3a08c6352f57",
+    "git_commit" : "41d7df20556868c9d222f515e87b60e7c6c5a567",
     "git_remote" : "https://github.com/openproblems-bio/core"
   },
   "package_config" : {
