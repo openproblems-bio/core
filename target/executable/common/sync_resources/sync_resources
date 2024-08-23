@@ -183,7 +183,7 @@ function ViashHelp {
   echo "    -i, --input"
   echo "        type: file, file must exist"
   echo "        default: _viash.yaml"
-  echo "        Path _viash.yaml file with s3 path to resources."
+  echo "        Path to the _viash.yaml project configuration file."
   echo ""
   echo "Outputs:"
   echo "    -o, --output"
@@ -495,9 +495,9 @@ RUN wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
   chmod +x /usr/bin/yq
 
 LABEL org.opencontainers.image.description="Companion container for running component common sync_resources"
-LABEL org.opencontainers.image.created="2024-08-23T06:34:05Z"
+LABEL org.opencontainers.image.created="2024-08-23T12:12:19Z"
 LABEL org.opencontainers.image.source="https://github.com/openproblems-bio/core"
-LABEL org.opencontainers.image.revision="7b1f404899e0894fdbefd1b2ccb8c9b84d8e789f"
+LABEL org.opencontainers.image.revision="48e496cdcbdda8d101f8a48e41e8f9d250850071"
 LABEL org.opencontainers.image.version="build_main"
 
 VIASHDOCKER
@@ -1141,7 +1141,7 @@ if [ "\$par_delete" == "true" ]; then
 fi
 
 if [ ! -z \${par_exclude+x} ]; then
-  IFS=":"
+  IFS=";"
   for var in \$par_exclude; do
     unset IFS
     extra_params+=( "--exclude" "\$var" )
