@@ -2808,8 +2808,8 @@ meta = [
           "type" : "file",
           "name" : "--input",
           "description" : "Path to the root directory",
-          "example" : [
-            "path/to/task_predict_modality"
+          "default" : [
+            "."
           ],
           "must_exist" : true,
           "create_parent" : true,
@@ -2826,7 +2826,7 @@ meta = [
         {
           "type" : "file",
           "name" : "--output",
-          "description" : "Path to the component directory. Suggested location is `src/tasks/<TASK>/README.md`.",
+          "description" : "Path to the component directory. Suggested location is `README.md`.",
           "default" : [
             "README.md"
           ],
@@ -2983,7 +2983,7 @@ meta = [
     "engine" : "docker",
     "output" : "target/nextflow/create_task_readme",
     "viash_version" : "0.9.0-RC7",
-    "git_commit" : "7add94e9f2eafa9e76ffed58ace6a5fdf1966637",
+    "git_commit" : "66ca827c6f18be4e09d220dc0c5d3a08c6352f57",
     "git_remote" : "https://github.com/openproblems-bio/core"
   },
   "package_config" : {

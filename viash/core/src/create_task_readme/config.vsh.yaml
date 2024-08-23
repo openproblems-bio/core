@@ -7,15 +7,16 @@ argument_groups:
       - name: --input
         type: file
         description: Path to the root directory
-        example: path/to/task_predict_modality
+        default: "."
         required: false
   - name: Outputs
     arguments:
       - type: file
         name: --output
         direction: output
-        description: Path to the component directory. Suggested location is `src/tasks/<TASK>/README.md`.
+        description: Path to the component directory. Suggested location is `README.md`.
         default: README.md
+        required: false
 resources:
   - type: r_script
     path: script.R

@@ -178,15 +178,14 @@ function ViashHelp {
   echo "Inputs:"
   echo "    --input"
   echo "        type: file, file must exist"
-  echo "        example: path/to/task_predict_modality"
+  echo "        default: ."
   echo "        Path to the root directory"
   echo ""
   echo "Outputs:"
   echo "    --output"
   echo "        type: file, output, file must exist"
   echo "        default: README.md"
-  echo "        Path to the component directory. Suggested location is"
-  echo "        \`src/tasks/<TASK>/README.md\`."
+  echo "        Path to the component directory. Suggested location is \`README.md\`."
 }
 
 # initialise variables
@@ -478,9 +477,9 @@ RUN release_info=$(curl -s https://api.github.com/repos/quarto-dev/quarto-cli/re
   rm /opt/quarto.deb
 
 LABEL org.opencontainers.image.description="Companion container for running component create_task_readme"
-LABEL org.opencontainers.image.created="2024-08-23T12:36:50Z"
+LABEL org.opencontainers.image.created="2024-08-23T13:41:19Z"
 LABEL org.opencontainers.image.source="https://github.com/openproblems-bio/core"
-LABEL org.opencontainers.image.revision="7add94e9f2eafa9e76ffed58ace6a5fdf1966637"
+LABEL org.opencontainers.image.revision="66ca827c6f18be4e09d220dc0c5d3a08c6352f57"
 LABEL org.opencontainers.image.version="build_main"
 
 VIASHDOCKER
@@ -838,6 +837,9 @@ if [ -z ${VIASH_META_TEMP_DIR+x} ]; then
 fi
 
 # filling in defaults
+if [ -z ${VIASH_PAR_INPUT+x} ]; then
+  VIASH_PAR_INPUT="."
+fi
 if [ -z ${VIASH_PAR_OUTPUT+x} ]; then
   VIASH_PAR_OUTPUT="README.md"
 fi
