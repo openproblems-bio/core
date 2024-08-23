@@ -8,6 +8,6 @@ on:
 
 jobs:
   test:
-    uses: viash-io/viash-actions/.github/workflows/test.yaml@add-working-dir-input
+    uses: viash-io/viash-actions/.github/workflows/test.yaml@v6
     with:
       project_directory: viash/core
