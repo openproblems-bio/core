@@ -101,7 +101,7 @@ read_task_metadata <- function(path) {
       )
   ) |>
     select("from", "to", everything()) |>
-    mutate(str = paste0("  ", clean_id(.data$from), .data$arrow, clean_id(.data$to))) %>%
+    mutate(str = paste0("  ", clean_id(.data$from), .data$arrow, clean_id(.data$to))) |>
     filter(!is.na(.data$from), !is.na(.data$to))
 
   igraph::graph_from_data_frame(

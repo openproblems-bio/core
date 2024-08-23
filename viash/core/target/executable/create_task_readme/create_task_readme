@@ -478,9 +478,9 @@ RUN release_info=$(curl -s https://api.github.com/repos/quarto-dev/quarto-cli/re
   rm /opt/quarto.deb
 
 LABEL org.opencontainers.image.description="Companion container for running component create_task_readme"
-LABEL org.opencontainers.image.created="2024-08-23T15:30:12Z"
+LABEL org.opencontainers.image.created="2024-08-23T18:03:55Z"
 LABEL org.opencontainers.image.source="https://github.com/openproblems-bio/core"
-LABEL org.opencontainers.image.revision="988cb2df40ed3760c4d5d344eab188f09efb7d97"
+LABEL org.opencontainers.image.revision="cd75850a98e8ae59c71aa7d49858e3e6a36bf223"
 LABEL org.opencontainers.image.version="build_main"
 
 VIASHDOCKER

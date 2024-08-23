@@ -3002,7 +3002,7 @@ meta = [
     "engine" : "docker",
     "output" : "target/nextflow/sync_resources",
     "viash_version" : "0.9.0-RC7",
-    "git_commit" : "988cb2df40ed3760c4d5d344eab188f09efb7d97",
+    "git_commit" : "cd75850a98e8ae59c71aa7d49858e3e6a36bf223",
     "git_remote" : "https://github.com/openproblems-bio/core"
   },
   "package_config" : {
