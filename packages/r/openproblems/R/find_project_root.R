@@ -12,7 +12,7 @@
 #' \dontrun{
 #' find_project_root("/path/to/project/subdir")
 #' }
-find_project_root <- function(path) {
+find_project_root <- function(path = ".") {
   path <- fs::path_abs(fs::path_norm(path))
 
   while (path != "/" && !fs::file_exists(fs::path(path, "_viash.yaml"))) {

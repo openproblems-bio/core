@@ -1,4 +1,4 @@
-def find_project_root(path: str) -> str | None:
+def find_project_root(path: str = ".") -> str | None:
     """
     Find the root of a Viash project
 

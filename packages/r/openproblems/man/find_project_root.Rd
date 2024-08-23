@@ -4,7 +4,7 @@
 \alias{find_project_root}
 \title{Find the root of a Viash project}
 \usage{
-find_project_root(path)
+find_project_root(path = ".")
 }
 \arguments{
 \item{path}{Path to a file or directory}
