@@ -10,7 +10,7 @@ argument_groups:
       - name: "--input"
         alternatives: ["-i"]
         type: file
-        description: "Path _viash.yaml file with s3 path to resources."
+        description: "Path to the _viash.yaml project configuration file."
         default: _viash.yaml
   - name: Outputs
     arguments:

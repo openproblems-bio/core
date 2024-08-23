@@ -2,6 +2,7 @@
 
 ## VIASH START
 par_input='_viash.yaml'
+par_output='.'
 ## VIASH END
 
 extra_params=( )
@@ -17,7 +18,7 @@ if [ "$par_delete" == "true" ]; then
 fi
 
 if [ ! -z ${par_exclude+x} ]; then
-  IFS=":"
+  IFS=";"
   for var in $par_exclude; do
     unset IFS
     extra_params+=( "--exclude" "$var" )
