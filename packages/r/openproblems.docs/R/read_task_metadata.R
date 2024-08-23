@@ -15,7 +15,7 @@
 #'
 #' task_metadata
 read_task_metadata <- function(path) {
-  cli::cli_inform("Looking for project root")
+  cli::cli_inform(paste0("Looking for project root in '", path, "'"))
   project_path <- openproblems::find_project_root(path)
   if (is.null(project_path)) {
     cli::cli_abort("No project root found")
