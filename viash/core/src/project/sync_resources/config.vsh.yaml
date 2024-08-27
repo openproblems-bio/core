@@ -1,4 +1,5 @@
 name: "sync_resources"
+namespace: "project"
 description: Sync test resources to the local filesystem
 usage: |
   sync_resources
