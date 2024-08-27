@@ -1,7 +1,7 @@
 name: create_component
+namespace: project
 description: |
   Create a new component
-  
 usage:
   create_component --type method --language r --name foo
   create_component --type metric --language python --name bar
