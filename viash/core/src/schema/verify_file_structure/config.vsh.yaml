@@ -1,6 +1,7 @@
 name: verify_data_structure
 namespace: schema
-description: Checks if the dataset has the necessary data structures as defined in a schema.
+summary: Checks a file against a schema
+description: Checks if the file has the necessary data structures as defined in a schema.
 argument_groups:
   - name:  Inputs
     arguments:

@@ -14,24 +14,26 @@ def file_raw(tmp_path):
     "label": "Raw dataset",
     "summary": "An unprocessed dataset as output by a dataset loader.",
     "description": "This dataset contains raw counts and metadata as output by a dataset loader.",
-    "format": {
-      "type": "h5ad",
-      "layers": [
-        {
-          "type": "integer",
-          "name": "counts",
-          "description": "Raw counts",
-          "required": True
-        }
-      ],
-      "obs": [
-        {
-          "type": "string",
-          "name": "celltype",
-          "description": "Classification of the cell type based on its characteristics and function within the tissue or organism.",
-          "required": True
-        }
-      ]
+    "uns": {
+      "format": {
+        "type": "h5ad",
+        "layers": [
+          {
+            "type": "integer",
+            "name": "counts",
+            "description": "Raw counts",
+            "required": True
+          }
+        ],
+        "obs": [
+          {
+            "type": "string",
+            "name": "celltype",
+            "description": "Classification of the cell type based on its characteristics and function within the tissue or organism.",
+            "required": True
+          }
+        ]
+      }
     }
   }
   file_raw_path = tmp_path / "file_raw.yaml"
