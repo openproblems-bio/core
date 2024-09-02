@@ -14,7 +14,7 @@ def file_raw(tmp_path):
     "label": "Raw dataset",
     "summary": "An unprocessed dataset as output by a dataset loader.",
     "description": "This dataset contains raw counts and metadata as output by a dataset loader.",
-    "uns": {
+    "info": {
       "format": {
         "type": "h5ad",
         "layers": [
