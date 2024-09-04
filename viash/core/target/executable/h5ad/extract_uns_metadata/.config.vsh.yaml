@@ -1,82 +1,40 @@
-name: "create_component"
-namespace: "project"
+name: "extract_uns_metadata"
+namespace: "h5ad"
 version: "build_main"
 argument_groups:
 - name: "Inputs"
   arguments:
   - type: "file"
     name: "--input"
-    description: "Path to the root of the project."
+    description: "A h5ad file."
     info: null
-    default:
-    - "."
+    must_exist: true
+    create_parent: true
+    required: true
+    direction: "input"
+    multiple: false
+    multiple_sep: ";"
+  - type: "file"
+    name: "--schema"
+    description: "An optional schema with which to annotate the output"
+    info: null
     must_exist: true
     create_parent: true
     required: false
     direction: "input"
     multiple: false
     multiple_sep: ";"
-  - type: "file"
-    name: "--api_file"
-    description: "Which API file to use. Defaults to `src/api/comp_<TYPE>.yaml`.\n\
-      In tasks with different subtypes of method, this location might not exist and\
-      \ you might need\nto manually specify a different API file to inherit from.\n"
-    info: null
-    default:
-    - "src/api/comp_${VIASH_PAR_TYPE}.yaml"
-    must_exist: false
-    create_parent: true
-    required: false
-    direction: "input"
-    multiple: false
-    multiple_sep: ";"
-- name: "Arguments"
-  arguments:
-  - type: "string"
-    name: "--type"
-    description: "The type of component to create. Typically must be one of 'method',\
-      \ 'control_method' or 'metric'."
-    info: null
-    example:
-    - "metric"
-    required: false
-    direction: "input"
-    multiple: false
-    multiple_sep: ";"
-  - type: "string"
-    name: "--language"
-    description: "Which scripting language to use. Options are 'python', 'r'."
-    info: null
-    default:
-    - "python"
-    required: false
-    choices:
-    - "python"
-    - "r"
-    direction: "input"
-    multiple: false
-    multiple_sep: ";"
-  - type: "string"
-    name: "--name"
-    description: "Name of the new method, formatted in snake case."
-    info: null
-    example:
-    - "new_comp"
-    required: false
-    direction: "input"
-    multiple: false
-    multiple_sep: ";"
-- name: "Outputs"
+- name: "Output"
   arguments:
   - type: "file"
     name: "--output"
-    description: "Path to the component directory. Suggested location is `src/<TYPE>s/<NAME>`."
+    description: "A yaml file containing the metadata."
     info: null
-    default:
-    - "src/${VIASH_PAR_TYPE}s/${VIASH_PAR_NAME}"
+    example:
+    - "output_meta.yaml"
     must_exist: true
     create_parent: true
-    required: false
+    required: true
     direction: "output"
     multiple: false
     multiple_sep: ";"
@@ -84,10 +42,10 @@ resources:
 - type: "python_script"
   path: "script.py"
   is_executable: true
-description: "Create a new component\n"
-usage: "create_component --type method --language r --name foo create_component --type\
-  \ metric --language python --name bar"
+description: "Extract .uns metadata from an h5ad file and write it to a yaml file."
 test_resources:
+- type: "file"
+  path: "pancreas"
 - type: "python_script"
   path: "test.py"
   is_executable: true
@@ -104,6 +62,10 @@ runners:
 - type: "nextflow"
   id: "nextflow"
   directives:
+    label:
+    - "midtime"
+    - "midmem"
+    - "midcpu"
     tag: "$id"
   auto:
     simplifyInput: true
@@ -168,21 +130,19 @@ engines:
   image: "openproblems/base_python:1.0.0"
   namespace_separator: "/"
   test_setup:
-  - type: "apt"
+  - type: "python"
+    user: false
     packages:
-    - "git"
-    interactive: false
-  - type: "docker"
-    run:
-    - "git clone https://github.com/openproblems-bio/task_template.git /opt/task_template\n"
+    - "viashpy"
+    upgrade: true
   entrypoint: []
   cmd: null
 build_info:
-  config: "src/project/create_component/config.vsh.yaml"
-  runner: "nextflow"
+  config: "src/h5ad/extract_uns_metadata/config.vsh.yaml"
+  runner: "executable"
   engine: "docker"
-  output: "target/nextflow/project/create_component"
-  executable: "target/nextflow/project/create_component/main.nf"
+  output: "target/executable/h5ad/extract_uns_metadata"
+  executable: "target/executable/h5ad/extract_uns_metadata/extract_uns_metadata"
   viash_version: "0.9.0-RC7"
   git_commit: "7ab3f6a5d3685f4c39a18df0830adbdd82a3928b"
   git_remote: "https://github.com/openproblems-bio/core"

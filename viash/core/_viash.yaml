@@ -12,3 +12,8 @@ links:
   issue_tracker: https://github.com/openproblems-bio/core/issues
   repository: https://github.com/openproblems-bio/core
   docker_registry: ghcr.io
+info:
+  test_resources:
+    - type: s3
+      path: s3://openproblems-data/resources_test/common/pancreas
+      dest: resources_test/common/pancreas

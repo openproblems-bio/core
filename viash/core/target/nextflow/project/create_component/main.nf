@@ -3025,13 +3025,22 @@ meta = [
     "engine" : "docker",
     "output" : "target/nextflow/project/create_component",
     "viash_version" : "0.9.0-RC7",
-    "git_commit" : "f987f6a3e04af1863a4d1482a9d56fc15ca2b254",
+    "git_commit" : "7ab3f6a5d3685f4c39a18df0830adbdd82a3928b",
     "git_remote" : "https://github.com/openproblems-bio/core"
   },
   "package_config" : {
     "name" : "core",
     "version" : "build_main",
     "description" : "Core components for the OpenProblems project.\n",
+    "info" : {
+      "test_resources" : [
+        {
+          "type" : "s3",
+          "path" : "s3://openproblems-data/resources_test/common/pancreas",
+          "dest" : "resources_test/common/pancreas"
+        }
+      ]
+    },
     "viash_version" : "0.9.0-RC7",
     "source" : "src",
     "target" : "target",
