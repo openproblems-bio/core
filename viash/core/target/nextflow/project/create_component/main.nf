@@ -3031,7 +3031,7 @@ meta = [
     "engine" : "docker",
     "output" : "target/nextflow/project/create_component",
     "viash_version" : "0.9.0",
-    "git_commit" : "a20b83a3a6c6f184b80bc0ae389077ec47664525",
+    "git_commit" : "e5c21c64854690aa6cc3f9eac12eb50d7f65ed5d",
     "git_remote" : "https://github.com/openproblems-bio/core"
   },
   "package_config" : {
@@ -3121,6 +3121,7 @@ dep = {
 ## VIASH END
 
 def create_config(par, component_type, pretty_name, script_path) -> str:
+  general_str = generate_general_info(par, component_type, pretty_name)
   info_str = generate_info(par, component_type, pretty_name)
   resources_str = generate_resources(par, script_path)
   docker_engine = generate_docker_engine(par)
@@ -3133,10 +3134,8 @@ def create_config(par, component_type, pretty_name, script_path) -> str:
 #   - A unit test
 __merge__: {os.path.relpath(par["api_file"], par["output"])}
 
+{general_str}
 
-# A unique identifier for your component (required).
-# Can contain only lowercase letters or underscores.
-name: {par["name"]}
 
 # Metadata for your component
 info:
@@ -3164,59 +3163,91 @@ runners:
 \'\'\'
   )
 
+def generate_general_info(par, component_type, pretty_name) -> str:
+  """Generate the general info for a method."""
+  str = strip_margin(f\'\'\'\\\\
+# A unique identifier for your component (required).
+# Can contain only lowercase letters or underscores.
+name: {par["name"]}
+\'\'\')
+  if component_type in ["method", "control_method"]:
+    str += strip_margin(f\'\'\'\\\\
+# A relatively short label, used when rendering visualisations (required)
+label: {pretty_name}
+# A one sentence summary of how this method works (required). Used when 
+# rendering summary tables.
+summary: "FILL IN: A one sentence summary of this method."
+# A multi-line description of how this component works (required). Used
+# when rendering reference documentation.
+description: |
+  FILL IN: A (multi-line) description of how this method works.
+\'\'\')
+    if component_type == "method":
+      str += strip_margin(f\'\'\'\\\\
+# references:
+#   doi: 
+#     - 10.1000/xx.123456.789
+#   bibtex:
+#     - |
+#       @article{{foo,
+#         title={{Foo}},
+#         author={{Bar}},
+#         journal={{Baz}},
+#         year={{2024}}
+#       }}
+links:
+  # URL to the documentation for this method (required).
+  documentation: https://url.to/the/documentation
+  # URL to the code repository for this method (required).
+  repository: https://github.com/organisation/repository
+\'\'\')
+  return str
+
 def generate_info(par, component_type, pretty_name) -> str:
   """Generate the info for a component."""
   if component_type in ["method", "control_method"]:
     str = strip_margin(f\'\'\'\\\\
-  # A relatively short label, used when rendering visualisations (required)
-  label: {pretty_name}
-  # A one sentence summary of how this method works (required). Used when 
-  # rendering summary tables.
-  summary: "FILL IN: A one sentence summary of this method."
-  # A multi-line description of how this component works (required). Used
-  # when rendering reference documentation.
-  description: |
-    FILL IN: A (multi-line) description of how this method works.
   # Which normalisation method this component prefers to use (required).
   preferred_normalization: log_cp10k
-\'\'\')
-    if component_type == "method":
-      str += strip_margin(f\'\'\'\\\\
-  # A reference key from the bibtex library at src/common/library.bib (required).
-  reference: bibtex_reference_key
-  # URL to the documentation for this method (required).
-  documentation_url: https://url.to/the/documentation
-  # URL to the code repository for this method (required).
-  repository_url: https://github.com/organisation/repository
 \'\'\')
     return str
   elif component_type == "metric":
     return strip_margin(f\'\'\'\\\\
   metrics:
-    # A unique identifier for your metric (required).
-    # Can contain only lowercase letters or underscores.
-    name: {par["name"]}
-    # A relatively short label, used when rendering visualisarions (required)
-    label: {pretty_name}
-    # A one sentence summary of how this metric works (required). Used when 
-    # rendering summary tables.
-    summary: "FILL IN: A one sentence summary of this metric."
-    # A multi-line description of how this component works (required). Used
-    # when rendering reference documentation.
-    description: |
-      FILL IN: A (multi-line) description of how this metric works.
-    # A reference key from the bibtex library at src/common/library.bib (required).
-    reference: bibtex_reference_key
-    # URL to the documentation for this metric (required).
-    documentation_url: https://url.to/the/documentation
-    # URL to the code repository for this metric (required).
-    repository_url: https://github.com/organisation/repository
-    # The minimum possible value for this metric (required)
-    min: 0
-    # The maximum possible value for this metric (required)
-    max: 1
-    # Whether a higher value represents a 'better' solution (required)
-    maximize: true
+      # A unique identifier for your metric (required).
+      # Can contain only lowercase letters or underscores.
+    - name: {par["name"]}
+      # A relatively short label, used when rendering visualisarions (required)
+      label: {pretty_name}
+      # A one sentence summary of how this metric works (required). Used when 
+      # rendering summary tables.
+      summary: "FILL IN: A one sentence summary of this metric."
+      # A multi-line description of how this component works (required). Used
+      # when rendering reference documentation.
+      description: |
+        FILL IN: A (multi-line) description of how this metric works.
+      # references:
+      #   doi: 
+      #     - 10.1000/xx.123456.789
+      #   bibtex:
+      #     - |
+      #       @article{{foo,
+      #         title={{Foo}},
+      #         author={{Bar}},
+      #         journal={{Baz}},
+      #         year={{2024}}
+      #       }}
+      links:
+        # URL to the documentation for this metric (required).
+        documentation: https://url.to/the/documentation
+        # URL to the code repository for this metric (required).
+        repository: https://github.com/organisation/repository
+      # The minimum possible value for this metric (required)
+      min: 0
+      # The maximum possible value for this metric (required)
+      max: 1
+      # Whether a higher value represents a 'better' solution (required)
+      maximize: true
 \'\'\')
 
 
