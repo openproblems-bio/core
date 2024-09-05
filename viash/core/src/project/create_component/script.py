@@ -82,10 +82,17 @@ def generate_general_info(par, component_type, pretty_name) -> str:
       |''')
     if component_type == "method":
       str += strip_margin(f'''\
-        |# A reference key from the bibtex library at src/common/library.bib (required).
-        |references:
-        |  doi: doi_reference_key
-        |  # Can also be a bibtex: see https://viash.io/versioned/0_9_0/reference/config/references.html#bibtex                 
+        |# references:
+        |#   doi: 
+        |#     - 10.1000/xx.123456.789
+        |#   bibtex:
+        |#     - |
+        |#       @article{{foo,
+        |#         title={{Foo}},
+        |#         author={{Bar}},
+        |#         journal={{Baz}},
+        |#         year={{2024}}
+        |#       }}
         |links:
         |  # URL to the documentation for this method (required).
         |  documentation: https://url.to/the/documentation
@@ -117,11 +124,18 @@ def generate_info(par, component_type, pretty_name) -> str:
       |      # when rendering reference documentation.
       |      description: |
       |        FILL IN: A (multi-line) description of how this metric works.
-      |      # A reference key from the bibtex library at src/common/library.bib (required).
-      |      references: 
-      |        doi: doi_reference_key
-      |        # Can also be a bibtex: see https://viash.io/versioned/0_9_0/reference/config/references.html#bibtex                 
-      |      links    
+      |      # references:
+      |      #   doi: 
+      |      #     - 10.1000/xx.123456.789
+      |      #   bibtex:
+      |      #     - |
+      |      #       @article{{foo,
+      |      #         title={{Foo}},
+      |      #         author={{Bar}},
+      |      #         journal={{Baz}},
+      |      #         year={{2024}}
+      |      #       }}
+      |      links:
       |        # URL to the documentation for this metric (required).
       |        documentation: https://url.to/the/documentation
       |        # URL to the code repository for this metric (required).
