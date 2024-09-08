@@ -3031,7 +3031,7 @@ meta = [
     "engine" : "docker",
     "output" : "target/nextflow/project/create_component",
     "viash_version" : "0.9.0",
-    "git_commit" : "e5c21c64854690aa6cc3f9eac12eb50d7f65ed5d",
+    "git_commit" : "133019ed25bdb821961182176f2e3f9ee1fea889",
     "git_remote" : "https://github.com/openproblems-bio/core"
   },
   "package_config" : {
@@ -3270,13 +3270,13 @@ def generate_resources(par, script_path) -> str:
 def generate_docker_engine(par) -> str:
   """Set up the docker engine for Python."""
   if par["language"] == "python":
-    image_str = "ghcr.io/openproblems-bio/base_images/python:1.1.0"
+    image_str = "openproblems/base_python:1.0.0"
     setup_type = "python"
-    package_example = "scib==1.1.5"
+    package_example = "numpy<2"
   elif par["language"] == "r":
-    image_str = "ghcr.io/openproblems-bio/base_images/r:1.1.0"
+    image_str = "openproblems/base_r:1.0.0"
     setup_type = "r"
-    package_example = "tidyverse"
+    package_example = "tibble"
   return strip_margin(f\'\'\'\\\\
   - type: docker
     image: {image_str}
