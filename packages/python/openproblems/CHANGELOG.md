@@ -1,3 +1,10 @@
+# openproblems core Python v0.1.1
+
+## NEW FUNCTIONALITY
+
+* Add support for python 3.9 (PR #17).
+
+
 # openproblems core Python v0.1.0
 
 Initial release
