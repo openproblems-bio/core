@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 def read_nested_yaml(path: str, project_path: str | None = None) -> dict:
     """
     Read a nested YAML
