@@ -2805,6 +2805,7 @@ meta = [
   "resources_dir": moduleDir.toRealPath().normalize(),
   "config": processConfig(readJsonBlob('''{
   "name" : "upgrade_config",
+  "namespace" : "project",
   "version" : "build_main",
   "argument_groups" : [
     {
@@ -2959,9 +2960,9 @@ meta = [
     "config" : "/home/runner/work/core/core/viash/core/src/project/upgrade_config/config.vsh.yaml",
     "runner" : "nextflow",
     "engine" : "docker",
-    "output" : "target/nextflow/upgrade_config",
+    "output" : "target/nextflow/project/upgrade_config",
     "viash_version" : "0.9.0",
-    "git_commit" : "133019ed25bdb821961182176f2e3f9ee1fea889",
+    "git_commit" : "e324da43970714454307915329044876c6c1af41",
     "git_remote" : "https://github.com/openproblems-bio/core"
   },
   "package_config" : {
@@ -3482,7 +3483,7 @@ meta["defaults"] = [
   directives: readJsonBlob('''{
   "container" : {
     "registry" : "ghcr.io",
-    "image" : "openproblems-bio/core/upgrade_config",
+    "image" : "openproblems-bio/core/project/upgrade_config",
     "tag" : "build_main"
   },
   "tag" : "$id"
