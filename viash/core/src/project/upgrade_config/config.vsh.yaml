@@ -1,4 +1,5 @@
 name: upgrade_config
+namespace: project
 description: |
   Upgrade a component config from viash version 0.8 to version 0.9. 
 usage:
