@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 def find_project_root(path: str = ".") -> str | None:
     """
     Find the root of a Viash project
