@@ -469,9 +469,9 @@ RUN pip install --upgrade pip && \
   pip install --upgrade --no-cache-dir "ruamel.yaml"
 
 LABEL org.opencontainers.image.description="Companion container for running component project upgrade_config"
-LABEL org.opencontainers.image.created="2024-09-17T06:32:56Z"
+LABEL org.opencontainers.image.created="2024-09-18T10:32:25Z"
 LABEL org.opencontainers.image.source="https://github.com/openproblems-bio/core"
-LABEL org.opencontainers.image.revision="e324da43970714454307915329044876c6c1af41"
+LABEL org.opencontainers.image.revision="5fc95963d361682eef6ad28c542196176d314251"
 LABEL org.opencontainers.image.version="build_main"
 
 VIASHDOCKER
