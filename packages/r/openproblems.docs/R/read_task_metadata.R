@@ -90,14 +90,14 @@ read_task_metadata <- function(path) {
       mutate(
         from = .data$parent,
         to = .data$file_name,
-        arrow = "---"
+        arrow = ifelse(.data$required, "---", "-.-")
       ),
     comp_args |>
       filter(.data$type == "file", .data$direction == "output") |>
       mutate(
         from = .data$file_name,
         to = .data$parent,
-        arrow = "-->"
+        arrow = ifelse(.data$required, "-->", "-.->")
       )
   ) |>
     select("from", "to", everything()) |>
