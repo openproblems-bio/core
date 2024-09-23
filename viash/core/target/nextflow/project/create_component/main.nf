@@ -3031,7 +3031,7 @@ meta = [
     "engine" : "docker",
     "output" : "target/nextflow/project/create_component",
     "viash_version" : "0.9.0",
-    "git_commit" : "577203843517c1ce0801e8d78c3c8540074f6e38",
+    "git_commit" : "5e2d27178b2590ef028dac199b16bd49035972c8",
     "git_remote" : "https://github.com/openproblems-bio/core"
   },
   "package_config" : {
