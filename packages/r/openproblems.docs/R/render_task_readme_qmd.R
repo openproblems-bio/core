@@ -104,7 +104,9 @@ render_task_readme_qmd <- function(task_metadata, add_instructions = FALSE) {
         "  ",
         clean_id(.data$id),
         ifelse(.data$is_comp, "[/\"", "(\""),
-        "<a href='#", ifelse(.data$is_comp, "component-type-", "file-type-"), gsub("[^a-z0-9]", "-", tolower(.data$name)), "'>",
+        "<a href='#", ifelse(.data$is_comp, "component-type-", "file-type-"),
+        gsub("[^a-z0-9]", "-",
+        tolower(.data$name)), "'>",
         .data$name,
         "</a>",
         ifelse(.data$is_comp, "\"/]", "\")")
@@ -122,7 +124,7 @@ render_task_readme_qmd <- function(task_metadata, add_instructions = FALSE) {
       str = paste0(
         "  ",
         clean_id(.data$from),
-        edge_type,
+        .data$edge_type,
         clean_id(.data$to)
       )
     )
