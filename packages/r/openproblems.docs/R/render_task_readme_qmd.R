@@ -102,7 +102,7 @@ render_task_readme_qmd <- function(task_metadata, add_instructions = FALSE) {
     arrange(match(.data$name, order)) |>
     mutate(
       label_with_maybe_url = ifelse(
-        is.null(repository_url),
+        rep(is.null(repository_url), length(.data$label)),
         .data$label,
         paste0(
           "<a href='",
@@ -140,7 +140,7 @@ render_task_readme_qmd <- function(task_metadata, add_instructions = FALSE) {
 
   strip_margin(glue("
     |```mermaid
-    |flowchart LR
+    |flowchart TB
     |{paste(vdf$str, collapse = '\n')}
     |{paste(edf$str, collapse = '\n')}
     |```
