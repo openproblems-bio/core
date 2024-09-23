@@ -92,10 +92,40 @@ render_task_readme_qmd <- function(task_metadata, add_instructions = FALSE) {
   graph <- task_metadata$task_graph
   order <- task_metadata$task_graph_order
 
+  clean_id <- function(id) {
+    gsub("graph", "graaf", id)
+  }
+
   vdf <- igraph::as_data_frame(graph, "vertices") |>
-    arrange(match(.data$name, order))
+    rownames_to_column("id") |>
+    arrange(match(.data$name, order)) |>
+    mutate(
+      str = paste0(
+        "  ",
+        clean_id(.data$id),
+        ifelse(.data$is_comp, "[/\"", "(\""),
+        "<a href='#", ifelse(.data$is_comp, "component-type-", "file-type-"), gsub("[^a-z0-9]", "-", tolower(.data$name)), "'>",
+        .data$name,
+        "</a>",
+        ifelse(.data$is_comp, "\"/]", "\")")
+      )
+    )
   edf <- igraph::as_data_frame(graph, "edges") |>
-    arrange(match(.data$from, order), match(.data$to, order))
+    arrange(match(.data$from, order), match(.data$to, order)) |>
+    mutate(
+      edge_type = case_when(
+        .data$from_to == "file_to_comp" & .data$required ~ "---",
+        .data$from_to == "file_to_comp" & !.data$required ~ "-.-",
+        .data$from_to == "comp_to_file" & .data$required ~ "-->",
+        .data$from_to == "comp_to_file" & !.data$required ~ "-.->"
+      ),
+      str = paste0(
+        "  ",
+        clean_id(.data$from),
+        edge_type,
+        clean_id(.data$to)
+      )
+    )
 
   strip_margin(glue("
     |```mermaid

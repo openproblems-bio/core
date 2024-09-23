@@ -65,9 +65,6 @@ read_task_metadata <- function(path) {
 }
 
 .task_graph_generate <- function(file_info, comp_info, comp_args) {
-  clean_id <- function(id) {
-    gsub("graph", "graaf", id)
-  }
   nodes <-
     bind_rows(
       file_info |>
@@ -75,14 +72,7 @@ read_task_metadata <- function(path) {
       comp_info |>
         mutate(id = .data$file_name, is_comp = TRUE)
     ) |>
-    select("id", "label", everything()) |>
-    mutate(str = paste0(
-      "  ",
-      clean_id(.data$id),
-      ifelse(.data$is_comp, "[/\"", "(\""),
-      .data$label,
-      ifelse(.data$is_comp, "\"/]", "\")")
-    ))
+    select("id", "label", everything())
 
   edges <- bind_rows(
     comp_args |>
@@ -90,18 +80,17 @@ read_task_metadata <- function(path) {
       mutate(
         from = .data$parent,
         to = .data$file_name,
-        arrow = ifelse(.data$required, "---", "-.-")
+        from_to = "file_to_comp"
       ),
     comp_args |>
       filter(.data$type == "file", .data$direction == "output") |>
       mutate(
         from = .data$file_name,
         to = .data$parent,
-        arrow = ifelse(.data$required, "-->", "-.->")
+        from_to = "comp_to_file"
       )
   ) |>
     select("from", "to", everything()) |>
-    mutate(str = paste0("  ", clean_id(.data$from), .data$arrow, clean_id(.data$to))) |>
     filter(!is.na(.data$from), !is.na(.data$to))
 
   igraph::graph_from_data_frame(
