@@ -467,9 +467,9 @@ function ViashDockerfile {
 FROM openproblems/base_python:1.0.0
 ENTRYPOINT []
 LABEL org.opencontainers.image.description="Companion container for running component h5ad extract_uns_metadata"
-LABEL org.opencontainers.image.created="2024-09-23T07:24:25Z"
+LABEL org.opencontainers.image.created="2024-09-23T13:54:07Z"
 LABEL org.opencontainers.image.source="https://github.com/openproblems-bio/core"
-LABEL org.opencontainers.image.revision="5e2d27178b2590ef028dac199b16bd49035972c8"
+LABEL org.opencontainers.image.revision="f1b8ec3f1ae65bcc3f90a5c289ce72b519647013"
 LABEL org.opencontainers.image.version="build_main"
 
 VIASHDOCKER
