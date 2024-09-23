@@ -107,8 +107,8 @@ render_task_readme_qmd <- function(task_metadata, add_instructions = FALSE) {
         paste0(
           "<a href='",
           repository_url,
-          "#", ifelse(.data$is_comp, "component-type-", "file-type-"),
-          gsub("[^a-z0-9]", "-", tolower(.data$name)), "'>",
+          "#", ifelse(.data$is_comp, "component-type-", "file-format-"),
+          gsub("[^a-z0-9]", "-", tolower(.data$label)), "'>",
           .data$label,
           "</a>"
         )
