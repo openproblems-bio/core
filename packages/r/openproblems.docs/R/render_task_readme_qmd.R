@@ -91,6 +91,7 @@ render_task_readme_qmd <- function(task_metadata, add_instructions = FALSE) {
 .render_task_graph <- function(task_metadata) {
   graph <- task_metadata$task_graph
   order <- task_metadata$task_graph_order
+  repository_url <- task_metadata$proj_conf$links$repository
 
   clean_id <- function(id) {
     gsub("graph", "graaf", id)
@@ -100,14 +101,23 @@ render_task_readme_qmd <- function(task_metadata, add_instructions = FALSE) {
     rownames_to_column("id") |>
     arrange(match(.data$name, order)) |>
     mutate(
+      label_with_maybe_url = ifelse(
+        is.null(repository_url),
+        .data$label,
+        paste0(
+          "<a href='",
+          repository_url,
+          "#", ifelse(.data$is_comp, "component-type-", "file-type-"),
+          gsub("[^a-z0-9]", "-", tolower(.data$name)), "'>",
+          .data$label,
+          "</a>"
+        )
+      ),
       str = paste0(
         "  ",
         clean_id(.data$id),
         ifelse(.data$is_comp, "[/\"", "(\""),
-        "<a href='#", ifelse(.data$is_comp, "component-type-", "file-type-"),
-        gsub("[^a-z0-9]", "-", tolower(.data$name)), "'>",
-        .data$name,
-        "</a>",
+        .data$label_with_maybe_url,
         ifelse(.data$is_comp, "\"/]", "\")")
       )
     )
