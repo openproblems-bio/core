@@ -12,6 +12,11 @@ argument_groups:
         type: file
         required: false
         description: An optional schema with which to annotate the output
+      - name: --uns_length_cutoff
+        type: integer
+        required: false
+        description: The maximum length of the .uns metadata to extract. If a value in uns is a list or a dictionary with more elements than the provided cutoff, it will not be extracted.
+        default: 10
   - name: Output
     arguments:
       - name: --output

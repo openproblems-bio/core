@@ -184,6 +184,13 @@ function ViashHelp {
   echo "        type: file, file must exist"
   echo "        An optional schema with which to annotate the output"
   echo ""
+  echo "    --uns_length_cutoff"
+  echo "        type: integer"
+  echo "        default: 10"
+  echo "        The maximum length of the .uns metadata to extract. If a value in uns is"
+  echo "        a list or a dictionary with more elements than the provided cutoff, it"
+  echo "        will not be extracted."
+  echo ""
   echo "Output:"
   echo "    --output"
   echo "        type: file, required parameter, output, file must exist"
@@ -467,9 +474,9 @@ function ViashDockerfile {
 FROM openproblems/base_python:1.0.0
 ENTRYPOINT []
 LABEL org.opencontainers.image.description="Companion container for running component h5ad extract_uns_metadata"
-LABEL org.opencontainers.image.created="2024-09-23T13:54:07Z"
+LABEL org.opencontainers.image.created="2024-09-24T12:45:46Z"
 LABEL org.opencontainers.image.source="https://github.com/openproblems-bio/core"
-LABEL org.opencontainers.image.revision="f1b8ec3f1ae65bcc3f90a5c289ce72b519647013"
+LABEL org.opencontainers.image.revision="a938a52915b3b4af67e04c92f3dfd13a31963413"
 LABEL org.opencontainers.image.version="build_main"
 
 VIASHDOCKER
@@ -629,6 +636,17 @@ while [[ $# -gt 0 ]]; do
         --schema=*)
             [ -n "$VIASH_PAR_SCHEMA" ] && ViashError Bad arguments for option \'--schema=*\': \'$VIASH_PAR_SCHEMA\' \& \'$2\' - you should provide exactly one argument for this option. && exit 1
             VIASH_PAR_SCHEMA=$(ViashRemoveFlags "$1")
+            shift 1
+            ;;
+        --uns_length_cutoff)
+            [ -n "$VIASH_PAR_UNS_LENGTH_CUTOFF" ] && ViashError Bad arguments for option \'--uns_length_cutoff\': \'$VIASH_PAR_UNS_LENGTH_CUTOFF\' \& \'$2\' - you should provide exactly one argument for this option. && exit 1
+            VIASH_PAR_UNS_LENGTH_CUTOFF="$2"
+            [ $# -lt 2 ] && ViashError Not enough arguments passed to --uns_length_cutoff. Use "--help" to get more information on the parameters. && exit 1
+            shift 2
+            ;;
+        --uns_length_cutoff=*)
+            [ -n "$VIASH_PAR_UNS_LENGTH_CUTOFF" ] && ViashError Bad arguments for option \'--uns_length_cutoff=*\': \'$VIASH_PAR_UNS_LENGTH_CUTOFF\' \& \'$2\' - you should provide exactly one argument for this option. && exit 1
+            VIASH_PAR_UNS_LENGTH_CUTOFF=$(ViashRemoveFlags "$1")
             shift 1
             ;;
         --output)
@@ -845,6 +863,11 @@ if [ -z ${VIASH_META_TEMP_DIR+x} ]; then
   exit 1
 fi
 
+# filling in defaults
+if [ -z ${VIASH_PAR_UNS_LENGTH_CUTOFF+x} ]; then
+  VIASH_PAR_UNS_LENGTH_CUTOFF="10"
+fi
+
 # check whether required files exist
 if [ ! -z "$VIASH_PAR_INPUT" ] && [ ! -e "$VIASH_PAR_INPUT" ]; then
   ViashError "Input file '$VIASH_PAR_INPUT' does not exist."
@@ -856,6 +879,12 @@ if [ ! -z "$VIASH_PAR_SCHEMA" ] && [ ! -e "$VIASH_PAR_SCHEMA" ]; then
 fi
 
 # check whether parameters values are of the right type
+if [[ -n "$VIASH_PAR_UNS_LENGTH_CUTOFF" ]]; then
+  if ! [[ "$VIASH_PAR_UNS_LENGTH_CUTOFF" =~ ^[-+]?[0-9]+$ ]]; then
+    ViashError '--uns_length_cutoff' has to be an integer. Use "--help" to get more information on the parameters.
+    exit 1
+  fi
+fi
 if [[ -n "$VIASH_META_CPUS" ]]; then
   if ! [[ "$VIASH_META_CPUS" =~ ^[-+]?[0-9]+$ ]]; then
     ViashError 'cpus' has to be an integer. Use "--help" to get more information on the parameters.
@@ -1030,6 +1059,7 @@ import datetime
 par = {
   'input': $( if [ ! -z ${VIASH_PAR_INPUT+x} ]; then echo "r'${VIASH_PAR_INPUT//\'/\'\"\'\"r\'}'"; else echo None; fi ),
   'schema': $( if [ ! -z ${VIASH_PAR_SCHEMA+x} ]; then echo "r'${VIASH_PAR_SCHEMA//\'/\'\"\'\"r\'}'"; else echo None; fi ),
+  'uns_length_cutoff': $( if [ ! -z ${VIASH_PAR_UNS_LENGTH_CUTOFF+x} ]; then echo "int(r'${VIASH_PAR_UNS_LENGTH_CUTOFF//\'/\'\"\'\"r\'}')"; else echo None; fi ),
   'output': $( if [ ! -z ${VIASH_PAR_OUTPUT+x} ]; then echo "r'${VIASH_PAR_OUTPUT//\'/\'\"\'\"r\'}'"; else echo None; fi )
 }
 meta = {
@@ -1240,9 +1270,9 @@ uns = {}
 for key, val in adata.uns.items():
   if is_atomic(val):
     uns[key] = to_atomic(val)
-  elif is_list_of_atomics(val) and len(val) <= 10:
+  elif is_list_of_atomics(val) and len(val) <= par["uns_length_cutoff"]:
     uns[key] = to_list_of_atomics(val)
-  elif is_dict_of_atomics(val) and len(val) <= 10:
+  elif is_dict_of_atomics(val) and len(val) <= par["uns_length_cutoff"]:
     uns[key] = to_dict_of_atomics(val)
 
 uns["file_size"] = get_file_size(par["input"])
