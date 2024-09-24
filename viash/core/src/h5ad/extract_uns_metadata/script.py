@@ -196,9 +196,9 @@ uns = {}
 for key, val in adata.uns.items():
   if is_atomic(val):
     uns[key] = to_atomic(val)
-  elif is_list_of_atomics(val) and len(val) <= 10:
+  elif is_list_of_atomics(val) and len(val) <= par["uns_length_cutoff"]:
     uns[key] = to_list_of_atomics(val)
-  elif is_dict_of_atomics(val) and len(val) <= 10:
+  elif is_dict_of_atomics(val) and len(val) <= par["uns_length_cutoff"]:
     uns[key] = to_dict_of_atomics(val)
 
 uns["file_size"] = get_file_size(par["input"])
