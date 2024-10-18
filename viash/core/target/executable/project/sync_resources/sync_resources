@@ -495,9 +495,9 @@ RUN wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
   chmod +x /usr/bin/yq
 
 LABEL org.opencontainers.image.description="Companion container for running component project sync_resources"
-LABEL org.opencontainers.image.created="2024-09-24T12:45:46Z"
+LABEL org.opencontainers.image.created="2024-10-18T11:25:18Z"
 LABEL org.opencontainers.image.source="https://github.com/openproblems-bio/core"
-LABEL org.opencontainers.image.revision="a938a52915b3b4af67e04c92f3dfd13a31963413"
+LABEL org.opencontainers.image.revision="6d753d71488b24dea0df0730dfb7027deeeb210d"
 LABEL org.opencontainers.image.version="build_main"
 
 VIASHDOCKER
