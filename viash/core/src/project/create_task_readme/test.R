@@ -21,7 +21,7 @@ lines <- readLines(output_path)
 assertthat::assert_that(any(grepl("# Template", lines)))
 assertthat::assert_that(any(grepl("## Description", lines)))
 # assertthat::assert_that(any(grepl("## Authors", lines)))
-assertthat::assert_that(any(grepl("flowchart LR", lines)))
+assertthat::assert_that(any(grepl("flowchart TB", lines)))
 assertthat::assert_that(any(grepl("## File format:", lines)))
 
 cat("All checks succeeded!\n")
