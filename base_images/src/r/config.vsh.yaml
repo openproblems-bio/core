@@ -1,5 +1,19 @@
 name: base_r
 description: An R2U 22.04 image with anndata preinstalled.
+test_resources:
+  # check whether anndata is correctly installed
+  - type: r_script
+    path: test.R
+    text: |
+      library(anndata)
+      adata <- AnnData(
+        X = matrix(rnorm(100), nrow = 10),
+        obs = data.frame(
+          cell_type = factor(rep(c("A", "B"), each = 5))
+        )
+      )
+      print(adata)
+      print("Test passed")
 engines:
   - type: docker
     image: rocker/r2u:22.04

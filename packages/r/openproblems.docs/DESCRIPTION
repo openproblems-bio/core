@@ -40,5 +40,5 @@ Suggests:
   testthat (>= 3.0.0)
 Config/testthat/edition: 3
 Remotes:
-  openproblems.utils=local::../openproblems.utils,
-  openproblems=local::../openproblems
+  openproblems.utils=github::openproblems-bio/core/packages/r/openproblems.utils,
+  openproblems=github::openproblems-bio/core/packages/r/openproblems
