@@ -90,6 +90,12 @@ jobs:
             ---engine docker \
             ---setup build \
             ---verbose
+
+      - name: Test component
+        run: |
+          viash test ${{matrix.component.config}} \
+            --engine docker \
+            --verbose
       
       # only push the image if event is not a pull request
       - name: Push image
