@@ -2,10 +2,14 @@
 
 ## MAJOR CHANGES
 
-* Bump R base image from `rocker/r2u:22.04` to `rocker/r2u:24.04` (PR #xx).
-* Bump Python base image from `openproblems/base_python:3.11` to `openproblems/base_python:3.12` (PR #xx).
-* Bump AnnData dependency from 0.10 to 0.11 (PR #xx).
-* Bump Scanpy dependency from 1.10 to 1.11 (PR #xx).
+* Bump R base image from `rocker/r2u:22.04` to `rocker/r2u:24.04` (PR #25).
+* Bump Python base image from `openproblems/base_python:3.11` to `openproblems/base_python:3.12` (PR #25).
+* Bump AnnData dependency from 0.10 to 0.11 (PR #25).
+* Bump Scanpy dependency from 1.10 to 1.11 (PR #25).
+
+## TESTING
+
+* Add tests for checking whether the installed packages are available in the base images (PR #25).
 
 # OpenProblems Base Images v1.0.0
 
