@@ -42,7 +42,7 @@ engines:
           - hdf5r
         github:
           - openproblems-bio/core/packages/r/openproblems
-          - scverse/anndataR
+          - scverse/anndataR@8dfa46a
     test_setup:
       - type: r
         packages:
