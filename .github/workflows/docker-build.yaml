@@ -104,3 +104,24 @@ jobs:
             ---engine docker \
             ---setup push \
             ---verbose
+          
+          IMAGE_ID=$(
+            viash run ${{matrix.component.config}} -- \
+              ---engine docker \
+              ---docker_image_id > /dev/null
+          )
+
+          # also push major and major.minor tags
+          if [[ $IMAGE_ID =~ ^([^:]+):([0-9]+)\.([0-9]+)\.[0-9]+$ ]]; then
+            MAJOR_MINOR_TAG="${BASH_REMATCH[1]}:${BASH_REMATCH[2]}.${BASH_REMATCH[3]}"
+            echo "Tagging image with major.minor version: $MAJOR_MINOR_TAG"
+            docker tag "$IMAGE_ID" "$MAJOR_MINOR_TAG"
+            docker push "$MAJOR_MINOR_TAG"
+
+            MAJOR_TAG="${BASH_REMATCH[1]}:${BASH_REMATCH[2]}"
+            echo "Tagging image with major version: $MAJOR_TAG"
+            docker tag "$IMAGE_ID" "$MAJOR_TAG"
+            docker push "$MAJOR_TAG"
+          else
+            echo "Image ID does not match expected format, skipping major.minor tagging."
+          fi

@@ -6,6 +6,7 @@
 * Bump Python base image from `openproblems/base_python:3.11` to `openproblems/base_python:3.12` (PR #25).
 * Bump AnnData dependency from 0.10 to 0.11 (PR #25).
 * Bump Scanpy dependency from 1.10 to 1.11 (PR #25).
+* Also create Major and Major.Minor versions for Docker images (PR #26).
 
 ## TESTING
 
