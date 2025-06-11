@@ -108,7 +108,7 @@ jobs:
           IMAGE_ID=$(
             viash run ${{matrix.component.config}} -- \
               ---engine docker \
-              ---docker_image_id > /dev/null
+              ---docker_image_id 2> /dev/null
           )
 
           # also push major and major.minor tags
