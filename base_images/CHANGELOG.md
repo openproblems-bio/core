@@ -8,6 +8,10 @@
 * Bump Scanpy dependency from 1.10 to 1.11 (PR #25).
 * Also create Major and Major.Minor versions for Docker images (PR #26).
 
+## MINOR
+
+* Log in to NVIDIA container registry to avoid rate limits (PR #28).
+
 ## TESTING
 
 * Add tests for checking whether the installed packages are available in the base images (PR #25).
