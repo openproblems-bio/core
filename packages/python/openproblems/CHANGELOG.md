@@ -4,6 +4,7 @@
 
 * Add support for python 3.9 (PR #17).
 
+* Add support for python 3.13 (PR #18).
 
 # openproblems core Python v0.1.0
 
