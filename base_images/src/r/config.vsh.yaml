@@ -39,10 +39,10 @@ engines:
           - BiocManager
           - reticulate
           - bit64
-          - hdf5r
+          - rhdf5
         github:
           - openproblems-bio/core/packages/r/openproblems
-          - scverse/anndataR@8dfa46a
+          - scverse/anndataR@0.99.0
     test_setup:
       - type: r
         packages:
