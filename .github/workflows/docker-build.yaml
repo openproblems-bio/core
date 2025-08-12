@@ -27,7 +27,7 @@ jobs:
       component_matrix: ${{ steps.ns_list.outputs.output_matrix }}
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           sparse-checkout: |
             base_images
@@ -65,7 +65,7 @@ jobs:
       # Remove unnecessary files to free up space.
       - uses: data-intuitive/reclaim-the-bytes@v2
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           sparse-checkout: |
             base_images
