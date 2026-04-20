@@ -7,7 +7,7 @@ test_resources:
     path: ../python/test_anndata.py
 engines:
   - type: docker
-    image: nvcr.io/nvidia/pytorch:24.06-py3
+    image: nvcr.io/nvidia/pytorch:26.02-py3
     setup:
       - type: apt
         packages:
@@ -15,9 +15,8 @@ engines:
           - git
       - type: python
         packages:
-          - anndata~=0.11.0
-          - scanpy~=1.11.0
-          - pyyaml
+          - anndata~=0.12.0
+          - scanpy~=1.12
           - requests
           - jsonschema
         github:
