@@ -13,7 +13,8 @@ license = { text = "MIT" }
 readme = "README.md"
 requires-python = ">= 3.9"
 dependencies = [
-  'PyYAML'
+  'PyYAML',
+  'networkx',
 ]
 
 [project.optional-dependencies]
