@@ -26,8 +26,8 @@ engines:
         user: true
         packages:
           - rpy2
-          - anndata~=0.11.0
-          - scanpy~=1.11.0
+          - anndata~=0.12.0
+          - scanpy~=1.12
           - pyyaml
           - requests
           - jsonschema
@@ -40,9 +40,11 @@ engines:
           - reticulate
           - bit64
           - hdf5r
+        bioc:
+          - rhdf5
+          - anndataR
         github:
           - openproblems-bio/core/packages/r/openproblems
-          - scverse/anndataR@8dfa46a
     test_setup:
       - type: r
         packages:
