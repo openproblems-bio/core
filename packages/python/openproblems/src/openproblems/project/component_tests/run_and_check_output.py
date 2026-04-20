@@ -265,16 +265,13 @@ def generate_cmd_args(argument_set: list) -> list:
     return cmd_args
 
 
-def run_and_check_output(meta: dict) -> None:
+def run_and_check_output(meta: dict, config: dict) -> None:
     """Run a viash component with test resources and validate its outputs.
 
     Args:
-        meta: Viash meta dict with keys ``"executable"``, ``"config"``, and
-            ``"resources_dir"``.
+        meta: Viash meta dict with keys ``"executable"`` and ``"resources_dir"``.
+        config: Parsed viash config dict (from ``read_viash_config``).
     """
-    import openproblems
-
-    config = openproblems.project.read_viash_config(meta["config"])
     argument_sets = get_argument_sets(config, meta["resources_dir"])
 
     for argset_name, argset_args in argument_sets.items():

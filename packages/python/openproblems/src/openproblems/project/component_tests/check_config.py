@@ -105,20 +105,15 @@ def check_info(this_info: Dict, this_config: Dict, comp_type: str) -> None:
         check_references(references)
 
 
-def run_check_config(meta: dict) -> None:
+def run_check_config(config: dict) -> None:
     """Validate a viash component config.
 
     Checks namespace, info.type, component metadata, preferred_normalization,
     variants, and Nextflow runner labels.
 
     Args:
-        meta: Viash meta dict with at least a ``"config"`` key pointing to the
-            ``.config.vsh.yaml`` path.
+        config: Parsed viash config dict (from ``read_viash_config``).
     """
-    import openproblems
-
-    print("Load config data", flush=True)
-    config = openproblems.project.read_viash_config(meta["config"])
     info = config.get("info", {})
     comp_type = info.get("type")
 
