@@ -13,6 +13,7 @@ def read_component_spec(path: str) -> dict:
         A dict with keys ``info`` (dict) and ``args`` (list of dicts).
     """
     from .. import read_nested_yaml
+
     data = read_nested_yaml(path)
     return {
         "info": _process_info(data, path),
@@ -52,24 +53,30 @@ def _process_arguments(data: dict, path: str) -> list[dict]:
     for arg in arguments:
         arg_info = arg.get("info") or {}
         merge_ref = arg.get("__merge__")
-        parent = re.sub(r"\.ya?ml$", "", os.path.basename(merge_ref)) if merge_ref else None
+        parent = (
+            re.sub(r"\.ya?ml$", "", os.path.basename(merge_ref)) if merge_ref else None
+        )
 
         default = arg.get("default")
         example = arg.get("example")
         if isinstance(example, list):
             example = example[0] if example else None
 
-        result.append({
-            "file_name": file_name,
-            "arg_name": re.sub(r"^-+", "", arg.get("name", "")),
-            "type": arg.get("type", ""),
-            "direction": arg.get("direction") or "input",
-            "required": bool(arg.get("required")) if arg.get("required") is not None else False,
-            "default": str(default) if default is not None else None,
-            "example": str(example) if example is not None else None,
-            "description": arg.get("description") or arg_info.get("description"),
-            "summary": arg.get("summary") or arg_info.get("summary"),
-            "parent": parent,
-        })
+        result.append(
+            {
+                "file_name": file_name,
+                "arg_name": re.sub(r"^-+", "", arg.get("name", "")),
+                "type": arg.get("type", ""),
+                "direction": arg.get("direction") or "input",
+                "required": bool(arg.get("required"))
+                if arg.get("required") is not None
+                else False,
+                "default": str(default) if default is not None else None,
+                "example": str(example) if example is not None else None,
+                "description": arg.get("description") or arg_info.get("description"),
+                "summary": arg.get("summary") or arg_info.get("summary"),
+                "parent": parent,
+            }
+        )
 
     return result

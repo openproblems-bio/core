@@ -37,13 +37,17 @@ def check_references(references: Dict[str, Union[str, List[str]]]) -> None:
     doi = references.get("doi")
     bibtex = references.get("bibtex")
 
-    assert doi or bibtex, "One of .references.doi or .references.bibtex should be defined"
+    assert (
+        doi or bibtex
+    ), "One of .references.doi or .references.bibtex should be defined"
 
     if doi:
         if not isinstance(doi, list):
             doi = [doi]
         for d in doi:
-            assert re.match(r"^10.\d{4,9}/[-._;()/:A-Za-z0-9]+$", d), f"Invalid DOI format: {doi}"
+            assert re.match(
+                r"^10.\d{4,9}/[-._;()/:A-Za-z0-9]+$", d
+            ), f"Invalid DOI format: {doi}"
             assert check_url(f"https://doi.org/{d}"), f"DOI '{d}' is not reachable"
 
     if bibtex:
@@ -53,7 +57,9 @@ def check_references(references: Dict[str, Union[str, List[str]]]) -> None:
             assert re.match(r"^@.*{.*", b), f"Invalid bibtex format: {b}"
 
 
-def check_links(links: Dict[str, Union[str, List[str]]], required: List[str] = []) -> None:
+def check_links(
+    links: Dict[str, Union[str, List[str]]], required: List[str] = []
+) -> None:
     if not links:
         return
 
@@ -62,7 +68,9 @@ def check_links(links: Dict[str, Union[str, List[str]]], required: List[str] = [
 
     for link_type, link in links.items():
         if link_type != "docker_registry":
-            assert check_url(link), f"Link .links.{link_type} URL '{link}' is not reachable"
+            assert check_url(
+                link
+            ), f"Link .links.{link_type} URL '{link}' is not reachable"
 
 
 def check_info(this_info: Dict, this_config: Dict, comp_type: str) -> None:
@@ -79,7 +87,9 @@ def check_info(this_info: Dict, this_config: Dict, comp_type: str) -> None:
             value = this_config.get(field) or value
         assert value, f"Metadata field '{field}' is not defined"
         assert "FILL IN:" not in value, f"Metadata field '{field}' not filled in"
-        assert len(value) <= max_length, f"Metadata field '{field}' should not exceed {max_length} characters"
+        assert (
+            len(value) <= max_length
+        ), f"Metadata field '{field}' should not exceed {max_length} characters"
 
     links = this_info.get("links") or this_config.get("links") or {}
     required_links: List[str] = []
@@ -117,7 +127,9 @@ def run_check_config(meta: dict) -> None:
 
     print("Check .info.type", flush=True)
     expected_types = ["method", "control_method", "metric"]
-    assert comp_type in expected_types, ".info.type should be equal to 'method' or 'control_method'"
+    assert (
+        comp_type in expected_types
+    ), ".info.type should be equal to 'method' or 'control_method'"
 
     print("Check component metadata", flush=True)
     if comp_type == "metric":
@@ -130,14 +142,26 @@ def run_check_config(meta: dict) -> None:
 
     if "preferred_normalization" in info:
         print("Checking contents of .info.preferred_normalization", flush=True)
-        norm_methods = ["log_cpm", "log_cp10k", "counts", "log_scran_pooling", "sqrt_cpm", "sqrt_cp10k", "l1_sqrt"]
+        norm_methods = [
+            "log_cpm",
+            "log_cp10k",
+            "counts",
+            "log_scran_pooling",
+            "sqrt_cpm",
+            "sqrt_cp10k",
+            "l1_sqrt",
+        ]
         assert info["preferred_normalization"] in norm_methods, (
-            ".info['preferred_normalization'] not one of '" + "', '".join(norm_methods) + "'."
+            ".info['preferred_normalization'] not one of '"
+            + "', '".join(norm_methods)
+            + "'."
         )
 
     if "variants" in info:
         print("Checking contents of .info.variants", flush=True)
-        arg_names = [arg["clean_name"] for arg in config["all_arguments"]] + ["preferred_normalization"]
+        arg_names = [arg["clean_name"] for arg in config["all_arguments"]] + [
+            "preferred_normalization"
+        ]
         for paramset_id, paramset in info["variants"].items():
             if paramset:
                 for arg_id in paramset:
@@ -155,12 +179,20 @@ def run_check_config(meta: dict) -> None:
     )
 
     assert nextflow_runner, ".runners does not contain a nextflow runner"
-    assert nextflow_runner.get("directives"), "directives not a field in nextflow runner"
+    assert nextflow_runner.get(
+        "directives"
+    ), "directives not a field in nextflow runner"
     nextflow_labels = nextflow_runner["directives"].get("label")
     assert nextflow_labels, "label not a field in nextflow runner directives"
 
-    assert [label for label in nextflow_labels if label in TIME_LABELS], "time label not filled in"
-    assert [label for label in nextflow_labels if label in MEM_LABELS], "mem label not filled in"
-    assert [label for label in nextflow_labels if label in CPU_LABELS], "cpu label not filled in"
+    assert [
+        label for label in nextflow_labels if label in TIME_LABELS
+    ], "time label not filled in"
+    assert [
+        label for label in nextflow_labels if label in MEM_LABELS
+    ], "mem label not filled in"
+    assert [
+        label for label in nextflow_labels if label in CPU_LABELS
+    ], "cpu label not filled in"
 
     print("All checks succeeded!", flush=True)

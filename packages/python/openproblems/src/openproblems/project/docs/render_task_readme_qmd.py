@@ -2,7 +2,9 @@ from __future__ import annotations
 import re
 
 
-def render_task_readme_qmd(task_metadata: dict | str, add_instructions: bool = False) -> str:
+def render_task_readme_qmd(
+    task_metadata: dict | str, add_instructions: bool = False
+) -> str:
     """Render the ``README.qmd`` for a task.
 
     Args:
@@ -16,6 +18,7 @@ def render_task_readme_qmd(task_metadata: dict | str, add_instructions: bool = F
     """
     if isinstance(task_metadata, str):
         from .read_task_metadata import read_task_metadata
+
         task_metadata = read_task_metadata(task_metadata)
 
     proj_conf = task_metadata["proj_conf"]
@@ -79,7 +82,7 @@ def _render_authors(task_metadata: dict) -> str:
     # Collect columns: name, roles, then any info keys
     all_keys: list[str] = ["name", "roles"]
     for aut in authors:
-        for key in (aut.get("info") or {}):
+        for key in aut.get("info") or {}:
             if key not in all_keys:
                 all_keys.append(key)
 
@@ -113,10 +116,14 @@ def _render_task_graph(task_metadata: dict) -> str:
 
     node_order = {name: i for i, name in enumerate(order)}
 
-    sorted_nodes = sorted(G.nodes(data=True), key=lambda x: node_order.get(x[0], len(order)))
+    sorted_nodes = sorted(
+        G.nodes(data=True), key=lambda x: node_order.get(x[0], len(order))
+    )
     node_lines = []
     for node_id, attrs in sorted_nodes:
-        label = make_label(node_id, attrs.get("label", node_id), attrs.get("is_comp", False))
+        label = make_label(
+            node_id, attrs.get("label", node_id), attrs.get("is_comp", False)
+        )
         cid = clean_id(node_id)
         if attrs.get("is_comp", False):
             node_lines.append(f'  {cid}[/"{label}"/]')
@@ -125,7 +132,10 @@ def _render_task_graph(task_metadata: dict) -> str:
 
     sorted_edges = sorted(
         G.edges(data=True),
-        key=lambda e: (node_order.get(e[0], len(order)), node_order.get(e[1], len(order))),
+        key=lambda e: (
+            node_order.get(e[0], len(order)),
+            node_order.get(e[1], len(order)),
+        ),
     )
     edge_lines = []
     for from_node, to_node, attrs in sorted_edges:
@@ -137,13 +147,15 @@ def _render_task_graph(task_metadata: dict) -> str:
             edge_type = "-->" if required else ".->"
         edge_lines.append(f"  {clean_id(from_node)}{edge_type}{clean_id(to_node)}")
 
-    return "\n".join([
-        "```mermaid",
-        "flowchart TB",
-        *node_lines,
-        *edge_lines,
-        "```",
-    ])
+    return "\n".join(
+        [
+            "```mermaid",
+            "flowchart TB",
+            *node_lines,
+            *edge_lines,
+            "```",
+        ]
+    )
 
 
 def _render_task_parts(task_metadata: dict) -> list[str]:
@@ -161,50 +173,52 @@ def _render_task_parts(task_metadata: dict) -> list[str]:
 
 def _render_instructions(task_metadata: dict) -> str:
     proj_name = task_metadata["proj_conf"].get("name", "")
-    return "\n".join([
-        "### Installation",
-        "",
-        "You need to have Docker, Java, and Viash installed. Follow",
-        "[these instructions](https://openproblems.bio/documentation/fundamentals/requirements)",
-        "to install the required dependencies.",
-        "",
-        "### Add a method",
-        "",
-        "To add a method to the repository, follow the instructions in the `scripts/add_a_method.sh` script.",
-        "",
-        "### Initial setup",
-        "",
-        "To get started, you can run the following commands:",
-        "",
-        "```bash",
-        f"git clone git@github.com:openproblems-bio/{proj_name}.git",
-        "",
-        f"cd {proj_name}",
-        "",
-        "# initialise submodule",
-        "scripts/init_submodule.sh",
-        "",
-        "# download resources",
-        "scripts/download_resources.sh",
-        "```",
-        "",
-        "To run the benchmark, you first need to build the components. Afterwards, you can run the benchmark:",
-        "",
-        "```bash",
-        "viash ns build --parallel --setup cachedbuild",
-        "",
-        "scripts/run_benchmark.sh",
-        "```",
-        "",
-        "After adding a component, it is recommended to run the tests to ensure that the component is working correctly:",
-        "",
-        "```bash",
-        "viash ns test --parallel",
-        "```",
-        "",
-        "Optionally, you can provide the `--query` argument to test only a subset of components:",
-        "",
-        "```bash",
-        "viash ns test --parallel --query 'component_name'",
-        "```",
-    ])
+    return "\n".join(
+        [
+            "### Installation",
+            "",
+            "You need to have Docker, Java, and Viash installed. Follow",
+            "[these instructions](https://openproblems.bio/documentation/fundamentals/requirements)",
+            "to install the required dependencies.",
+            "",
+            "### Add a method",
+            "",
+            "To add a method to the repository, follow the instructions in the `scripts/add_a_method.sh` script.",
+            "",
+            "### Initial setup",
+            "",
+            "To get started, you can run the following commands:",
+            "",
+            "```bash",
+            f"git clone git@github.com:openproblems-bio/{proj_name}.git",
+            "",
+            f"cd {proj_name}",
+            "",
+            "# initialise submodule",
+            "scripts/init_submodule.sh",
+            "",
+            "# download resources",
+            "scripts/download_resources.sh",
+            "```",
+            "",
+            "To run the benchmark, you first need to build the components. Afterwards, you can run the benchmark:",
+            "",
+            "```bash",
+            "viash ns build --parallel --setup cachedbuild",
+            "",
+            "scripts/run_benchmark.sh",
+            "```",
+            "",
+            "After adding a component, it is recommended to run the tests to ensure that the component is working correctly:",
+            "",
+            "```bash",
+            "viash ns test --parallel",
+            "```",
+            "",
+            "Optionally, you can provide the `--query` argument to test only a subset of components:",
+            "",
+            "```bash",
+            "viash ns test --parallel --query 'component_name'",
+            "```",
+        ]
+    )

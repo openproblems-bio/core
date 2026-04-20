@@ -18,11 +18,10 @@ def format_markdown_table(headers, rows, col_widths=None):
     if col_widths is not None:
         sep_line = "|" + "".join(f":{'-' * w}|" for w in col_widths)
     else:
-        sep_line = "| " + " | ".join(f":{'-' * max(len(str(h)), 3)}" for h in headers) + " |"
+        sep_line = (
+            "| " + " | ".join(f":{'-' * max(len(str(h)), 3)}" for h in headers) + " |"
+        )
 
-    data_lines = [
-        "| " + " | ".join(str(cell) for cell in row) + " |"
-        for row in rows
-    ]
+    data_lines = ["| " + " | ".join(str(cell) for cell in row) + " |" for row in rows]
 
     return "\n".join([header_line, sep_line] + data_lines)

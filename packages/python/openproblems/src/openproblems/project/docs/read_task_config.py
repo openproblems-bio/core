@@ -8,4 +8,5 @@ def read_task_config(path):
         The parsed config as a dict.
     """
     from .. import read_nested_yaml
+
     return read_nested_yaml(path)

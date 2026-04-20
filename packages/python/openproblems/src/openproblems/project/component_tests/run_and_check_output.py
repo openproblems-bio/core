@@ -9,7 +9,9 @@ def run_component(cmd: list) -> None:
 
     print(">> Running script as test", flush=True)
     out = subprocess.run(cmd)
-    assert out.returncode == 0, f"Script exited with an error. Return code: {out.returncode}"
+    assert (
+        out.returncode == 0
+    ), f"Script exited with an error. Return code: {out.returncode}"
 
 
 def check_input_files(arguments: list) -> None:
@@ -19,9 +21,9 @@ def check_input_files(arguments: list) -> None:
     print(">> Checking whether input files exist", flush=True)
     for arg in arguments:
         if arg["type"] == "file" and arg["direction"] == "input" and arg["required"]:
-            assert not arg["must_exist"] or path.exists(arg["value"]), (
-                f"Input file '{arg['value']}' does not exist"
-            )
+            assert not arg["must_exist"] or path.exists(
+                arg["value"]
+            ), f"Input file '{arg['value']}' does not exist"
 
 
 def check_output_files(arguments: list) -> None:
@@ -31,9 +33,9 @@ def check_output_files(arguments: list) -> None:
     print(">> Checking whether output file exists", flush=True)
     for arg in arguments:
         if arg["type"] == "file" and arg["direction"] == "output" and arg["required"]:
-            assert not arg["must_exist"] or path.exists(arg["value"]), (
-                f"Output file '{arg['value']}' does not exist"
-            )
+            assert not arg["must_exist"] or path.exists(
+                arg["value"]
+            ), f"Output file '{arg['value']}' does not exist"
 
     print(">> Reading output files and checking formats", flush=True)
     for arg in arguments:
@@ -134,9 +136,9 @@ def check_anndata(adata, format_spec: dict, label: str = "") -> None:
         else:
             for item in items:
                 if item.get("required", True):
-                    assert item["name"] in struc_x, (
-                        f"{label} is missing slot .{struc_name}['{item['name']}']"
-                    )
+                    assert (
+                        item["name"] in struc_x
+                    ), f"{label} is missing slot .{struc_name}['{item['name']}']"
 
 
 def check_dataframe(df, columns: list, label: str = "") -> None:
@@ -145,7 +147,9 @@ def check_dataframe(df, columns: list, label: str = "") -> None:
     """
     for item in columns:
         if item.get("required", True):
-            assert item["name"] in df.columns, f"{label} is missing column '{item['name']}'"
+            assert (
+                item["name"] in df.columns
+            ), f"{label} is missing column '{item['name']}'"
 
 
 def check_dictionary(data, arg: dict) -> None:
@@ -157,9 +161,9 @@ def check_dictionary(data, arg: dict) -> None:
     arg_keys = arg_format.get("keys") or arg_info.get("keys") or []
     for item in arg_keys:
         if item.get("required", True):
-            assert isinstance(data, dict) and item["name"] in data, (
-                f"File '{arg['value']}' is missing key '{item['name']}'"
-            )
+            assert (
+                isinstance(data, dict) and item["name"] in data
+            ), f"File '{arg['value']}' is missing key '{item['name']}'"
 
 
 def check_spatialdata(sdata, arg: dict) -> None:
@@ -175,9 +179,9 @@ def check_spatialdata(sdata, arg: dict) -> None:
         category_store = getattr(sdata, category, {})
         for item in items:
             if item.get("required", True):
-                assert item["name"] in category_store, (
-                    f"File '{arg['value']}' is missing {category}['{item['name']}']"
-                )
+                assert (
+                    item["name"] in category_store
+                ), f"File '{arg['value']}' is missing {category}['{item['name']}']"
 
             elem_name = item["name"]
             if elem_name not in category_store:
@@ -191,7 +195,9 @@ def check_spatialdata(sdata, arg: dict) -> None:
                     f"File '{arg['value']}' {category}['{elem_name}']",
                 )
             elif category == "tables":
-                check_anndata(element, item, f"File '{arg['value']}' tables['{elem_name}']")
+                check_anndata(
+                    element, item, f"File '{arg['value']}' tables['{elem_name}']"
+                )
 
 
 def get_argument_sets(config: dict, resources_dir: str) -> dict:

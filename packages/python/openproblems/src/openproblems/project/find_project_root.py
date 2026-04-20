@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+
 def find_project_root(path: str = ".") -> str | None:
     """
     Find the root of a Viash project
@@ -15,8 +16,8 @@ def find_project_root(path: str = ".") -> str | None:
     """
 
     import os
-    
-    path = os.path.abspath(path) 
+
+    path = os.path.abspath(path)
 
     while path != "/" and not os.path.exists(os.path.join(path, "_viash.yaml")):
         path = os.path.dirname(path)

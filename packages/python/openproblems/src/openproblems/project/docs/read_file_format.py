@@ -2,8 +2,25 @@ from __future__ import annotations
 import os
 import re
 
-ANNDATA_STRUCT_NAMES = ["X", "obs", "var", "obsm", "obsp", "varm", "varp", "layers", "uns"]
-SPATIALDATA_ELEMENT_CATEGORIES = ["images", "labels", "points", "shapes", "tables", "coordinate_systems"]
+ANNDATA_STRUCT_NAMES = [
+    "X",
+    "obs",
+    "var",
+    "obsm",
+    "obsp",
+    "varm",
+    "varp",
+    "layers",
+    "uns",
+]
+SPATIALDATA_ELEMENT_CATEGORIES = [
+    "images",
+    "labels",
+    "points",
+    "shapes",
+    "tables",
+    "coordinate_systems",
+]
 
 
 def read_file_format(path: str) -> dict:
@@ -17,6 +34,7 @@ def read_file_format(path: str) -> dict:
         (list of dicts) when the format type is known.
     """
     from .. import read_nested_yaml
+
     data = read_nested_yaml(path)
 
     out: dict = {"info": _process_info(data, path)}
@@ -70,17 +88,19 @@ def _process_h5ad(data: dict, path: str, format_type: str) -> list[dict]:
         if not isinstance(fields, list):
             fields = [fields]
         for field in fields:
-            rows.append({
-                "file_name": file_name,
-                "struct": struct_name,
-                "name": field.get("name", struct_name),
-                "type": field.get("type", ""),
-                "required": field.get("required", True),
-                "multiple": field.get("multiple", False),
-                "description": field.get("description"),
-                "summary": field.get("summary"),
-                "data_type": format_type,
-            })
+            rows.append(
+                {
+                    "file_name": file_name,
+                    "struct": struct_name,
+                    "name": field.get("name", struct_name),
+                    "type": field.get("type", ""),
+                    "required": field.get("required", True),
+                    "multiple": field.get("multiple", False),
+                    "description": field.get("description"),
+                    "summary": field.get("summary"),
+                    "data_type": format_type,
+                }
+            )
     return rows
 
 
@@ -155,13 +175,15 @@ def _process_spatialdata(data: dict, path: str) -> list[dict]:
                     if not isinstance(fields, list):
                         fields = [fields]
                     for f in fields:
-                        slots.append({
-                            "struct": struct_name,
-                            "name": f.get("name", struct_name),
-                            "type": f.get("type", ""),
-                            "required": f.get("required", True),
-                            "description": f.get("description"),
-                        })
+                        slots.append(
+                            {
+                                "struct": struct_name,
+                                "name": f.get("name", struct_name),
+                                "type": f.get("type", ""),
+                                "required": f.get("required", True),
+                                "description": f.get("description"),
+                            }
+                        )
                 row["anndata_slots"] = slots
             rows.append(row)
     return rows

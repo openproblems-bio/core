@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+
 def read_nested_yaml(path: str, project_path: str | None = None) -> dict:
     """
     Read a nested YAML
@@ -29,10 +30,13 @@ def read_nested_yaml(path: str, project_path: str | None = None) -> dict:
             data = yaml.safe_load(f)
     except Exception as e:
         raise ValueError(f"Could not read {path}. Error: {e}")
-    
+
     return process_nested_yaml(data, data, path, project_path)
 
-def process_nested_yaml(data: any, root_data: dict, path: str, project_path: str) -> dict:
+
+def process_nested_yaml(
+    data: any, root_data: dict, path: str, project_path: str
+) -> dict:
     """
     Process the merge keys in a YAML
 
@@ -53,11 +57,18 @@ def process_nested_yaml(data: any, root_data: dict, path: str, project_path: str
     from ..utils.deep_merge import deep_merge
 
     if isinstance(data, dict):
-        processed_data = {k: process_nested_yaml(v, root_data, path, project_path) for k, v in data.items()}
+        processed_data = {
+            k: process_nested_yaml(v, root_data, path, project_path)
+            for k, v in data.items()
+        }
 
         new_data = {}
-        if "__merge__" in processed_data and not isinstance(processed_data["__merge__"], dict):
-            new_data_path = resolve_path(processed_data["__merge__"], project_path, os.path.dirname(path))
+        if "__merge__" in processed_data and not isinstance(
+            processed_data["__merge__"], dict
+        ):
+            new_data_path = resolve_path(
+                processed_data["__merge__"], project_path, os.path.dirname(path)
+            )
             new_data = read_nested_yaml(new_data_path, project_path)
         elif "$ref" in processed_data and not isinstance(processed_data["$ref"], dict):
             ref_parts = processed_data["$ref"].split("#")
@@ -65,7 +76,9 @@ def process_nested_yaml(data: any, root_data: dict, path: str, project_path: str
             if ref_parts[0] == "":
                 x = root_data
             else:
-                new_data_path = resolve_path(ref_parts[0], project_path, os.path.dirname(path))
+                new_data_path = resolve_path(
+                    ref_parts[0], project_path, os.path.dirname(path)
+                )
                 new_data_path = os.path.normpath(new_data_path)
 
                 try:
@@ -73,7 +86,7 @@ def process_nested_yaml(data: any, root_data: dict, path: str, project_path: str
                         x = yaml.safe_load(f)
                 except Exception as e:
                     raise ValueError(f"Could not read {new_data_path}. Error: {e}")
-                
+
             x_root = x
 
             ref_path_parts = ref_parts[1].split("/")
@@ -83,8 +96,10 @@ def process_nested_yaml(data: any, root_data: dict, path: str, project_path: str
                 elif part in x:
                     x = x[part]
                 else:
-                    raise ValueError(f"Could not find {processed_data['$ref']} in {path}")
-                
+                    raise ValueError(
+                        f"Could not find {processed_data['$ref']} in {path}"
+                    )
+
             if ref_parts[0] == "":
                 new_data = x
             else:

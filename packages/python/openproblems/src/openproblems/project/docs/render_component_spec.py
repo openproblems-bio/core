@@ -15,6 +15,7 @@ def render_component_spec(spec: dict | str) -> str:
     """
     if isinstance(spec, str):
         from .read_component_spec import read_component_spec
+
         spec = read_component_spec(spec)
 
     info = spec["info"]
@@ -55,10 +56,14 @@ def _format_arguments(args: list[dict]) -> str:
         default = arg.get("default")
         default_str = f" Default: `{default}`." if default is not None else ""
 
-        rows.append([
-            f"`--{arg['arg_name']}`",
-            f"`{arg.get('type', '')}`",
-            f"{tag_str}{summary}.{default_str}",
-        ])
+        rows.append(
+            [
+                f"`--{arg['arg_name']}`",
+                f"`{arg.get('type', '')}`",
+                f"{tag_str}{summary}.{default_str}",
+            ]
+        )
 
-    return format_markdown_table(["Name", "Type", "Description"], rows, col_widths=[25, 8, 60])
+    return format_markdown_table(
+        ["Name", "Type", "Description"], rows, col_widths=[25, 8, 60]
+    )

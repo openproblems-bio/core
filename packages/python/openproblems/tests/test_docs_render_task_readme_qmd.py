@@ -1,20 +1,30 @@
 import os
 import pytest
 
-EXAMPLE_PROJECT = os.path.normpath(os.path.join(
-    os.path.dirname(__file__),
-    "data/example_project",
-))
+EXAMPLE_PROJECT = os.path.normpath(
+    os.path.join(
+        os.path.dirname(__file__),
+        "data/example_project",
+    )
+)
 
 
 @pytest.fixture(scope="module")
 def task_metadata():
     from openproblems.project.docs import read_task_metadata
+
     return read_task_metadata(EXAMPLE_PROJECT)
 
 
 def test_read_task_metadata_keys(task_metadata):
-    for key in ("proj_path", "proj_conf", "files", "comps", "task_graph", "task_graph_order"):
+    for key in (
+        "proj_path",
+        "proj_conf",
+        "files",
+        "comps",
+        "task_graph",
+        "task_graph_order",
+    ):
         assert key in task_metadata
 
 
@@ -36,6 +46,7 @@ def test_read_task_metadata_graph_edges(task_metadata):
 
 def test_render_task_readme_qmd_structure(task_metadata):
     from openproblems.project import render_task_readme_qmd
+
     result = render_task_readme_qmd(task_metadata)
 
     assert '---\ntitle: "Template"\nformat: gfm\n---' in result
@@ -49,6 +60,7 @@ def test_render_task_readme_qmd_structure(task_metadata):
 
 def test_render_task_readme_qmd_components(task_metadata):
     from openproblems.project import render_task_readme_qmd
+
     result = render_task_readme_qmd(task_metadata)
 
     assert "## Component type: Method" in result
@@ -57,6 +69,7 @@ def test_render_task_readme_qmd_components(task_metadata):
 
 def test_render_task_readme_qmd_file_formats(task_metadata):
     from openproblems.project import render_task_readme_qmd
+
     result = render_task_readme_qmd(task_metadata)
 
     assert "## File format: Training data" in result
@@ -65,6 +78,7 @@ def test_render_task_readme_qmd_file_formats(task_metadata):
 
 def test_render_task_readme_qmd_instructions(task_metadata):
     from openproblems.project import render_task_readme_qmd
+
     without = render_task_readme_qmd(task_metadata, add_instructions=False)
     with_inst = render_task_readme_qmd(task_metadata, add_instructions=True)
 
@@ -74,5 +88,6 @@ def test_render_task_readme_qmd_instructions(task_metadata):
 
 def test_render_task_readme_qmd_from_path():
     from openproblems.project import render_task_readme_qmd
+
     result = render_task_readme_qmd(EXAMPLE_PROJECT)
     assert "## API" in result

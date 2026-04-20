@@ -1,8 +1,25 @@
 from __future__ import annotations
 import re
 
-ANNDATA_STRUCT_NAMES = ["X", "obs", "var", "obsm", "obsp", "varm", "varp", "layers", "uns"]
-SPATIALDATA_ELEMENT_CATEGORIES = ["images", "labels", "points", "shapes", "tables", "coordinate_systems"]
+ANNDATA_STRUCT_NAMES = [
+    "X",
+    "obs",
+    "var",
+    "obsm",
+    "obsp",
+    "varm",
+    "varp",
+    "layers",
+    "uns",
+]
+SPATIALDATA_ELEMENT_CATEGORIES = [
+    "images",
+    "labels",
+    "points",
+    "shapes",
+    "tables",
+    "coordinate_systems",
+]
 
 
 def render_file_format(spec: dict | str) -> str:
@@ -18,6 +35,7 @@ def render_file_format(spec: dict | str) -> str:
     """
     if isinstance(spec, str):
         from .read_file_format import read_file_format
+
         spec = read_file_format(spec)
 
     info = spec["info"]
@@ -34,19 +52,21 @@ def render_file_format(spec: dict | str) -> str:
     if expected_format:
         format_example_lines = _render_format_example(spec)
         format_table_lines = _render_format_table(spec)
-        expected_format_str = "\n".join([
-            "Format:",
-            "",
-            ":::{.small}",
-            *format_example_lines,
-            ":::",
-            "",
-            "Data structure:",
-            "",
-            ":::{.small}",
-            *format_table_lines,
-            ":::",
-        ])
+        expected_format_str = "\n".join(
+            [
+                "Format:",
+                "",
+                ":::{.small}",
+                *format_example_lines,
+                ":::",
+                "",
+                "Data structure:",
+                "",
+                ":::{.small}",
+                *format_table_lines,
+                ":::",
+            ]
+        )
 
     parts = [
         f"## File format: {label}",
@@ -115,7 +135,9 @@ def _render_format_table(spec: dict) -> list[str]:
         return f"(_{', '.join(tags)}_) " if tags else ""
 
     def _clean_desc(row: dict) -> str:
-        desc = re.sub(r" *\n *", " ", (row.get("description") or "").strip()).rstrip(".")
+        desc = re.sub(r" *\n *", " ", (row.get("description") or "").strip()).rstrip(
+            "."
+        )
         return desc
 
     if fmt_type in ("h5ad", "anndata_hdf5", "anndata_zarr"):
@@ -127,7 +149,11 @@ def _render_format_table(spec: dict) -> list[str]:
             ]
             for row in expected_format
         ]
-        return [format_markdown_table(["Slot", "Type", "Description"], rows, col_widths=[25, 8, 60])]
+        return [
+            format_markdown_table(
+                ["Slot", "Type", "Description"], rows, col_widths=[25, 8, 60]
+            )
+        ]
 
     if fmt_type in ("csv", "tsv", "parquet"):
         rows = [
@@ -138,7 +164,11 @@ def _render_format_table(spec: dict) -> list[str]:
             ]
             for row in expected_format
         ]
-        return [format_markdown_table(["Column", "Type", "Description"], rows, col_widths=[25, 8, 60])]
+        return [
+            format_markdown_table(
+                ["Column", "Type", "Description"], rows, col_widths=[25, 8, 60]
+            )
+        ]
 
     if fmt_type in ("json", "yaml"):
         rows = [
@@ -149,7 +179,11 @@ def _render_format_table(spec: dict) -> list[str]:
             ]
             for row in expected_format
         ]
-        return [format_markdown_table(["Key", "Type", "Description"], rows, col_widths=[25, 8, 60])]
+        return [
+            format_markdown_table(
+                ["Key", "Type", "Description"], rows, col_widths=[25, 8, 60]
+            )
+        ]
 
     if fmt_type == "spatialdata_zarr":
         lines = []
@@ -169,7 +203,11 @@ def _render_format_table(spec: dict) -> list[str]:
                     [f'`{e["name"]}`', f"{_tag_str(e)}{_clean_desc(e)}."]
                     for e in elements
                 ]
-                lines.append(format_markdown_table(["Name", "Description"], elem_rows, col_widths=[25, 68]))
+                lines.append(
+                    format_markdown_table(
+                        ["Name", "Description"], elem_rows, col_widths=[25, 68]
+                    )
+                )
 
             elif cat in ("points", "shapes"):
                 for elem in elements:
@@ -179,12 +217,18 @@ def _render_format_table(spec: dict) -> list[str]:
                         [
                             f'`{c["name"]}`',
                             f'`{c.get("type", "")}`',
-                            f"{_tag_str(c)}{re.sub(r' *\n *', ' ', (c.get('description') or '').strip()).rstrip('.')}.",
+                            f"{_tag_str(c)}{_clean_desc(c)}.",
                         ]
                         for c in (elem.get("columns") or [])
                     ]
                     if col_rows:
-                        lines.append(format_markdown_table(["Column", "Type", "Description"], col_rows, col_widths=[25, 8, 60]))
+                        lines.append(
+                            format_markdown_table(
+                                ["Column", "Type", "Description"],
+                                col_rows,
+                                col_widths=[25, 8, 60],
+                            )
+                        )
 
             elif cat == "tables":
                 for elem in elements:
@@ -194,12 +238,18 @@ def _render_format_table(spec: dict) -> list[str]:
                         [
                             f'`{s["struct"]}["{s["name"]}"]`',
                             f'`{s.get("type", "")}`',
-                            f"{_tag_str(s)}{re.sub(r' *\n *', ' ', (s.get('description') or '').strip()).rstrip('.')}.",
+                            f"{_tag_str(s)}{_clean_desc(s)}.",
                         ]
                         for s in (elem.get("anndata_slots") or [])
                     ]
                     if slot_rows:
-                        lines.append(format_markdown_table(["Slot", "Type", "Description"], slot_rows, col_widths=[25, 8, 60]))
+                        lines.append(
+                            format_markdown_table(
+                                ["Slot", "Type", "Description"],
+                                slot_rows,
+                                col_widths=[25, 8, 60],
+                            )
+                        )
 
             lines.append("")
 
