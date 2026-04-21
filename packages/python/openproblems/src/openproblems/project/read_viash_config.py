@@ -2,6 +2,7 @@ import os
 from .read_nested_yaml import read_nested_yaml
 from .find_project_root import find_project_root
 
+
 def read_viash_config(target_config_path, project_root_dir=None):
     """
     Process a Viash config file.
@@ -41,7 +42,9 @@ def read_viash_config(target_config_path, project_root_dir=None):
         # Fix 'build_info' if present
         if config["build_info"]:
             rel_config_dir = os.path.dirname(rel_target_config_path)
-            abs_build_dir = config["build_info"]["output"].replace(f"/{rel_config_dir}", "")
+            abs_build_dir = config["build_info"]["output"].replace(
+                f"/{rel_config_dir}", ""
+            )
 
             # Get platform types (assuming 'platforms' is a list of dicts)
             platform_types = [platform["type"] for platform in config["platforms"]]
@@ -66,11 +69,7 @@ def read_viash_config(target_config_path, project_root_dir=None):
                 )
                 config["build_info"]["runner"] = "executable"
                 config["build_info"]["engine"] = "|".join(
-                    [
-                        pt
-                        for pt in platform_types
-                        if pt in ["docker", "native"]
-                    ]
+                    [pt for pt in platform_types if pt in ["docker", "native"]]
                 )
 
         # Move 'functionality' to top level
@@ -87,7 +86,7 @@ def read_viash_config(target_config_path, project_root_dir=None):
                     for i, grp in enumerate(config["argument_groups"])
                     if grp["name"] == "Arguments"
                 ),
-                None
+                None,
             )
 
             if existing_ix is not None:

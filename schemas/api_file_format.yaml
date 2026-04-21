@@ -25,7 +25,11 @@ properties:
       format:
         oneOf:
           - $ref: "schema_openproblems_definitions.yaml#/definitions/H5ADFormat"
+          - $ref: "schema_openproblems_definitions.yaml#/definitions/AnnDataHDF5Format"
+          - $ref: "schema_openproblems_definitions.yaml#/definitions/AnnDataZarrFormat"
           - $ref: "schema_openproblems_definitions.yaml#/definitions/CSVFormat"
           - $ref: "schema_openproblems_definitions.yaml#/definitions/TSVFormat"
           - $ref: "schema_openproblems_definitions.yaml#/definitions/ParquetFormat"
+          - $ref: "schema_openproblems_definitions.yaml#/definitions/JSONFormat"
+          - $ref: "schema_openproblems_definitions.yaml#/definitions/YAMLFormat"
           - $ref: "schema_openproblems_definitions.yaml#/definitions/SpatialDataZarrFormat"

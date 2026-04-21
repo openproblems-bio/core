@@ -236,6 +236,86 @@ definitions:
     additionalProperties: false
     allOf: 
       - $ref: "#/definitions/AnnDataObject"
+  AnnDataHDF5Format:
+    type: object
+    properties:
+      type:
+        const: anndata_hdf5
+        description: The file format.
+      X:
+        type: object
+      layers:
+        type: array
+      obs:
+        type: array
+      obsm:
+        type: array
+      obsp:
+        type: array
+      var:
+        type: array
+      varm:
+        type: array
+      varp:
+        type: array
+      uns:
+        type: array
+    required: [type]
+    additionalProperties: false
+    allOf:
+      - $ref: "#/definitions/AnnDataObject"
+  AnnDataZarrFormat:
+    type: object
+    properties:
+      type:
+        const: anndata_zarr
+        description: The file format.
+      X:
+        type: object
+      layers:
+        type: array
+      obs:
+        type: array
+      obsm:
+        type: array
+      obsp:
+        type: array
+      var:
+        type: array
+      varm:
+        type: array
+      varp:
+        type: array
+      uns:
+        type: array
+    required: [type]
+    additionalProperties: false
+    allOf:
+      - $ref: "#/definitions/AnnDataObject"
+  JSONFormat:
+    type: object
+    required: [type]
+    additionalProperties: false
+    properties:
+      type:
+        const: json
+        description: The file format.
+      keys:
+        type: array
+        items:
+          $ref: "#/definitions/DataTypeSpec"
+  YAMLFormat:
+    type: object
+    required: [type]
+    additionalProperties: false
+    properties:
+      type:
+        const: yaml
+        description: The file format.
+      keys:
+        type: array
+        items:
+          $ref: "#/definitions/DataTypeSpec"
   CSVFormat:
     type: object
     required: [type]

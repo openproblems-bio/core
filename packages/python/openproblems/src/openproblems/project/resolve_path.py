@@ -14,9 +14,9 @@ def resolve_path(path: str, project_path: str, parent_path: str) -> str:
 
     Returns:
         str: The resolved path
-      
+
     Example:
-      
+
       ```python
       project_path <- "/path/to/project"
       parent_path <- "/path/to/project/subdir"
@@ -28,9 +28,9 @@ def resolve_path(path: str, project_path: str, parent_path: str) -> str:
       # "/path/to/project/file.yaml"
       ```
     """
-    
+
     import os
-    
+
     if path.startswith("/"):
         return os.path.join(project_path, path)
     else:
