@@ -101,7 +101,7 @@ def check_info(this_info: Dict, this_config: Dict, comp_type: str) -> None:
     if comp_type != "metric":
         references = this_config.get("references") or references
     if comp_type != "control_method" or references:
-        print("Check references fields", flush=True)
+        print("Check references fields (doi or bibtex)", flush=True)
         check_references(references)
 
 
@@ -117,16 +117,16 @@ def run_check_config(config: dict) -> None:
     info = config.get("info", {})
     comp_type = info.get("type")
 
-    print("Check .namespace", flush=True)
+    print("Check that .namespace is defined", flush=True)
     assert config.get("namespace"), ".namespace is not defined"
 
-    print("Check .info.type", flush=True)
+    print("Check that .info.type is 'method', 'control_method', or 'metric'", flush=True)
     expected_types = ["method", "control_method", "metric"]
     assert (
         comp_type in expected_types
-    ), ".info.type should be equal to 'method' or 'control_method'"
+    ), f".info.type is '{comp_type}' but should be one of: {', '.join(expected_types)}"
 
-    print("Check component metadata", flush=True)
+    print("Check component metadata fields (name, label, summary, description)", flush=True)
     if comp_type == "metric":
         metric_infos = info.get("metrics", [])
         assert metric_infos, ".info.metrics is not defined"
@@ -136,7 +136,7 @@ def run_check_config(config: dict) -> None:
         check_info(info, config, comp_type=comp_type)
 
     if "preferred_normalization" in info:
-        print("Checking contents of .info.preferred_normalization", flush=True)
+        print("Check that .info.preferred_normalization is a valid normalization method", flush=True)
         norm_methods = [
             "log_cpm",
             "log_cp10k",
@@ -153,7 +153,7 @@ def run_check_config(config: dict) -> None:
         )
 
     if "variants" in info:
-        print("Checking contents of .info.variants", flush=True)
+        print("Check that .info.variants only references valid argument names", flush=True)
         arg_names = [arg["clean_name"] for arg in config["all_arguments"]] + [
             "preferred_normalization"
         ]
@@ -167,7 +167,7 @@ def run_check_config(config: dict) -> None:
 
     runners = config.get("runners", [])
 
-    print("Check Nextflow runner", flush=True)
+    print("Check that a Nextflow runner with time, mem, and cpu labels is defined", flush=True)
     nextflow_runner = next(
         (runner for runner in runners if runner["type"] == "nextflow"),
         None,

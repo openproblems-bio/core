@@ -7,7 +7,7 @@ def run_component(cmd: list) -> None:
     """Run a component executable and assert it exits successfully."""
     import subprocess
 
-    print(">> Running script as test", flush=True)
+    print(">> Running the component executable", flush=True)
     out = subprocess.run(cmd)
     assert (
         out.returncode == 0
@@ -18,7 +18,7 @@ def check_input_files(arguments: list) -> None:
     """Assert that all required input files exist."""
     from os import path
 
-    print(">> Checking whether input files exist", flush=True)
+    print(">> Checking that all required input files exist", flush=True)
     for arg in arguments:
         if arg["type"] == "file" and arg["direction"] == "input" and arg["required"]:
             assert not arg["must_exist"] or path.exists(
@@ -30,14 +30,14 @@ def check_output_files(arguments: list) -> None:
     """Assert that all required output files exist and match their format spec."""
     from os import path
 
-    print(">> Checking whether output file exists", flush=True)
+    print(">> Checking that all required output files were created", flush=True)
     for arg in arguments:
         if arg["type"] == "file" and arg["direction"] == "output" and arg["required"]:
             assert not arg["must_exist"] or path.exists(
                 arg["value"]
             ), f"Output file '{arg['value']}' does not exist"
 
-    print(">> Reading output files and checking formats", flush=True)
+    print(">> Validating the contents and format of output files", flush=True)
     for arg in arguments:
         if arg["type"] != "file" or arg["direction"] != "output":
             continue

@@ -1,3 +1,27 @@
+# openproblems core Python v0.2.0
+
+## NEW FUNCTIONALITY
+
+* `project`:
+  - `resolve_path`: Resolve a path relative to a parent path or project root.
+
+* `project.component_tests`:
+  - `run_check_config` / `check_config`: Validate a component's Viash config (namespace, type, metadata, normalization, variants, Nextflow runner).
+  - `run_and_check_output`: Run a component executable and validate its output files against format specifications.
+
+* `project.docs`:
+  - `read_task_config`: Read a task-level configuration file.
+  - `read_task_metadata`: Read and assemble full task metadata by traversing the task's component graph.
+  - `read_component_spec`: Read a component API specification.
+  - `read_file_format`: Read a file format specification.
+  - `render_task_readme_qmd`: Render a Quarto README document for a task.
+  - `render_component_spec`: Render a component specification as a Markdown section.
+  - `render_file_format`: Render a file format specification as a Markdown section.
+
+## MINOR CHANGES
+
+* Improve diagnostic print messages in `check_config` and `run_and_check_output` to be more descriptive.
+
 # openproblems core Python v0.1.1
 
 ## NEW FUNCTIONALITY

@@ -12,6 +12,20 @@ authors = [
 license = { text = "MIT" }
 readme = "README.md"
 requires-python = ">= 3.9"
+keywords = ["openproblems", "benchmarking", "bioinformatics", "viash"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Scientific/Engineering :: Bio-Informatics",
+]
 dependencies = [
   'PyYAML',
   'networkx',
@@ -23,8 +37,10 @@ test = [
 ]
 
 [project.urls]
-homepage = "https://openproblems.bio/documentation"
-repository = "https://github.com/openproblems-bio/core"
+Homepage = "https://openproblems.bio/documentation"
+Repository = "https://github.com/openproblems-bio/core"
+"Bug Tracker" = "https://github.com/openproblems-bio/core/issues"
+Changelog = "https://github.com/openproblems-bio/core/blob/main/packages/python/openproblems/CHANGELOG.md"
 
 [tool.setuptools.packages.find]
 where = ["src"]
