@@ -21,9 +21,9 @@ def check_input_files(arguments: list) -> None:
     print(">> Checking that all required input files exist", flush=True)
     for arg in arguments:
         if arg["type"] == "file" and arg["direction"] == "input" and arg["required"]:
-            assert not arg["must_exist"] or path.exists(
-                arg["value"]
-            ), f"Input file '{arg['value']}' does not exist"
+            expected_path = arg.get("value")
+            assert expected_path is not None, f"Input argument '{arg['name']}' is missing a value"
+            assert not arg["must_exist"] or path.exists(expected_path), f"Input file '{expected_path}' does not exist"
 
 
 def check_output_files(arguments: list) -> None:
@@ -33,9 +33,9 @@ def check_output_files(arguments: list) -> None:
     print(">> Checking that all required output files were created", flush=True)
     for arg in arguments:
         if arg["type"] == "file" and arg["direction"] == "output" and arg["required"]:
-            assert not arg["must_exist"] or path.exists(
-                arg["value"]
-            ), f"Output file '{arg['value']}' does not exist"
+            expected_path = arg.get("value")
+            assert expected_path is not None, f"Output argument '{arg['name']}' is missing a value"
+            assert not arg["must_exist"] or path.exists(expected_path), f"Output file '{expected_path}' does not exist"
 
     print(">> Validating the contents and format of output files", flush=True)
     for arg in arguments:
@@ -216,15 +216,15 @@ def get_argument_sets(config: dict, resources_dir: str) -> dict:
         new_arg = arg.copy()
         arg_info = new_arg.get("info") or {}
         default_or_example = None
-        if arg_info.get("default"):
-            default_or_example = arg_info["default"]
-        elif arg_info.get("example"):
-            default_or_example = arg_info["example"]
+        if arg.get("default") is not None:
+            default_or_example = arg["default"]
+        elif arg.get("example") is not None:
+            default_or_example = arg["example"]
         if isinstance(default_or_example, list):
             default_or_example = default_or_example[0]
 
         # use example to find test resource file
-        if default_or_example and arg["type"] == "file":
+        if default_or_example is not None and arg["type"] == "file":
             if arg["direction"] == "input":
                 value = f"{resources_dir}/{default_or_example}"
             else:
@@ -253,7 +253,7 @@ def get_argument_sets(config: dict, resources_dir: str) -> dict:
                     val = test_instance[arg["clean_name"]]
                     if new_arg["type"] == "file" and new_arg["direction"] == "input":
                         val = f"{resources_dir}/{val}"
-                    new_arg["value"] = normalize_argument_value(val, new_arg)
+                    new_arg["value"] = val
                 new_arguments.append(new_arg)
             argument_sets[name] = new_arguments
 
