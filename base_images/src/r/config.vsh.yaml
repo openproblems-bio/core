@@ -1,5 +1,5 @@
 name: base_r
-description: An R2U 22.04 image with anndata preinstalled.
+description: An R2U image with anndata preinstalled.
 test_resources:
   - type: r_script
     path: test_anndatar.R

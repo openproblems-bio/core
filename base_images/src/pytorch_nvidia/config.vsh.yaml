@@ -1,5 +1,5 @@
 name: base_pytorch_nvidia
-description: An nvcr.io pytorch 24.06-py3 with anndata preinstalled.
+description: An nvcr.io pytorch with anndata preinstalled.
 test_resources:
   - type: python_script
     path: test_pytorch.py

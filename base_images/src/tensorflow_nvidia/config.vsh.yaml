@@ -1,5 +1,5 @@
 name: base_tensorflow_nvidia
-description: An nvcr.io tensorflow 24.06-tf2-py3 with anndata preinstalled.
+description: An nvcr.io tensorflow with anndata preinstalled.
 test_resources:
   - type: python_script
     path: test_tensorflow.py
