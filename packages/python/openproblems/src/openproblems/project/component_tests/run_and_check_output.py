@@ -215,13 +215,20 @@ def get_argument_sets(config: dict, resources_dir: str) -> dict:
     for arg in config["all_arguments"]:
         new_arg = arg.copy()
         arg_info = new_arg.get("info") or {}
-        example = arg.get("example", [None])[0]
+        default_or_example = None
+        if arg_info.get("default"):
+            default_or_example = arg_info["default"]
+        elif arg_info.get("example"):
+            default_or_example = arg_info["example"]
+        if isinstance(default_or_example, list):
+            default_or_example = default_or_example[0]
 
-        if example and arg["type"] == "file":
+        # use example to find test resource file
+        if default_or_example and arg["type"] == "file":
             if arg["direction"] == "input":
-                value = f"{resources_dir}/{example}"
+                value = f"{resources_dir}/{default_or_example}"
             else:
-                ext_res = re.search(r"\.(\w+)$", example)
+                ext_res = re.search(r"\.(\w+)$", default_or_example)
                 if ext_res:
                     value = f"{arg['clean_name']}.{ext_res.group(1)}"
                 else:
@@ -246,7 +253,7 @@ def get_argument_sets(config: dict, resources_dir: str) -> dict:
                     val = test_instance[arg["clean_name"]]
                     if new_arg["type"] == "file" and new_arg["direction"] == "input":
                         val = f"{resources_dir}/{val}"
-                    new_arg["value"] = val
+                    new_arg["value"] = normalize_argument_value(val, new_arg)
                 new_arguments.append(new_arg)
             argument_sets[name] = new_arguments
 

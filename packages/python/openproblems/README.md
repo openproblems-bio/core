@@ -27,7 +27,7 @@ Utilities for working with Viash projects.
 
 Helpers for writing component tests.
 
-- `run_check_config` / `check_config`: Validate a component's Viash configuration.
+- `check_config`: Validate a component's Viash configuration.
 - `run_and_check_output`: Run a component and validate its output files against format specs.
 
 #### `openproblems.project.docs`
