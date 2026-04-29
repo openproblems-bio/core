@@ -6,7 +6,7 @@
   - `resolve_path`: Resolve a path relative to a parent path or project root.
 
 * `project.component_tests`:
-  - `run_check_config` / `check_config`: Validate a component's Viash config (namespace, type, metadata, normalization, variants, Nextflow runner).
+  - `check_config`: Validate a component's Viash config (namespace, type, metadata, normalization, variants, Nextflow runner).
   - `run_and_check_output`: Run a component executable and validate its output files against format specifications.
 
 * `project.docs`:
