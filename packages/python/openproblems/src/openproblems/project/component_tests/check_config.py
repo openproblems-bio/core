@@ -105,7 +105,7 @@ def check_info(this_info: Dict, this_config: Dict, comp_type: str) -> None:
         check_references(references)
 
 
-def run_check_config(config: dict) -> None:
+def check_config(config: dict) -> None:
     """Validate a viash component config.
 
     Checks namespace, info.type, component metadata, preferred_normalization,
