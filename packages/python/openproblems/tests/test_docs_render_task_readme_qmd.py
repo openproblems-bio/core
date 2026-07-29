@@ -142,3 +142,15 @@ def test_task_graph_order_includes_cyclic_nodes():
 
     assert sorted(order) == ["a", "b", "c"]
     assert order[0] == "a"
+
+
+def test_render_component_spec_non_file_arguments(task_metadata):
+    from openproblems.project.docs import render_component_spec
+
+    result = render_component_spec(task_metadata["comps"]["comp_data_processor"])
+
+    # non-file arguments are part of the API too, and describe themselves
+    # through `description` rather than the `summary` a __merge__ pulls in
+    assert "`--seed`" in result
+    assert "The seed for determining the train/test split" in result
+    assert "Default: `1`" in result

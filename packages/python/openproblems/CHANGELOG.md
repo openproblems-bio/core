@@ -28,6 +28,9 @@
   Tasks with more than one raw dataset no longer strand all but the first at the end of the README,
   and a component is never documented before the files it consumes.
 
+* `render_component_spec`: Include non-file arguments (e.g. `--seed`) in the arguments table,
+  and fall back to an argument's `description` when it has no `summary`.
+
 # openproblems core Python v0.1.1
 
 ## NEW FUNCTIONALITY

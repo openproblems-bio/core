@@ -39,12 +39,11 @@ def render_component_spec(spec: dict | str) -> str:
 def _format_arguments(args: list[dict]) -> str:
     from ._markdown import format_markdown_table
 
-    file_args = [a for a in args if a.get("type") == "file"]
-    if not file_args:
+    if not args:
         return ""
 
     rows = []
-    for arg in file_args:
+    for arg in args:
         tags = []
         if not arg.get("required", True):
             tags.append("Optional")
@@ -52,7 +51,9 @@ def _format_arguments(args: list[dict]) -> str:
             tags.append("Output")
         tag_str = f"(_{', '.join(tags)}_) " if tags else ""
 
-        summary = re.sub(r" *\n *", " ", (arg.get("summary") or "").strip()).rstrip(".")
+        # file arguments carry a summary via __merge__, plain ones a description
+        text = arg.get("summary") or arg.get("description") or ""
+        text = re.sub(r" *\n *", " ", text.strip()).rstrip(".")
         default = arg.get("default")
         default_str = f" Default: `{default}`." if default is not None else ""
 
@@ -60,7 +61,7 @@ def _format_arguments(args: list[dict]) -> str:
             [
                 f"`--{arg['arg_name']}`",
                 f"`{arg.get('type', '')}`",
-                f"{tag_str}{summary}.{default_str}",
+                f"{tag_str}{text}.{default_str}",
             ]
         )
 
