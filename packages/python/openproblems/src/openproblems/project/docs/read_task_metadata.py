@@ -2,7 +2,6 @@ from __future__ import annotations
 import glob
 import os
 import re
-import warnings
 from collections import deque
 
 
@@ -10,7 +9,8 @@ def read_task_metadata(path: str) -> dict:
     """Read all API files in a task directory and return structured metadata.
 
     Scans ``path`` recursively for ``comp_*.yaml`` and ``file_*.yaml`` files,
-    builds a directed task graph, and runs a BFS to determine render order.
+    builds a directed task graph, and topologically sorts it to determine
+    render order.
 
     Args:
         path: Path to the task directory (or ``api/`` subdirectory).  A
@@ -25,8 +25,9 @@ def read_task_metadata(path: str) -> dict:
         * ``file_info`` / ``comp_info`` – flat lists of info dicts
         * ``file_expected_format`` / ``comp_args`` – flat lists
         * ``task_graph`` – ``networkx.DiGraph``
-        * ``task_graph_root`` – name of the root node
-        * ``task_graph_order`` – BFS-ordered list of node names
+        * ``task_graph_roots`` – names of the nodes without any inputs
+        * ``task_graph_root`` – name of the first root node
+        * ``task_graph_order`` – topologically ordered list of node names
     """
     from .. import find_project_root
     from .read_task_config import read_task_config
@@ -62,8 +63,8 @@ def read_task_metadata(path: str) -> dict:
     }
 
     task_graph = _build_graph(files, comps)
-    task_graph_root = _get_root(task_graph)
-    task_graph_order = _bfs_order(task_graph, task_graph_root)
+    task_graph_roots = _get_roots(task_graph)
+    task_graph_order = _topological_order(task_graph, task_graph_roots)
 
     comp_info = [c["info"] for c in comps.values()]
     comp_args = [arg for c in comps.values() for arg in c["args"]]
@@ -82,7 +83,8 @@ def read_task_metadata(path: str) -> dict:
         "comp_info": comp_info,
         "comp_args": comp_args,
         "task_graph": task_graph,
-        "task_graph_root": task_graph_root,
+        "task_graph_roots": task_graph_roots,
+        "task_graph_root": task_graph_roots[0] if task_graph_roots else None,
         "task_graph_order": task_graph_order,
     }
 
@@ -114,32 +116,32 @@ def _build_graph(files: dict, comps: dict):
     return G
 
 
-def _get_root(G) -> str:
+def _get_roots(G) -> list[str]:
+    """Nodes without inputs, i.e. the raw datasets a task starts from."""
     roots = [n for n, d in G.in_degree() if d == 0]
-    if not roots:
-        return next(iter(G.nodes()))
-    if len(roots) > 1:
-        warnings.warn(
-            f"Multiple root nodes with in-degree 0: {roots}. Using first.",
-            stacklevel=4,
-        )
-    return roots[0]
+    return roots if roots else list(G.nodes())[:1]
 
 
-def _bfs_order(G, root: str) -> list[str]:
-    """BFS from root; unreachable nodes are appended afterwards (mirrors igraph)."""
-    visited: list[str] = []
-    seen: set[str] = set()
-    queue: deque[str] = deque([root])
+def _topological_order(G, roots: list[str]) -> list[str]:
+    """Order the graph so every node comes after the nodes it consumes.
+
+    Kahn's algorithm with a FIFO queue seeded with *all* roots, so a task with
+    several raw datasets keeps them together at the start instead of stranding
+    all but the first at the end. Nodes in a cycle are appended afterwards.
+    """
+    pending = {n: d for n, d in G.in_degree()}
+    order: list[str] = []
+    seen: set[str] = set(roots)
+    queue: deque[str] = deque(roots)
     while queue:
         node = queue.popleft()
-        if node not in seen:
-            seen.add(node)
-            visited.append(node)
-            for nbr in G.successors(node):
-                if nbr not in seen:
-                    queue.append(nbr)
+        order.append(node)
+        for nbr in G.successors(node):
+            pending[nbr] -= 1
+            if pending[nbr] <= 0 and nbr not in seen:
+                seen.add(nbr)
+                queue.append(nbr)
     for node in G.nodes():
         if node not in seen:
-            visited.append(node)
-    return visited
+            order.append(node)
+    return order

@@ -22,6 +22,12 @@
 
 * Improve diagnostic print messages in `check_config` and `run_and_check_output` to be more descriptive.
 
+## BUG FIXES
+
+* `read_task_metadata`: Order the task graph topologically instead of by a breadth-first search from a single root.
+  Tasks with more than one raw dataset no longer strand all but the first at the end of the README,
+  and a component is never documented before the files it consumes.
+
 # openproblems core Python v0.1.1
 
 ## NEW FUNCTIONALITY
