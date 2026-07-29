@@ -3,6 +3,10 @@
 #' @param spec file spec
 #' @return string
 #'
+#' @section Deprecated:
+#' Superseded by `openproblems.project.docs.render_file_format()` in the Python
+#' `openproblems` package, which is what `create_task_readme` runs.
+#'
 #' @export
 #' @examples
 #' path <- system.file(
@@ -14,6 +18,8 @@
 #'
 #' render_file_format(spec)
 render_file_format <- function(spec) {
+  .deprecate_docs("render_file_format")
+
   if (is.character(spec)) {
     spec <- read_file_format(spec)
   }

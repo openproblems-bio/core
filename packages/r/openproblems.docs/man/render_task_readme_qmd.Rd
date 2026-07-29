@@ -17,6 +17,12 @@ A qmd documentation string
 \description{
 Render the README.qmd file for a task
 }
+\section{Deprecated}{
+
+Superseded by \code{openproblems.project.docs.render_task_readme_qmd()} in the Python
+\code{openproblems} package, which is what \code{create_task_readme} runs.
+}
+
 \examples{
 path <- system.file("extdata", "example_project", package = "openproblems.docs")
 

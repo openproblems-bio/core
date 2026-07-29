@@ -1,4 +1,10 @@
 #' @keywords internal
+#'
+#' @section Deprecated:
+#' This package is deprecated and will be removed in a future release. The
+#' README rendering pipeline (`common/scripts/create_task_readme`) runs the
+#' Python `openproblems` package, so `openproblems.project.docs` is the source
+#' of truth for task documentation.
 "_PACKAGE"
 
 ## usethis namespace: start

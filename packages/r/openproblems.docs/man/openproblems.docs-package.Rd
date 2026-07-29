@@ -6,8 +6,16 @@
 \alias{openproblems.docs-package}
 \title{openproblems.docs: OpenProblems Documentation}
 \description{
-OpenProblems Documentation R helper functions.
+OpenProblems Documentation R helper functions. Deprecated: superseded by the \code{openproblems.project.docs} module of the Python \code{openproblems} package.
 }
+\section{Deprecated}{
+
+This package is deprecated and will be removed in a future release. The
+README rendering pipeline (\code{common/scripts/create_task_readme}) runs the
+Python \code{openproblems} package, so \code{openproblems.project.docs} is the source
+of truth for task documentation.
+}
+
 \seealso{
 Useful links:
 \itemize{

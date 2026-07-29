@@ -91,3 +91,66 @@ def test_render_task_readme_qmd_from_path():
 
     result = render_task_readme_qmd(EXAMPLE_PROJECT)
     assert "## API" in result
+
+
+def test_task_graph_order_is_topological(task_metadata):
+    G = task_metadata["task_graph"]
+    order = task_metadata["task_graph_order"]
+
+    assert sorted(order) == sorted(G.nodes)
+    for node in order:
+        for pred in G.predecessors(node):
+            msg = f"{node} is rendered before its input {pred}"
+            assert order.index(pred) < order.index(node), msg
+
+
+def test_task_graph_order_keeps_multiple_roots_up_front():
+    import networkx as nx
+    from openproblems.project.docs.read_task_metadata import (
+        _get_roots,
+        _topological_order,
+    )
+
+    # a multimodal task: two raw datasets feeding a single processor
+    G = nx.DiGraph()
+    G.add_edges_from(
+        [
+            ("file_mod1", "comp_process"),
+            ("file_mod2", "comp_process"),
+            ("comp_process", "file_train"),
+        ]
+    )
+
+    roots = _get_roots(G)
+    order = _topological_order(G, roots)
+
+    assert roots == ["file_mod1", "file_mod2"]
+    assert order == ["file_mod1", "file_mod2", "comp_process", "file_train"]
+
+
+def test_task_graph_order_includes_cyclic_nodes():
+    import networkx as nx
+    from openproblems.project.docs.read_task_metadata import (
+        _get_roots,
+        _topological_order,
+    )
+
+    G = nx.DiGraph()
+    G.add_edges_from([("a", "b"), ("b", "c"), ("c", "b")])
+
+    order = _topological_order(G, _get_roots(G))
+
+    assert sorted(order) == ["a", "b", "c"]
+    assert order[0] == "a"
+
+
+def test_render_component_spec_non_file_arguments(task_metadata):
+    from openproblems.project.docs import render_component_spec
+
+    result = render_component_spec(task_metadata["comps"]["comp_data_processor"])
+
+    # non-file arguments are part of the API too, and describe themselves
+    # through `description` rather than the `summary` a __merge__ pulls in
+    assert "`--seed`" in result
+    assert "The seed for determining the train/test split" in result
+    assert "Default: `1`" in result

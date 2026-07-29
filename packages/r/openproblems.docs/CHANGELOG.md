@@ -1,3 +1,16 @@
+# openproblems.docs R v0.2.0
+
+## DEPRECATIONS
+
+* All exported functions are deprecated and will be removed in a future release.
+  `common/scripts/create_task_readme` runs the Python implementation, so
+  `openproblems.project.docs` in the Python `openproblems` package is the source
+  of truth for task documentation. `render_json_schema_example` has no
+  replacement there.
+
+  Note that the two README rendering bugs fixed in Python core v0.2.0
+  (task graph ordering and missing non-file arguments) were not backported here.
+
 # openproblems.docs R v0.1.0
 
 Initial release

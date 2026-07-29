@@ -12,6 +12,12 @@ read_task_config(path)
 \description{
 Read project config
 }
+\section{Deprecated}{
+
+Superseded by \code{openproblems.project.docs.read_task_config()} in the Python
+\code{openproblems} package, which is what \code{create_task_readme} runs.
+}
+
 \examples{
 path <- system.file(
   "extdata", "example_project", "_viash.yaml",

@@ -15,6 +15,12 @@ string
 \description{
 Render file section
 }
+\section{Deprecated}{
+
+Superseded by \code{openproblems.project.docs.render_file_format()} in the Python
+\code{openproblems} package, which is what \code{create_task_readme} runs.
+}
+
 \examples{
 path <- system.file(
   "extdata", "example_project", "api", "file_train_h5ad.yaml",
