@@ -3,6 +3,10 @@
 #' @param spec file spec
 #' @return string
 #'
+#' @section Deprecated:
+#' Superseded by `openproblems.project.docs.render_component_spec()` in the Python
+#' `openproblems` package, which is what `create_task_readme` runs.
+#'
 #' @export
 #' @examples
 #' path <- system.file(
@@ -14,6 +18,8 @@
 #'
 #' render_component_spec(spec)
 render_component_spec <- function(spec) {
+  .deprecate_docs("render_component_spec")
+
   if (is.character(spec)) {
     spec <- read_component_spec(spec)
   }

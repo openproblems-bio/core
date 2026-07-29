@@ -5,6 +5,10 @@
 #' @param path Path to the API directory of a task
 #' @return A list with the api info
 #'
+#' @section Deprecated:
+#' Superseded by `openproblems.project.docs.read_task_metadata()` in the Python
+#' `openproblems` package, which is what `create_task_readme` runs.
+#'
 #' @importFrom cli cli_inform cli_abort
 #'
 #' @export
@@ -15,6 +19,8 @@
 #'
 #' task_metadata
 read_task_metadata <- function(path) {
+  .deprecate_docs("read_task_metadata")
+
   cli::cli_inform(paste0("Looking for project root in '", path, "'"))
   project_path <- openproblems::find_project_root(path)
   if (is.null(project_path)) {

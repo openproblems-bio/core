@@ -5,6 +5,10 @@
 #' @param json_schema JSON schema as a list
 #' @return YAML string
 #'
+#' @section Deprecated:
+#' Deprecated along with the rest of this package; it has no replacement in the
+#' Python `openproblems` package.
+#'
 #' @export
 #'
 #' @examples
@@ -15,6 +19,8 @@
 #'
 #' render_json_schema_example(json_schema)
 render_json_schema_example <- function(json_schema) {
+  .deprecate_docs("render_json_schema_example", replacement = NULL)
+
   if (!"properties" %in% names(json_schema)) {
     return("")
   }

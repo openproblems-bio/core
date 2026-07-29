@@ -15,6 +15,12 @@ A list with file format info and expected_format
 \description{
 This function reads a file format spec from a yaml file.
 }
+\section{Deprecated}{
+
+Superseded by \code{openproblems.project.docs.read_file_format()} in the Python
+\code{openproblems} package, which is what \code{create_task_readme} runs.
+}
+
 \examples{
 path <- system.file(
   "extdata", "example_project", "api", "file_train_h5ad.yaml",

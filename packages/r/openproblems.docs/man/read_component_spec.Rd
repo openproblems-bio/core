@@ -15,6 +15,12 @@ A list with compontent info and arguments
 \description{
 This function reads a component spec from a yaml file.
 }
+\section{Deprecated}{
+
+Superseded by \code{openproblems.project.docs.read_component_spec()} in the Python
+\code{openproblems} package, which is what \code{create_task_readme} runs.
+}
+
 \examples{
 path <- system.file(
   "extdata", "example_project", "api", "comp_method.yaml",

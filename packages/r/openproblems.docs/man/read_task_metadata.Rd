@@ -15,6 +15,12 @@ A list with the api info
 \description{
 This function reads the api files in a task and returns a list with the api info
 }
+\section{Deprecated}{
+
+Superseded by \code{openproblems.project.docs.read_task_metadata()} in the Python
+\code{openproblems} package, which is what \code{create_task_readme} runs.
+}
+
 \examples{
 path <- system.file("extdata", "example_project", "api", package = "openproblems.docs")
 

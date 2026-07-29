@@ -2,6 +2,10 @@
 #'
 #' @param path Path to a project config file
 #'
+#' @section Deprecated:
+#' Superseded by `openproblems.project.docs.read_task_config()` in the Python
+#' `openproblems` package, which is what `create_task_readme` runs.
+#'
 #' @importFrom cli cli_inform
 #' @importFrom openproblems.utils validate_object
 #'
@@ -15,6 +19,8 @@
 #'
 #' read_task_config(path)
 read_task_config <- function(path) {
+  .deprecate_docs("read_task_config")
+
   proj_conf <- openproblems::read_nested_yaml(path)
 
   tryCatch(
