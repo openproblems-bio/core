@@ -22,6 +22,8 @@
 
 * Improve diagnostic print messages in `check_config` and `run_and_check_output` to be more descriptive.
 
+* `check_config`: Skip the Nextflow resource label check for components whose script is itself a Nextflow workflow. Viash renders those as a workflow rather than a process, so the labels would have no effect.
+
 ## BUG FIXES
 
 * `read_task_metadata`: Order the task graph topologically instead of by a breadth-first search from a single root.
