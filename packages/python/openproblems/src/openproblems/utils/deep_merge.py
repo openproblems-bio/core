@@ -5,11 +5,13 @@ def deep_merge(obj1: any, obj2: any) -> dict:
         obj1 (any): The first dictionary or list.
         obj2 (any): The second dictionary or list.
 
+    Keys keep the order of `obj1`, followed by the keys only found in `obj2`.
+
     Returns:
         dict: The merged dictionary.
     """
     if isinstance(obj1, dict) and isinstance(obj2, dict):
-        keys = set(list(obj1.keys()) + list(obj2.keys()))
+        keys = list(obj1.keys()) + [k for k in obj2 if k not in obj1]
         out = {}
         for key in keys:
             if key in obj1:
