@@ -60,9 +60,7 @@ def check_references(references: Dict[str, Union[str, List[str]]]) -> None:
             assert re.match(r"^@.*{.*", b), f"Invalid bibtex format: {b}"
 
 
-def check_links(
-    links: Dict[str, Union[str, List[str]]], required: List[str] = []
-) -> None:
+def check_links(links: Dict[str, str], required: List[str] = []) -> None:
     links = links or {}
 
     for expected_link in required:
