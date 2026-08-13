@@ -1,6 +1,22 @@
 # OpenProblems Base Images v1.2.0
 
+## MAJOR CHANGES
+
+* Rebuild `base_tensorflow_nvidia` on `python:3.12` with `tensorflow[and-cuda]` (PR #49).
+  nvcr.io stopped publishing TensorFlow images after 25.02, which left the image stuck on
+  TensorFlow 2.17, NumPy 1.26 and Scanpy 1.10. Taking CUDA from the `and-cuda` extra pins it
+  to whatever the TensorFlow wheel was built against, so the two can no longer drift apart
+  and silently fall back to the CPU.
+
+* Bump TensorFlow from 2.17 to 2.21, NumPy from 1.26 to 2.x and Scanpy from 1.10 to 1.12 in
+  `base_tensorflow_nvidia` (PR #49).
+
 ## BUG FIXES
+
+* `base_tensorflow_nvidia`: put the CUDA libraries that the `and-cuda` extra installs under
+  `site-packages/nvidia/*/lib` on the linker path with `ldconfig` (PR #49). TensorFlow does
+  not look there by itself, so without this it reports `Cannot dlopen some GPU libraries`,
+  finds no GPU and quietly trains on the CPU.
 
 * `base_pytorch_nvidia`: drop the pip-installed `cmake` in favour of apt's (PR #48). The pip
   shims in `/usr/local/bin` shadow `/usr/bin/cmake`, and they fail with `ModuleNotFoundError:
@@ -11,6 +27,10 @@
 
 * Check that `cmake`, `cpack` and `ctest` resolve to the apt-provided binaries in
   `base_pytorch_nvidia` (PR #48).
+
+* Check that the CUDA libraries are on the linker path in `base_tensorflow_nvidia` (PR #49).
+  There is no GPU in CI, but the linker can be asked whether it would find them, which is
+  enough to catch the failure above.
 
 # OpenProblems Base Images v1.1.0
 
