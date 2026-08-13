@@ -47,6 +47,26 @@ def test_check_url_passes_a_timeout_and_survives_a_failure():
         assert not check_url("https://example.com")
 
 
+def test_check_references_rejects_a_malformed_doi():
+    from openproblems.project.component_tests.check_config import check_references
+
+    with pytest.raises(AssertionError, match="Invalid DOI format"):
+        check_references({"doi": "10X1038/s41592-024-02189-7"})
+
+
+def test_check_references_accepts_a_bibtex_entry():
+    from openproblems.project.component_tests.check_config import check_references
+
+    check_references({"bibtex": "@article{key, title={A title}}"})
+
+
+def test_check_references_requires_a_doi_or_bibtex():
+    from openproblems.project.component_tests.check_config import check_references
+
+    with pytest.raises(AssertionError, match="should be defined"):
+        check_references({})
+
+
 def test_check_links_requires_the_expected_links():
     from openproblems.project.component_tests.check_config import check_links
 

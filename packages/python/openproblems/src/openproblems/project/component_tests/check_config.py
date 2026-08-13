@@ -49,7 +49,7 @@ def check_references(references: Dict[str, Union[str, List[str]]]) -> None:
             doi = [doi]
         for d in doi:
             assert re.match(
-                r"^10.\d{4,9}/[-._;()/:A-Za-z0-9]+$", d
+                r"^10\.\d{4,9}/[-._;()/:A-Za-z0-9]+$", d
             ), f"Invalid DOI format: {doi}"
             assert check_url(f"https://doi.org/{d}"), f"DOI '{d}' is not reachable"
 
