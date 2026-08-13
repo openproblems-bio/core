@@ -30,6 +30,51 @@ def test_check_config_accepts_resource_labels():
     check_config(_config())
 
 
+def test_check_url_passes_a_timeout_and_survives_a_failure():
+    import requests
+    from unittest import mock
+    from openproblems.project.component_tests.check_config import (
+        URL_TIMEOUT,
+        check_url,
+    )
+
+    with mock.patch.object(requests.Session, "head") as head:
+        head.return_value = mock.Mock(ok=True, status_code=200)
+        assert check_url("https://example.com")
+        assert head.call_args.kwargs["timeout"] == URL_TIMEOUT
+
+        head.side_effect = requests.exceptions.ConnectTimeout()
+        assert not check_url("https://example.com")
+
+
+def test_check_references_rejects_a_malformed_doi():
+    from openproblems.project.component_tests.check_config import check_references
+
+    with pytest.raises(AssertionError, match="Invalid DOI format"):
+        check_references({"doi": "10X1038/s41592-024-02189-7"})
+
+
+def test_check_references_accepts_a_bibtex_entry():
+    from openproblems.project.component_tests.check_config import check_references
+
+    check_references({"bibtex": "@article{key, title={A title}}"})
+
+
+def test_check_references_requires_a_doi_or_bibtex():
+    from openproblems.project.component_tests.check_config import check_references
+
+    with pytest.raises(AssertionError, match="should be defined"):
+        check_references({})
+
+
+def test_check_links_requires_the_expected_links():
+    from openproblems.project.component_tests.check_config import check_links
+
+    for links in [{}, None, {"documentation": "https://example.com"}]:
+        with pytest.raises(AssertionError, match="Link .links.repository"):
+            check_links(links, ["repository"])
+
+
 def test_check_config_requires_a_nextflow_runner():
     with pytest.raises(AssertionError, match="does not contain a nextflow runner"):
         check_config(_config(runners=[{"type": "executable"}]))

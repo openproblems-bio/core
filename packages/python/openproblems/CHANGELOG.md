@@ -44,6 +44,18 @@
 * `render_file_format`: Render file formats of type `tabular`. `read_file_format` accepts them,
   but the renderer only knew about `csv`, `tsv` and `parquet`, so the Format and Data structure
   sections came out empty.
+  
+* `check_config`: Check the required links even when a component defines no links at all.
+  `check_links` returned early on an empty `links`, so a method without any links passed,
+  while a method with only a `documentation` link was told that `.links.repository` is missing.
+
+* `check_config`: Give `check_url` a 30 second timeout, and report a request that fails outright
+  as an unreachable link rather than letting the exception escape.
+
+* `check_config`: Escape the dot in the DOI regex, which also matched a prefix like `10X1038`.
+
+* `run_and_check_output`: Skip the format validation of an output file argument that has no
+  value. An optional output without a default or example crashed with a `KeyError: 'value'`.
 
 # openproblems core Python v0.1.1
 

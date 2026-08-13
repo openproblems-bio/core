@@ -9,12 +9,15 @@ LABEL_MAXLEN = 50
 SUMMARY_MAXLEN = 400
 DESCRIPTION_MAXLEN = 5000
 
+# seconds to wait for a link or doi to respond
+URL_TIMEOUT = 30
+
 TIME_LABELS = ["lowtime", "midtime", "hightime", "veryhightime"]
 MEM_LABELS = ["lowmem", "midmem", "highmem", "veryhighmem"]
 CPU_LABELS = ["lowcpu", "midcpu", "highcpu", "veryhighcpu"]
 
 
-def check_url(url: str) -> bool:
+def check_url(url: str, timeout: int = URL_TIMEOUT) -> bool:
     import requests
     from urllib3.util.retry import Retry
     from requests.adapters import HTTPAdapter
@@ -25,12 +28,12 @@ def check_url(url: str) -> bool:
     session.mount("http://", adapter)
     session.mount("https://", adapter)
 
-    get = session.head(url)
-
-    if get.ok or get.status_code == 429:  # 429 rejected, too many requests
-        return True
-    else:
+    try:
+        get = session.head(url, timeout=timeout)
+    except requests.exceptions.RequestException:
         return False
+
+    return get.ok or get.status_code == 429  # 429 rejected, too many requests
 
 
 def check_references(references: Dict[str, Union[str, List[str]]]) -> None:
@@ -46,7 +49,7 @@ def check_references(references: Dict[str, Union[str, List[str]]]) -> None:
             doi = [doi]
         for d in doi:
             assert re.match(
-                r"^10.\d{4,9}/[-._;()/:A-Za-z0-9]+$", d
+                r"^10\.\d{4,9}/[-._;()/:A-Za-z0-9]+$", d
             ), f"Invalid DOI format: {doi}"
             assert check_url(f"https://doi.org/{d}"), f"DOI '{d}' is not reachable"
 
@@ -60,8 +63,7 @@ def check_references(references: Dict[str, Union[str, List[str]]]) -> None:
 def check_links(
     links: Dict[str, Union[str, List[str]]], required: List[str] = []
 ) -> None:
-    if not links:
-        return
+    links = links or {}
 
     for expected_link in required:
         assert expected_link in links, f"Link .links.{expected_link} is not defined"

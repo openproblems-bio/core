@@ -47,7 +47,7 @@ def check_output_files(arguments: list) -> None:
 def check_format(arg: dict) -> None:
     """Read an output file and validate its contents against the format spec."""
     arg_info = arg.get("info") or {}
-    if arg["type"] == "file":
+    if arg["type"] == "file" and arg.get("value") is not None:
         arg_format = arg_info.get("format", {})
         file_type = arg_format.get("type") or arg_info.get("file_type")
 
