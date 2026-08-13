@@ -100,7 +100,7 @@ def _render_format_example(spec: dict) -> list[str]:
                 lines.append(f"     {struct_name}: {', '.join(structs[struct_name])}")
         return lines
 
-    if fmt_type in ("csv", "tsv", "parquet"):
+    if fmt_type in ("tabular", "csv", "tsv", "parquet"):
         names = ", ".join(f"'{row['name']}'" for row in expected_format)
         return ["    Tabular data", f"     {names}"]
 
@@ -155,7 +155,7 @@ def _render_format_table(spec: dict) -> list[str]:
             )
         ]
 
-    if fmt_type in ("csv", "tsv", "parquet"):
+    if fmt_type in ("tabular", "csv", "tsv", "parquet"):
         rows = [
             [
                 f'`{row["name"]}`',

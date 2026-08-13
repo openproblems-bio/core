@@ -37,6 +37,14 @@
   Viash does. `os.path.join()` treats such a path as absolute and silently dropped the project
   root, so a config containing e.g. `__merge__: /src/api/file_dataset.yaml` failed to read.
 
+* `deep_merge`: Preserve the order of the keys. Since the merged keys were collected in a `set()`
+  and Python randomises string hashing per process, `read_nested_yaml` returned its keys in a
+  different order on every run, and a rendered task README differed from one run to the next.
+
+* `render_file_format`: Render file formats of type `tabular`. `read_file_format` accepts them,
+  but the renderer only knew about `csv`, `tsv` and `parquet`, so the Format and Data structure
+  sections came out empty.
+  
 * `check_config`: Check the required links even when a component defines no links at all.
   `check_links` returned early on an empty `links`, so a method without any links passed,
   while a method with only a `documentation` link was told that `.links.repository` is missing.
