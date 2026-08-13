@@ -24,6 +24,12 @@
 
 * `check_config`: Skip the Nextflow resource label check for components whose script is itself a Nextflow workflow. Viash renders those as a workflow rather than a process, so the labels would have no effect.
 
+* `tox -e lint` now checks the formatting rather than applying it, so the lint job can actually fail.
+  Run `black` yourself, or `tox -e lint -- .`, to apply the changes.
+
+* The `type` environment is no longer skipped in CI, and the 25 type errors it had accumulated
+  are fixed.
+
 ## BUG FIXES
 
 * `read_task_metadata`: Order the task graph topologically instead of by a breadth-first search from a single root.
