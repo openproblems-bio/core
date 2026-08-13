@@ -33,6 +33,10 @@
 * `render_component_spec`: Include non-file arguments (e.g. `--seed`) in the arguments table,
   and fall back to an argument's `description` when it has no `summary`.
 
+* `resolve_path`: Resolve a path starting with a `/` relative to the project root, the way
+  Viash does. `os.path.join()` treats such a path as absolute and silently dropped the project
+  root, so a config containing e.g. `__merge__: /src/api/file_dataset.yaml` failed to read.
+
 # openproblems core Python v0.1.1
 
 ## NEW FUNCTIONALITY

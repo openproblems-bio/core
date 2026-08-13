@@ -8,7 +8,8 @@ info:
       A method to predict the task effects.
 arguments:
   - name: --input_train
-    __merge__: file_train.yaml
+    # project-absolute, i.e. relative to the _viash.yaml, unlike the merges below
+    __merge__: /api/file_train.yaml
     required: true
     direction: input
   - name: "--input_test"
