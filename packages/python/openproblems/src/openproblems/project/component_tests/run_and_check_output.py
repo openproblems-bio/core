@@ -22,8 +22,12 @@ def check_input_files(arguments: list) -> None:
     for arg in arguments:
         if arg["type"] == "file" and arg["direction"] == "input" and arg["required"]:
             expected_path = arg.get("value")
-            assert expected_path is not None, f"Input argument '{arg['name']}' is missing a value"
-            assert not arg["must_exist"] or path.exists(expected_path), f"Input file '{expected_path}' does not exist"
+            assert (
+                expected_path is not None
+            ), f"Input argument '{arg['name']}' is missing a value"
+            assert not arg["must_exist"] or path.exists(
+                expected_path
+            ), f"Input file '{expected_path}' does not exist"
 
 
 def check_output_files(arguments: list) -> None:
@@ -34,8 +38,12 @@ def check_output_files(arguments: list) -> None:
     for arg in arguments:
         if arg["type"] == "file" and arg["direction"] == "output" and arg["required"]:
             expected_path = arg.get("value")
-            assert expected_path is not None, f"Output argument '{arg['name']}' is missing a value"
-            assert not arg["must_exist"] or path.exists(expected_path), f"Output file '{expected_path}' does not exist"
+            assert (
+                expected_path is not None
+            ), f"Output argument '{arg['name']}' is missing a value"
+            assert not arg["must_exist"] or path.exists(
+                expected_path
+            ), f"Output file '{expected_path}' does not exist"
 
     print(">> Validating the contents and format of output files", flush=True)
     for arg in arguments:
