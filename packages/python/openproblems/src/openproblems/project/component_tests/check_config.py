@@ -60,8 +60,7 @@ def check_references(references: Dict[str, Union[str, List[str]]]) -> None:
 def check_links(
     links: Dict[str, Union[str, List[str]]], required: List[str] = []
 ) -> None:
-    if not links:
-        return
+    links = links or {}
 
     for expected_link in required:
         assert expected_link in links, f"Link .links.{expected_link} is not defined"

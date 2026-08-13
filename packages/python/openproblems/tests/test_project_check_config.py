@@ -30,6 +30,14 @@ def test_check_config_accepts_resource_labels():
     check_config(_config())
 
 
+def test_check_links_requires_the_expected_links():
+    from openproblems.project.component_tests.check_config import check_links
+
+    for links in [{}, None, {"documentation": "https://example.com"}]:
+        with pytest.raises(AssertionError, match="Link .links.repository"):
+            check_links(links, ["repository"])
+
+
 def test_check_config_requires_a_nextflow_runner():
     with pytest.raises(AssertionError, match="does not contain a nextflow runner"):
         check_config(_config(runners=[{"type": "executable"}]))
