@@ -22,6 +22,12 @@
 
 * Improve diagnostic print messages in `check_config` and `run_and_check_output` to be more descriptive.
 
+## BUG FIXES
+
+* `resolve_path`: Resolve a path starting with a `/` relative to the project root, the way
+  Viash does. `os.path.join()` treats such a path as absolute and silently dropped the project
+  root, so a config containing e.g. `__merge__: /src/api/file_dataset.yaml` failed to read.
+
 # openproblems core Python v0.1.1
 
 ## NEW FUNCTIONALITY

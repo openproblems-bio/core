@@ -1,4 +1,7 @@
-def resolve_path(path: str, project_path: str, parent_path: str) -> str:
+from __future__ import annotations
+
+
+def resolve_path(path: str, project_path: str | None, parent_path: str) -> str:
     """
     Resolve a path relative to a parent path or project path
 
@@ -32,6 +35,12 @@ def resolve_path(path: str, project_path: str, parent_path: str) -> str:
     import os
 
     if path.startswith("/"):
-        return os.path.join(project_path, path)
+        if project_path is None:
+            raise ValueError(
+                f"Cannot resolve '{path}' relative to the project root: "
+                "no project root (_viash.yaml) was found"
+            )
+        # note: os.path.join() discards project_path if path starts with a "/"
+        return os.path.abspath(os.path.join(project_path, path.lstrip("/")))
     else:
         return os.path.abspath(os.path.join(parent_path, path))
