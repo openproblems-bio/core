@@ -1,3 +1,17 @@
+# OpenProblems Base Images v1.2.0
+
+## BUG FIXES
+
+* `base_pytorch_nvidia`: drop the pip-installed `cmake` in favour of apt's (PR #48). The pip
+  shims in `/usr/local/bin` shadow `/usr/bin/cmake`, and they fail with `ModuleNotFoundError:
+  No module named 'cmake'` when a build calls them from inside a pip build isolation
+  environment -- which broke, among others, building `louvain` for `cellplm`.
+
+## TESTING
+
+* Check that `cmake`, `cpack` and `ctest` resolve to the apt-provided binaries in
+  `base_pytorch_nvidia` (PR #48).
+
 # OpenProblems Base Images v1.1.0
 
 ## MAJOR CHANGES
