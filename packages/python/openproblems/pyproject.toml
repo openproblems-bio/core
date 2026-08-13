@@ -33,7 +33,9 @@ dependencies = [
 
 [project.optional-dependencies]
 test = [
-  "pytest>=8.0"
+  "pytest>=8.0",
+  # imported inside check_url(), so not a runtime dependency of the package
+  "requests"
 ]
 
 [project.urls]
