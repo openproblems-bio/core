@@ -4,6 +4,8 @@ test_resources:
   - type: python_script
     path: test_pytorch.py
   - type: python_script
+    path: test_cmake.py
+  - type: python_script
     path: ../python/test_anndata.py
 engines:
   - type: docker
@@ -13,6 +15,12 @@ engines:
         packages:
           - procps
           - git
+          - cmake
+      # The nvcr image pip-installs cmake, whose shims in /usr/local/bin shadow
+      # apt's cmake because /usr/local/bin comes first on PATH. Drop the package
+      # so builds pick up the working /usr/bin/cmake instead.
+      - type: docker
+        run: pip uninstall -y cmake
       - type: python
         packages:
           - anndata~=0.12.0
