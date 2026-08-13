@@ -1,4 +1,7 @@
-def deep_merge(obj1: any, obj2: any) -> dict:
+from typing import Any
+
+
+def deep_merge(obj1: Any, obj2: Any) -> Any:
     """Recursively merge two dictionaries or lists.
 
     Args:

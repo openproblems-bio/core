@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import Any
+
 
 def read_nested_yaml(path: str, project_path: str | None = None) -> dict:
     """
@@ -35,8 +37,8 @@ def read_nested_yaml(path: str, project_path: str | None = None) -> dict:
 
 
 def process_nested_yaml(
-    data: any, root_data: dict, path: str, project_path: str
-) -> dict:
+    data: Any, root_data: dict, path: str, project_path: str | None
+) -> Any:
     """
     Process the merge keys in a YAML
 
@@ -62,7 +64,7 @@ def process_nested_yaml(
             for k, v in data.items()
         }
 
-        new_data = {}
+        new_data: Any = {}
         if "__merge__" in processed_data and not isinstance(
             processed_data["__merge__"], dict
         ):

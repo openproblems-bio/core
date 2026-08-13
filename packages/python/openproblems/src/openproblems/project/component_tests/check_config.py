@@ -60,9 +60,7 @@ def check_references(references: Dict[str, Union[str, List[str]]]) -> None:
             assert re.match(r"^@.*{.*", b), f"Invalid bibtex format: {b}"
 
 
-def check_links(
-    links: Dict[str, Union[str, List[str]]], required: List[str] = []
-) -> None:
+def check_links(links: Dict[str, str], required: List[str] = []) -> None:
     links = links or {}
 
     for expected_link in required:
@@ -122,13 +120,18 @@ def check_config(config: dict) -> None:
     print("Check that .namespace is defined", flush=True)
     assert config.get("namespace"), ".namespace is not defined"
 
-    print("Check that .info.type is 'method', 'control_method', or 'metric'", flush=True)
+    print(
+        "Check that .info.type is 'method', 'control_method', or 'metric'", flush=True
+    )
     expected_types = ["method", "control_method", "metric"]
     assert (
         comp_type in expected_types
     ), f".info.type is '{comp_type}' but should be one of: {', '.join(expected_types)}"
 
-    print("Check component metadata fields (name, label, summary, description)", flush=True)
+    print(
+        "Check component metadata fields (name, label, summary, description)",
+        flush=True,
+    )
     if comp_type == "metric":
         metric_infos = info.get("metrics", [])
         assert metric_infos, ".info.metrics is not defined"
@@ -138,7 +141,10 @@ def check_config(config: dict) -> None:
         check_info(info, config, comp_type=comp_type)
 
     if "preferred_normalization" in info:
-        print("Check that .info.preferred_normalization is a valid normalization method", flush=True)
+        print(
+            "Check that .info.preferred_normalization is a valid normalization method",
+            flush=True,
+        )
         norm_methods = [
             "log_cpm",
             "log_cp10k",
@@ -155,7 +161,9 @@ def check_config(config: dict) -> None:
         )
 
     if "variants" in info:
-        print("Check that .info.variants only references valid argument names", flush=True)
+        print(
+            "Check that .info.variants only references valid argument names", flush=True
+        )
         arg_names = [arg["clean_name"] for arg in config["all_arguments"]] + [
             "preferred_normalization"
         ]
@@ -185,7 +193,9 @@ def check_config(config: dict) -> None:
     )
 
     if not is_nextflow_workflow:
-        print("Check that the Nextflow runner has time, mem, and cpu labels", flush=True)
+        print(
+            "Check that the Nextflow runner has time, mem, and cpu labels", flush=True
+        )
         assert nextflow_runner.get(
             "directives"
         ), "directives not a field in nextflow runner"
