@@ -1,5 +1,6 @@
 import tensorflow as tf
 import numpy as np
+import ctypes
 import tempfile
 import os
 
@@ -13,6 +14,14 @@ meta = {
 ## VIASH END
 
 print(f"Using TensorFlow version: {tf.__version__}", flush=True)
+
+# The CUDA libraries live in site-packages/nvidia/*/lib, which is not on the
+# linker path by default. There is no GPU in CI to catch that, but the linker
+# can be asked whether it would find them.
+print("\n--- Checking that the CUDA libraries are on the linker path ---", flush=True)
+for soname in ["libcudnn.so.9", "libcublas.so.12"]:
+    ctypes.CDLL(soname)
+    print(f"  - {soname} loaded", flush=True)
 
 # Check for and list available physical devices (CPU/GPU)
 gpus = tf.config.list_physical_devices('GPU')
