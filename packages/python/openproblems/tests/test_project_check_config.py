@@ -30,6 +30,23 @@ def test_check_config_accepts_resource_labels():
     check_config(_config())
 
 
+def test_check_url_passes_a_timeout_and_survives_a_failure():
+    import requests
+    from unittest import mock
+    from openproblems.project.component_tests.check_config import (
+        URL_TIMEOUT,
+        check_url,
+    )
+
+    with mock.patch.object(requests.Session, "head") as head:
+        head.return_value = mock.Mock(ok=True, status_code=200)
+        assert check_url("https://example.com")
+        assert head.call_args.kwargs["timeout"] == URL_TIMEOUT
+
+        head.side_effect = requests.exceptions.ConnectTimeout()
+        assert not check_url("https://example.com")
+
+
 def test_check_links_requires_the_expected_links():
     from openproblems.project.component_tests.check_config import check_links
 
