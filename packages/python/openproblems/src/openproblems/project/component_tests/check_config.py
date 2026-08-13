@@ -167,27 +167,37 @@ def check_config(config: dict) -> None:
 
     runners = config.get("runners", [])
 
-    print("Check that a Nextflow runner with time, mem, and cpu labels is defined", flush=True)
+    print("Check that a Nextflow runner is defined", flush=True)
     nextflow_runner = next(
         (runner for runner in runners if runner["type"] == "nextflow"),
         None,
     )
 
     assert nextflow_runner, ".runners does not contain a nextflow runner"
-    assert nextflow_runner.get(
-        "directives"
-    ), "directives not a field in nextflow runner"
-    nextflow_labels = nextflow_runner["directives"].get("label")
-    assert nextflow_labels, "label not a field in nextflow runner directives"
 
-    assert [
-        label for label in nextflow_labels if label in TIME_LABELS
-    ], "time label not filled in"
-    assert [
-        label for label in nextflow_labels if label in MEM_LABELS
-    ], "mem label not filled in"
-    assert [
-        label for label in nextflow_labels if label in CPU_LABELS
-    ], "cpu label not filled in"
+    # a component whose script is itself a Nextflow workflow is rendered as a
+    # workflow instead of a process, so resource directives have no effect on it
+    is_nextflow_workflow = any(
+        resource.get("type") == "nextflow_script"
+        for resource in config.get("resources") or []
+    )
+
+    if not is_nextflow_workflow:
+        print("Check that the Nextflow runner has time, mem, and cpu labels", flush=True)
+        assert nextflow_runner.get(
+            "directives"
+        ), "directives not a field in nextflow runner"
+        nextflow_labels = nextflow_runner["directives"].get("label")
+        assert nextflow_labels, "label not a field in nextflow runner directives"
+
+        assert [
+            label for label in nextflow_labels if label in TIME_LABELS
+        ], "time label not filled in"
+        assert [
+            label for label in nextflow_labels if label in MEM_LABELS
+        ], "mem label not filled in"
+        assert [
+            label for label in nextflow_labels if label in CPU_LABELS
+        ], "cpu label not filled in"
 
     print("All checks succeeded!", flush=True)

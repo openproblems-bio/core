@@ -15,6 +15,12 @@ YAML string
 \description{
 This function takes a JSON schema and renders an example YAML string.
 }
+\section{Deprecated}{
+
+Deprecated along with the rest of this package; it has no replacement in the
+Python \code{openproblems} package.
+}
+
 \examples{
 library(openproblems)
 example <- system.file("extdata", "example_schema.json", package = "openproblems.docs")

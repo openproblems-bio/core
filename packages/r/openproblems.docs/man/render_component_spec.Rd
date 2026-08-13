@@ -15,6 +15,12 @@ string
 \description{
 Render component section
 }
+\section{Deprecated}{
+
+Superseded by \code{openproblems.project.docs.render_component_spec()} in the Python
+\code{openproblems} package, which is what \code{create_task_readme} runs.
+}
+
 \examples{
 path <- system.file(
   "extdata", "example_project", "api", "comp_method.yaml",

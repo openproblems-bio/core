@@ -5,6 +5,10 @@
 #' @param path Path to a component spec yaml, usually in `src/api/comp_*.yaml`
 #' @return A list with compontent info and arguments
 #'
+#' @section Deprecated:
+#' Superseded by `openproblems.project.docs.read_component_spec()` in the Python
+#' `openproblems` package, which is what `create_task_readme` runs.
+#'
 #' @export
 #' @examples
 #' path <- system.file(
@@ -14,6 +18,8 @@
 #'
 #' read_component_spec(path)
 read_component_spec <- function(path) {
+  .deprecate_docs("read_component_spec")
+
   data <- openproblems::read_nested_yaml(path)
 
   tryCatch(

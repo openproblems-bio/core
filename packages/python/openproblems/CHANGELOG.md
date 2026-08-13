@@ -22,7 +22,16 @@
 
 * Improve diagnostic print messages in `check_config` and `run_and_check_output` to be more descriptive.
 
+* `check_config`: Skip the Nextflow resource label check for components whose script is itself a Nextflow workflow. Viash renders those as a workflow rather than a process, so the labels would have no effect.
+
 ## BUG FIXES
+
+* `read_task_metadata`: Order the task graph topologically instead of by a breadth-first search from a single root.
+  Tasks with more than one raw dataset no longer strand all but the first at the end of the README,
+  and a component is never documented before the files it consumes.
+
+* `render_component_spec`: Include non-file arguments (e.g. `--seed`) in the arguments table,
+  and fall back to an argument's `description` when it has no `summary`.
 
 * `resolve_path`: Resolve a path starting with a `/` relative to the project root, the way
   Viash does. `os.path.join()` treats such a path as absolute and silently dropped the project

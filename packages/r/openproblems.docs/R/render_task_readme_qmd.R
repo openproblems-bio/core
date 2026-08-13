@@ -5,6 +5,10 @@
 #'
 #' @return A qmd documentation string
 #'
+#' @section Deprecated:
+#' Superseded by `openproblems.project.docs.render_task_readme_qmd()` in the Python
+#' `openproblems` package, which is what `create_task_readme` runs.
+#'
 #' @export
 #'
 #' @examples
@@ -14,6 +18,8 @@
 #'
 #' render_task_readme_qmd(task_metadata)
 render_task_readme_qmd <- function(task_metadata, add_instructions = FALSE) {
+  .deprecate_docs("render_task_readme_qmd")
+
   cli::cli_inform("Render authors")
   authors_str <- .render_task_authors(task_metadata)
 

@@ -5,6 +5,10 @@
 #' @param path Path to a file format yaml, usually in `src/api/file_*.yaml`
 #' @return A list with file format info and expected_format
 #'
+#' @section Deprecated:
+#' Superseded by `openproblems.project.docs.read_file_format()` in the Python
+#' `openproblems` package, which is what `create_task_readme` runs.
+#'
 #' @export
 #' @examples
 #' path <- system.file(
@@ -14,6 +18,8 @@
 #'
 #' read_file_format(path)
 read_file_format <- function(path) {
+  .deprecate_docs("read_file_format")
+
   data <- openproblems::read_nested_yaml(path)
 
   tryCatch(

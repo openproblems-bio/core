@@ -14,7 +14,8 @@ Authors@R: c(
     role = c("aut"),
     comment = c(ORCID = "0009-0003-8555-1361")
   ))
-Description: OpenProblems Documentation R helper functions.
+Description: OpenProblems Documentation R helper functions. Deprecated: superseded
+  by the `openproblems.project.docs` module of the Python `openproblems` package.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

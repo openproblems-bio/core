@@ -23,6 +23,10 @@ arguments:
     __merge__: file_solution.yaml
     direction: output
     required: true
+  - name: "--seed"
+    type: integer
+    default: 1
+    description: "The seed for determining the train/test split."
 test_resources:
   - path: /resources_test/common/cxg_mouse_pancreas_atlas
     dest: resources_test/common/cxg_mouse_pancreas_atlas
