@@ -11,6 +11,16 @@ engines:
   - type: docker
     image: nvcr.io/nvidia/pytorch:26.02-py3
     setup:
+      # hnswlib and annoy publish no wheels and their setup.py compiles with
+      # `-march=native`, so whether an image runs anywhere depends on which CPU
+      # the build landed on. Pin the ISA instead of inheriting the builder's.
+      - type: docker
+        env:
+          - HNSWLIB_NO_NATIVE=1
+          - CFLAGS=-march=x86-64-v3
+          - CXXFLAGS=-march=x86-64-v3
+          - CPPFLAGS=-march=x86-64-v3
+          - ANNOY_COMPILER_ARGS=-D_CRT_SECURE_NO_WARNINGS,-fpermissive,-march=x86-64-v3,-O3,-ffast-math,-fno-associative-math,-DANNOYLIB_MULTITHREADED_BUILD,-std=c++14
       - type: apt
         packages:
           - procps
