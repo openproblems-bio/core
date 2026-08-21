@@ -13,6 +13,13 @@
 
 ## BUG FIXES
 
+* All images: pin the instruction set that source builds target instead of inheriting the build
+  machine's (PR #50). `hnswlib` and `annoy` publish no wheels and their `setup.py` adds
+  `-march=native`, so an image that happened to be built on an AVX-512 runner dies with
+  `Illegal instruction` on any older CPU -- which is how `kbet_pg` lost every one of its 124
+  tasks in a batch integration benchmark run while its twin `kbet_pg_label`, built on a
+  different runner, passed all 248.
+
 * `base_tensorflow_nvidia`: put the CUDA libraries that the `and-cuda` extra installs under
   `site-packages/nvidia/*/lib` on the linker path with `ldconfig` (PR #49). TensorFlow does
   not look there by itself, so without this it reports `Cannot dlopen some GPU libraries`,
