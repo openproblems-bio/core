@@ -49,7 +49,8 @@ def test_render_task_readme_qmd_structure(task_metadata):
 
     result = render_task_readme_qmd(task_metadata)
 
-    assert '---\ntitle: "Template"\nformat: gfm\n---' in result
+    assert result.startswith("---\ntitle: Template\n")
+    assert "\nformat: gfm\n" in result
     assert "## Description" in result
     assert "## Authors & contributors" in result
     assert "## API" in result

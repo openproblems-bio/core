@@ -15,6 +15,10 @@
   - `read_component_spec`: Read a component API specification.
   - `read_file_format`: Read a file format specification.
   - `render_task_readme_qmd`: Render a Quarto README document for a task.
+    The task's license and `references.doi` are shown as badges at the top. Inline DOI
+    citations in the description (`[10.1038/s41592-021-01336-8]`, or several separated by
+    `;`) are resolved through doi.org and rendered by citeproc as author-year citations
+    with a reference list, the same way the website renders them.
   - `render_component_spec`: Render a component specification as a Markdown section.
   - `render_file_format`: Render a file format specification as a Markdown section.
 
