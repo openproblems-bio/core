@@ -1,3 +1,20 @@
+# OpenProblems Base Images v1.3.0
+
+## MAJOR CHANGES
+
+* All images: bump anndata from 0.12 to 0.13. `write_zarr()` now writes zarr v3 with sharded
+  arrays by default, so a store has far fewer files.
+
+* `base_r`: replace the reticulate-based `anndata` R package with `anndataR`, and add `Rarr` so
+  `anndataR` can read zarr. The `anndata` R package always passes `dtype` to `AnnData()`, which
+  anndata 0.13 no longer accepts. `Rarr` cannot read sharded arrays yet.
+
+## TESTING
+
+* Check that anndata writes zarr v3 with sharded arrays, and reads it back.
+
+* `base_r`: check that `anndataR` reads h5ad and zarr v3 written by Python anndata.
+
 # OpenProblems Base Images v1.2.0
 
 ## MAJOR CHANGES
