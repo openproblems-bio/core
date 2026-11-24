@@ -11,7 +11,7 @@ authors = [
 ]
 license = { text = "MIT" }
 readme = "README.md"
-requires-python = ">= 3.9"
+requires-python = ">= 3.10"
 keywords = ["openproblems", "benchmarking", "bioinformatics", "viash"]
 classifiers = [
   "Development Status :: 4 - Beta",
@@ -19,7 +19,6 @@ classifiers = [
   "License :: OSI Approved :: MIT License",
   "Operating System :: OS Independent",
   "Programming Language :: Python :: 3",
-  "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
@@ -35,7 +34,11 @@ dependencies = [
 test = [
   "pytest>=8.0",
   # imported inside check_url(), so not a runtime dependency of the package
-  "requests"
+  "requests",
+  # imported inside check_format(), for the mudata_zarr tests
+  "anndata",
+  "mudata",
+  "zarr"
 ]
 
 [project.urls]
@@ -59,6 +62,7 @@ module = [
   "anndata.*",
   "networkx.*",
   "pandas.*",
+  "mudata.*",
   "requests.*",
   "spatialdata.*",
   "urllib3.*",

@@ -8,6 +8,7 @@
 * `project.component_tests`:
   - `check_config`: Validate a component's Viash config (namespace, type, metadata, normalization, variants, Nextflow runner).
   - `run_and_check_output`: Run a component executable and validate its output files against format specifications.
+  - `check_format` supports `mudata_zarr` files: global slots at the top level of the format, the slots of each modality under `mod.<name>` (a modality is required unless `required: false`).
 
 * `project.docs`:
   - `read_task_config`: Read a task-level configuration file.
@@ -33,6 +34,8 @@
 
 * The `type` environment is no longer skipped in CI, and the 25 type errors it had accumulated
   are fixed.
+
+* Drop support for Python 3.9, which is end-of-life and no longer available on the GitHub runners.
 
 ## BUG FIXES
 
