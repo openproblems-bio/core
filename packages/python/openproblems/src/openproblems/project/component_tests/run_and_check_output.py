@@ -127,6 +127,38 @@ def check_format(arg: dict) -> None:
             print(f"  {sdata}")
             check_spatialdata(sdata, arg)
 
+        elif file_type == "mudata_zarr":
+            import mudata
+
+            print(f"Reading and checking {arg['clean_name']}", flush=True)
+            mdata = mudata.read_zarr(arg["value"])
+            print(f"  {mdata}")
+            check_mudata(mdata, arg_format, f"File '{arg['value']}'")
+
+
+ANNDATA_SLOTS = ["X", "layers", "obs", "var", "obsm", "obsp", "varm", "varp", "uns"]
+
+
+def check_mudata(mdata, format_spec: dict, label: str = "") -> None:
+    """Check whether a MuData object contains all required slots defined in the
+    given format spec dict. Global slots are listed at the top level of the spec,
+    the slots of each modality under `mod.<name>`.
+    """
+    global_spec = {k: v for k, v in format_spec.items() if k in ANNDATA_SLOTS}
+    check_anndata(mdata, global_spec, label)
+
+    for mod_name, mod_spec in (format_spec.get("mod") or {}).items():
+        if mod_name not in mdata.mod:
+            assert not mod_spec.get(
+                "required", True
+            ), f"{label} is missing modality .mod['{mod_name}']"
+            continue
+        check_anndata(
+            mdata.mod[mod_name],
+            {k: v for k, v in mod_spec.items() if k in ANNDATA_SLOTS},
+            f"{label} .mod['{mod_name}']",
+        )
+
 
 def check_anndata(adata, format_spec: dict, label: str = "") -> None:
     """Check whether an AnnData object contains all required slots

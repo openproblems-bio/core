@@ -35,7 +35,11 @@ dependencies = [
 test = [
   "pytest>=8.0",
   # imported inside check_url(), so not a runtime dependency of the package
-  "requests"
+  "requests",
+  # imported inside check_format(), for the mudata_zarr tests
+  "anndata",
+  "mudata",
+  "zarr"
 ]
 
 [project.urls]
@@ -59,6 +63,7 @@ module = [
   "anndata.*",
   "networkx.*",
   "pandas.*",
+  "mudata.*",
   "requests.*",
   "spatialdata.*",
   "urllib3.*",

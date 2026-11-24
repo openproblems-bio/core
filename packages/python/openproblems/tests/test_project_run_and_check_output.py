@@ -1,6 +1,7 @@
 import pytest
 
 from openproblems.project.component_tests.run_and_check_output import (
+    check_format,
     check_output_files,
     generate_cmd_args,
     get_argument_sets,
@@ -44,3 +45,60 @@ def test_get_argument_sets_leaves_valueless_arguments_alone():
 
     assert "value" not in argument_sets["run"][0]
     assert generate_cmd_args(argument_sets["run"]) == []
+
+
+@pytest.fixture
+def mudata_store(tmp_path):
+    ad = pytest.importorskip("anndata")
+    md = pytest.importorskip("mudata")
+    np = pytest.importorskip("numpy")
+
+    counts = np.ones((3, 2), dtype=np.int32)
+    rna = ad.AnnData(layers={"counts": counts}, shape=counts.shape)
+    prot = ad.AnnData(layers={"counts": counts}, shape=counts.shape)
+    mdata = md.MuData({"rna": rna, "prot": prot})
+    mdata.obs["cell_type"] = ["a", "b", "c"]
+    mdata.uns["dataset_id"] = "test"
+    path = tmp_path / "dataset.mudata.zarr"
+    mdata.write_zarr(path)
+    return str(path)
+
+
+def _mudata_arg(path, **format_spec):
+    fmt = {
+        "type": "mudata_zarr",
+        "obs": [{"name": "cell_type"}],
+        "uns": [{"name": "dataset_id"}],
+        "mod": {
+            "rna": {"layers": [{"name": "counts"}]},
+            "prot": {"required": False, "layers": [{"name": "counts"}]},
+            "atac": {"required": False, "layers": [{"name": "counts"}]},
+        },
+    }
+    fmt.update(format_spec)
+    return _arg(value=path, info={"format": fmt})
+
+
+def test_check_format_mudata_passes(mudata_store):
+    check_format(_mudata_arg(mudata_store))
+
+
+def test_check_format_mudata_missing_required_modality(mudata_store):
+    arg = _mudata_arg(mudata_store, mod={"atac": {"layers": [{"name": "counts"}]}})
+    with pytest.raises(AssertionError, match=r"missing modality \.mod\['atac'\]"):
+        check_format(arg)
+
+
+def test_check_format_mudata_missing_global_obs(mudata_store):
+    arg = _mudata_arg(mudata_store, obs=[{"name": "batch"}])
+    with pytest.raises(AssertionError, match=r"missing slot \.obs\['batch'\]"):
+        check_format(arg)
+
+
+def test_check_format_mudata_missing_modality_slot(mudata_store):
+    arg = _mudata_arg(mudata_store, mod={"rna": {"layers": [{"name": "normalized"}]}})
+    with pytest.raises(
+        AssertionError,
+        match=r"\.mod\['rna'\] is missing slot \.layers\['normalized'\]",
+    ):
+        check_format(arg)
