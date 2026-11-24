@@ -35,6 +35,8 @@
 * The `type` environment is no longer skipped in CI, and the 25 type errors it had accumulated
   are fixed.
 
+* Drop support for Python 3.9, which is end-of-life and no longer available on the GitHub runners.
+
 ## BUG FIXES
 
 * `read_task_metadata`: Order the task graph topologically instead of by a breadth-first search from a single root.
