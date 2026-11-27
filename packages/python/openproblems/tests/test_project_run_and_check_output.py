@@ -102,3 +102,59 @@ def test_check_format_mudata_missing_modality_slot(mudata_store):
         match=r"\.mod\['rna'\] is missing slot \.layers\['normalized'\]",
     ):
         check_format(arg)
+
+
+@pytest.fixture
+def spatialdata_store(tmp_path):
+    ad = pytest.importorskip("anndata")
+    np = pytest.importorskip("numpy")
+    sd = pytest.importorskip("spatialdata")
+
+    counts = np.ones((3, 2), dtype=np.int32)
+    table = ad.AnnData(layers={"counts": counts}, shape=counts.shape)
+    spots = sd.models.ShapesModel.parse(np.zeros((3, 2)), geometry=0, radius=np.ones(3))
+    sdata = sd.SpatialData(
+        shapes={"spots": spots},
+        tables={"table": sd.models.TableModel.parse(table)},
+        attrs={"dataset_id": "test"},
+    )
+    path = tmp_path / "dataset.spatialdata.zarr"
+    sdata.write(path)
+    return str(path)
+
+
+def _spatialdata_arg(path, **format_spec):
+    fmt = {
+        "type": "spatialdata_zarr",
+        "attrs": [{"name": "dataset_id"}],
+        "coordinate_systems": [{"name": "global"}],
+        "shapes": [{"name": "spots"}],
+        "tables": [{"name": "table", "layers": [{"name": "counts"}]}],
+    }
+    fmt.update(format_spec)
+    return _arg(value=path, info={"format": fmt})
+
+
+def test_check_format_spatialdata_passes(spatialdata_store):
+    check_format(_spatialdata_arg(spatialdata_store))
+
+
+def test_check_format_spatialdata_missing_attr(spatialdata_store):
+    arg = _spatialdata_arg(spatialdata_store, attrs=[{"name": "dataset_name"}])
+    with pytest.raises(AssertionError, match=r"missing attrs\['dataset_name'\]"):
+        check_format(arg)
+
+
+def test_check_format_spatialdata_missing_coordinate_system(spatialdata_store):
+    arg = _spatialdata_arg(spatialdata_store, coordinate_systems=[{"name": "aligned"}])
+    with pytest.raises(AssertionError, match="missing coordinate system 'aligned'"):
+        check_format(arg)
+
+
+def test_check_format_spatialdata_optional_absent(spatialdata_store):
+    arg = _spatialdata_arg(
+        spatialdata_store,
+        attrs=[{"name": "dataset_id"}, {"name": "dataset_url", "required": False}],
+        images=[{"name": "he_image", "required": False}],
+    )
+    check_format(arg)

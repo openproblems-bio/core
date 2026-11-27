@@ -9,6 +9,7 @@
   - `check_config`: Validate a component's Viash config (namespace, type, metadata, normalization, variants, Nextflow runner).
   - `run_and_check_output`: Run a component executable and validate its output files against format specifications.
   - `check_format` supports `mudata_zarr` files: global slots at the top level of the format, the slots of each modality under `mod.<name>` (a modality is required unless `required: false`).
+  - `check_format` checks the `attrs` and `coordinate_systems` of `spatialdata_zarr` files.
 
 * `project.docs`:
   - `read_task_config`: Read a task-level configuration file.

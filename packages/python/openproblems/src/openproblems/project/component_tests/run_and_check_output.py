@@ -207,12 +207,22 @@ def check_dictionary(data, arg: dict) -> None:
 
 
 def check_spatialdata(sdata, arg: dict) -> None:
-    """Check whether a SpatialData object contains all required elements
-    in the corresponding .info.format field. Supported element categories:
-    images, labels, points, shapes, tables.
+    """Check whether a SpatialData object contains all required attrs,
+    coordinate systems and elements in the corresponding .info.format field.
+    Supported element categories: images, labels, points, shapes, tables.
     """
     arg_info = arg.get("info") or {}
     arg_format = arg_info.get("format") or {}
+    for item in arg_format.get("attrs") or []:
+        if item.get("required", True):
+            assert (
+                item["name"] in sdata.attrs
+            ), f"File '{arg['value']}' is missing attrs['{item['name']}']"
+    for item in arg_format.get("coordinate_systems") or []:
+        if item.get("required", True):
+            assert (
+                item["name"] in sdata.coordinate_systems
+            ), f"File '{arg['value']}' is missing coordinate system '{item['name']}'"
     element_categories = ["images", "labels", "points", "shapes", "tables"]
     for category in element_categories:
         items = arg_format.get(category) or []
