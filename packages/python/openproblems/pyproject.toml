@@ -35,9 +35,11 @@ test = [
   "pytest>=8.0",
   # imported inside check_url(), so not a runtime dependency of the package
   "requests",
-  # imported inside check_format(), for the mudata_zarr tests
+  # imported inside check_format(), for the mudata_zarr and spatialdata_zarr tests
+  # (spatialdata needs python >= 3.12)
   "anndata",
   "mudata",
+  "spatialdata; python_version >= '3.12'",
   "zarr"
 ]
 
